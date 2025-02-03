@@ -1,0 +1,9 @@
+<ActorFrame>
+	<children>
+		<Layer File = "modhelpers.xml" />
+		<Layer File = "spellcards.xml" />
+		<!-- <Layer File = "splines.xml" /> -->
+		<!-- <Layer File = "mod-aliases.xml" /> -->
+		<!-- <Layer File = "my-custom-addon.xml" /> -->
+	</children>
+</ActorFrame>

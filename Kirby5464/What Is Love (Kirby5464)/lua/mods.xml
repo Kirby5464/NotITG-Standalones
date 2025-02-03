@@ -1,0 +1,727 @@
+<Mods LoadCommand = "%xero(function(self)
+	if not P1 or not P2 then
+		backToSongWheel('Two Player Mode Required')
+		return
+	end
+
+	math.randomseed(691234567178182)
+
+	-- judgment / combo proxies
+	for pn = 1, 2 do
+		setupJudgeProxy(PJ[pn], P[pn]:GetChild('Judgment'), pn)
+		setupJudgeProxy(PC[pn], P[pn]:GetChild('Combo'), pn)
+		
+		PC[pn]:basezoomx(0.75)
+		PC[pn]:basezoomy(0.75)
+		PC[pn]:y(SCREEN_HEIGHT*0.55)
+		
+		PJ[pn]:basezoomx(0.75)
+		PJ[pn]:basezoomy(0.75)
+		PJ[pn]:y(SCREEN_HEIGHT*0.5)
+	end
+	-- player proxies
+	for pn = 1, #PP do
+		PP[pn]:SetTarget(P[pn])
+		P[pn]:hidden(1)
+	end
+	
+	GAMESTATE:SetSongEndTime(147)
+	
+	local sqrt = math.sqrt
+	local sin = math.sin
+	local cos = math.cos
+	local pow = math.pow
+	local exp = math.exp
+	local pi = math.pi
+	local abs = math.abs
+	local kick_cache = {}
+	
+	local function kick(amt)
+		kick_cache[amt] = kick_cache[amt] or function(t)
+			return (sqrt(t) * pow(1 - t, amt)) * (2.5 + amt * .6)
+		end
+		return kick_cache[amt]
+	end
+	
+	local function square(t) return t == 1 and 0 or 1 end
+	
+	function mix(a, b, x) return a * (1 - x) + b * x end
+	
+	local proxPos = {}
+	local proxZoom = 1
+	local proxDist = 64 * 4 * proxZoom -- 4 - column number
+	local newprox = 1
+	for i,prox in ipairs(P2P) do
+		local pn = ((i - 1) % 2) + 1
+		local start = scx - proxDist * #P2P/2
+		local x = start + proxDist * (i - 1)
+		prox:SetTarget(P[pn]:GetChild('NoteField'))
+		proxPos[i] = x
+		prox:xy(scx, scy)
+		prox:hidden(1)
+		prox:diffusealpha(1/#P2P)
+	end
+	
+	local m_ea, mm = ease, func
+	
+	--[[
+	lists of eases that can be used:
+	(Persistent)
+		instant							linear
+		inQuad							outQuad					inOutQuad					inCubic						outCubic
+		inOutCubic						inQuart					outQuart					inOutQuart					inQuint
+		outQuint						inOutQuint				inExpo						outExpo						inOutExpo
+		inBack.params(a, b)				outBack.params(a, b)	inOutBack.params(a, b)		inElastic.params(a, b)		outElastic.params(a, b)	
+		inOutElastic.params(a, b)		inBounce				outBounce					inOutBounce					inSine
+		outSine				inOutSine
+	
+	(Transient)
+		bounce			bell			pop				pulse
+		tap				tri				spike			inverse		impulse.params(a)
+		popElastic.params(a, b)			tapElastic.params(a, b)
+		pulseElastic.params(a, b)		kick(a)			square
+	]]
+	
+	setdefault{2, 'xmod', 100, 'dizzyholds', 100, 'stealthpastreceptors', 100, 'halgun', 100, 'cover', 500, 'drunkzspacing', 50, 'moveText', scx, 'plr_pos', .15, 'bg', .025, 'kirby', .95, 'focus', 4000, 'arrowpathgirth', 200, 'arrowpathdrawsizeback'}
+	
+	-- set {beat, percent1, mod1 [, percent2, mod2 ...] [, plr = pn]}
+	
+	set{0, 100, 'stealth', 100, 'dark', 100, 'hidenoteflash', plr = 1}
+	
+	{4, .35, 'focus'}
+	
+	{68.75, 50, 'moveText'}
+	
+	{71.85, 50, 'moveText'}
+	
+	{76.85, 50, 'moveText'}
+	
+	{80.85, 50, 'moveText'}
+	
+	{83.85, 50, 'moveText'}
+	
+	{87.85, 50, 'moveText'}
+	
+	{92.85, 50, 'moveText'}
+	
+	{96.85, 50, 'moveText'}
+	
+	{99.85, 50, 'moveText'}
+	
+	{100, 400, 'zoomz'}
+	
+	{116, 0, 'stealth', 0, 'dark', 0, 'hidenoteflash', plr = 1}
+	
+	{132.35, 50, 'moveText'}
+	
+	{132, 400, 'zoomz', 0, 'rotationx', 0, 'confusionxoffset'}
+	{132, 200, 'tiny1', 200, 'tiny3', plr = 1}
+	{132, 200, 'tiny0', 200, 'tiny2', plr = 2}
+	
+	{180.85, 50, 'moveText'}
+	
+	{183.85, 50, 'moveText'}
+	
+	{188, 0, 'tiny0', 0, 'tiny1', 0, 'tiny2', 0, 'tiny3'}
+	
+	{188.85, 50, 'moveText'}
+	
+	{192.85, 50, 'moveText'}
+	
+	{256, 0, 'rotationx', 0, 'confusionxoffset', 100, 'proxywall'}
+	
+	{288, -100, 'proxywall', 0, 'proxywallx'}
+	
+	{324, 100, 'proxywall', 0, 'proxywallx'}
+	
+	{324.85, 50, 'moveText'}
+	
+	{327.85, 50, 'moveText'}
+	
+	{332.85, 50, 'moveText'}
+	
+	{336.85, 50, 'moveText'}
+	
+	{340.35, 50, 'moveText'}
+	
+	{343.85, 50, 'moveText'}
+	
+	{348.85, 50, 'moveText'}
+	
+	{352.85, 50, 'moveText'}
+	
+	-- m_ea {beat, len [, mode = 'end'], fn, percent1, mod1 [, percent2, mod2 ...] [, plr = plr]}
+	
+	m_ea{0, 4, inQuad, 0, 'kirby', .45, 'focus'}
+	{0, 4, inQuad, 500, 'drunkz', plr = 2}
+	
+	{32, 4, outQuad, 70, 'mini'}
+	{32, 4, outQuad, 100, 'drunkz', 1500, 'bouncez', 150, 'bouncezperiod', plr = 2}
+	
+	{48, 4.5, outQuad, 360, 'rotationz'}
+	
+	{60, 4, outQuad, -70, 'mini'}
+	{60, 4, outQuad, -3000, 'bouncez', plr = 2}
+	
+	{64, 4.5, outQuad, -360, 'rotationz'}
+	
+	{67, 1, outQuad, 1, 'text0', 0, 'moveText'}
+	
+	{68, 1, outQuad, 0, 'text0', -50, 'moveText'}
+	
+	{70, 1, outQuad, 1, 'text1', 0, 'moveText'}
+	
+	{71, 1, outQuad, 0, 'text1', -50, 'moveText'}
+	
+	{75, 1, outQuad, 1, 'text2', 0, 'moveText'}
+	
+	{76, 1, outQuad, 0, 'text2', -50, 'moveText'}
+	
+	{79, 1, outQuad, 1, 'text3', 0, 'moveText'}
+	
+	{80, 1, outQuad, 0, 'text3', -50, 'moveText'}
+	
+	{82, 1, outQuad, 1, 'text0', 0, 'moveText'}
+	
+	{83, 1, outQuad, 0, 'text0', -50, 'moveText'}
+	
+	{86, 1, outQuad, 1, 'text1', 0, 'moveText'}
+	
+	{87, 1, outQuad, 0, 'text1', -50, 'moveText'}
+	
+	{91, 1, outQuad, 1, 'text2', 0, 'moveText'}
+	
+	{92, 1, outQuad, 0, 'text2', -50, 'moveText'}
+	
+	{95, 1, outQuad, 1, 'text3', 0, 'moveText'}
+	
+	{96, 1, outQuad, 0, 'text3', -50, 'moveText'}
+	
+	{97, 2, outQuad, 0, 'mini', 0, 'bouncez', 0, 'drunkz'}
+	
+	{98, 1, outQuad, 1, 'text0', 0, 'moveText'}
+	
+	{99, 1, outQuad, 0, 'text0', -50, 'moveText'}
+	
+	{100, 1, outQuad, 0, 'drunkz'}
+	{100, 28, inQuad, 360*28, 'rotationx', -628*28, 'confusionxoffset', -500, 'tiny'}
+	{100, 27, inQuad, 1, 'ray'}
+	
+	{128, 4, outQuad, 65, 'zoom', 100, 'drawsize', 0, 'tiny', 0, 'ray'}
+	
+	{130.5, 1, outQuad, 1, 'text0', 0, 'moveText'}
+	
+	{131.5, 1, outQuad, 0, 'text0', -50, 'moveText'}
+	
+	{146, 4, popElastic.params(1, 2), 2.5, 'stretchy'}
+	{146, 2, outExpo, 100, 'reverse'}
+	
+	{160, 2, flip(linear), 55, 'stealth'}
+	{160, 2, outExpo, 0, 'reverse'}
+	{160, 4, bounce, 200, 'hallway', 45, 'rotationy'}
+	
+	{164, 2, flip(linear), 55, 'stealth'}
+	
+	{179, 1, outQuad, 1, 'text0', 0, 'moveText'}
+	
+	{180, 1, outQuad, 0, 'text0', -50, 'moveText'}
+	
+	{182, 1, outQuad, 1, 'text1', 0, 'moveText'}
+	
+	{183, 1, outQuad, 0, 'text1', -50, 'moveText'}
+	
+	{187, 1, outQuad, 1, 'text2', 0, 'moveText'}
+	
+	{188, 1, outQuad, 0, 'text2', -50, 'moveText'}
+	{188, 192, outQuad, 200, 'mini', mode = 'end'}
+	
+	{191, 1, outQuad, 1, 'text3', 0, 'moveText'}
+	
+	{192, 1, outQuad, 0, 'text3', -50, 'moveText'}
+	{192, 4, outQuad, 100, 'zoom', 0, 'drawsize', 50, 'flip', 0, 'mini', 200, 'drawsize'}
+	
+	{194.5, 1, outExpo, -100, 'invert', 100, 'flip'}
+	{194.5, 2, outQuad, .65, 'ray'}
+	
+	{195, 1, outExpo, 0, 'invert', 50, 'flip'}
+	
+	{196, 2, outQuad, 1, 'ring'}
+	
+	{207.5, 4, outQuad, 100, 'reverse'}
+	
+	{223.5, 4, outQuad, 0, 'reverse', 0, 'ray', 0, 'drawsize'}
+	
+	{224, 4, outQuad, 0, 'ring', 0, 'flip'}
+	
+	{228, 256, inQuad, -360*(256-228), 'rotationx', 628*(256-228), 'confusionxoffset', mode = 'end'}
+	{228, 255, inQuad, 1, 'ray', mode = 'end'}
+	
+	{256, 2, outQuad, 0, 'ray', 1.5, 'xmod'}
+	{256, 4, outQuad, 360, 'rotationy', -628, 'confusionyoffset', 100, 'reverse'}
+	
+	{260, 288, linear, 25*(288-260), 'proxywallx', mode = 'end'}
+	
+	{288, 4, outQuad, -360, 'rotationy', 628, 'confusionyoffset', 0, 'reverse'}
+	
+	{292, 320, linear, -25*(320-292), 'proxywallx', mode = 'end'}
+	
+	{320, 4, outQuad, 360, 'rotationy', -628, 'confusionyoffset', 100, 'reverse'}
+	
+	{324, 352, linear, 25*(288-260), 'proxywallx', mode = 'end'}
+	
+	{323, 1, outQuad, 1, 'text0', 0, 'moveText'}
+	
+	{324, 1, outQuad, 0, 'text0', -50, 'moveText'}
+	
+	{326, 1, outQuad, 1, 'text1', 0, 'moveText'}
+	
+	{327, 1, outQuad, 0, 'text1', -50, 'moveText'}
+	
+	{331, 1, outQuad, 1, 'text2', 0, 'moveText'}
+	
+	{332, 1, outQuad, 0, 'text2', -50, 'moveText'}
+	
+	{335, 1, outQuad, 1, 'text3', 0, 'moveText'}
+	
+	{336, 1, outQuad, 0, 'text3', -50, 'moveText'}
+	
+	{338.5, 1, outQuad, 1, 'text0', 0, 'moveText'}
+	
+	{339.5, 1, outQuad, 0, 'text0', -50, 'moveText'}
+	
+	{342, 1, outQuad, 1, 'text1', 0, 'moveText'}
+	
+	{343, 1, outQuad, 0, 'text1', -50, 'moveText'}
+	
+	{347, 1, outQuad, 1, 'text2', 0, 'moveText'}
+	
+	{348, 1, outQuad, 0, 'text2', -50, 'moveText'}
+	{348, 4, inQuad, -360, 'rotationy', 628, 'confusionyoffset', 0, 'reverse'}
+	
+	{351, 1, outQuad, 1, 'text3', 0, 'moveText'}
+	
+	{352, 1, outQuad, 0, 'text3', -50, 'moveText', 0, 'focus'}
+	{352, 4, outQuad, 0, 'bg'}
+	
+	{354.5, 2, inOutQuad, -2000, 'tiny', 1, 'focus'}
+	{354.5, 1, outQuad, 1, 'text0', 0, 'moveText'}
+	
+	{356, 2, outQuad, 100, 'dark'}
+	{356, 6, linear, 0, 'text0', 0, 'focus'}
+	
+	wiggle0(100, 16, 1, outExpo, 100, 'invert')
+	
+	wiggle0(228, 16, 1, outExpo, 100, 'invert')
+	
+	wiggle(132, 212-132, 4, instant, 50, 'move_pos')
+	wiggle(132, 160-132, 4, linear, sw/2, 'movex')
+	
+	wiggle(164, 192-164, 4, linear, -sw/2, 'movex')
+	
+	wiggle(164, 192-164, 1, tri, 10, 'rotationy')
+	wiggle(164, 192-164, 2, bounce, 10, 'rotationx')
+	
+	wiggle(260, 288-260, 4, bounce, 15, 'rotationx')
+	
+	wiggle(292, 320-292, 4, bounce, -15, 'rotationx')
+	
+	wiggle(324, 352-324, 4, bounce, 15, 'rotationx')
+	
+	wiggle(324, 352-324, 1, tri, -10, 'rotationy')
+	-- wiggle(324, 352-324, 2, bounce, -10, 'rotationx')
+	
+	wiggle0(260, 286-260, 2, outExpo, -100, 'invert')
+	wiggle0(260, 286-260, 2, outExpo, 100, 'flip')
+	
+	wiggle0(292, 318-292, 2, outExpo, -100, 'invert')
+	wiggle0(292, 318-292, 2, outExpo, 100, 'flip')
+	
+	local love_woah = (P[1] or P[2]):GetNoteData(38, 50)
+	
+	wiggle2lua(love_woah, bounce, 25, 'drunk', 2)
+	wiggle2lua(love_woah, bounce, 25, 'tipsy', 2)
+	
+	local love_woah2 = (P[1] or P[2]):GetNoteData(54, 64)
+	
+	wiggle2lua(love_woah2, bounce, -25, 'drunk', 2)
+	wiggle2lua(love_woah2, bounce, -25, 'tipsy', 2)
+	
+	wiggle2lua(love_melody, bounce, 50, 'drunk')
+	wiggle2lua(love_melody, bounce, 50, 'tipsy')
+	
+	sugarkill{275.5, .5}
+	
+	sugarkill{307.5, .5}
+	
+	sugarkill{339.5, .5}
+	
+	for beat=160,161.75,.25 do
+		add{beat, 0, instant, 45, 'blacksphere'}
+	end
+	
+	local love_motion = {{100, 116}, {228, 244}}
+	
+	for i,v in pairs(love_motion) do
+		for beat=v[1],v[2] do
+			m_ea{beat, 1, kick(4), -300, 'tinyy'}
+		end
+	end
+	
+	local love_laser = {{20, 64}, {68, 128}, {228, 256}}
+	
+	for i,v in pairs(love_laser) do
+		for beat=v[1],v[2],.5 do
+			local column = math.mod(beat * 2, 4);
+			m_ea{beat, 1, flip(outQuad), 100, 'arrowpath'..column..'', plr = 1}
+		end
+	end
+	
+	local love_push = {{68, 99}, {196, 256}}
+	
+	for i,v in pairs(love_push) do
+		for beat=v[1],v[2] do
+			m_ea{beat, 1, flip(linear), 50, 'brake'}
+			{beat, 1, kick(4), -100, 'tiny'}
+		end
+	end
+	
+	local love_boom = {{132, 146}, {148, 160}, {164, 188}}
+	
+	for i,v in pairs(love_boom) do
+		for beat=v[1],v[2] do
+			local p = math.mod(beat, 2) + 1
+			m_ea{beat, 1, kick(4), -600, 'tiny', plr = p}
+			{beat, 1, kick(3), .85, 'ray'}
+		end
+	end
+	
+	local love_poom = {{260, 288}, {292, 320}, {324, 352}}
+	
+	for i,v in pairs(love_poom) do
+		for beat=v[1],v[2] do
+			m_ea{beat, 1, kick(6), -200, 'tiny', .05, 'kirby'}
+			{beat, 1, kick(3), .85, 'ray'}
+		end
+	end
+	
+	for i = 1,table.getn(love_pino) do
+		local beat = love_pino[i]
+		local column = math.mod(i, 4)
+		m_ea{beat[1], 1, flip(outQuad), -25, 'reverse'..column..'', -125, 'tinyy'..column..''}
+		-- print(column)
+	end
+	
+	-- mm {{beat [, len [, mode = 'end']], function(beat, poptions) ... end [, defer = true]}
+	-- can be used as perframe or mod_action
+	
+	mm{0, function()
+		local songName = GAMESTATE:GetCurrentSong():GetSongDir();
+		for pn = 1, max_pn do
+	        P[pn]:x(scx)
+	        P[pn]:GetChild('Judgment'):hidden(1)
+			P[pn]:GetChild('Combo'):hidden(1)
+			
+			P[pn]:GetChild('Judgment'):GetChild(''):Load(songName..'lua/Assets/S_Love 2x6.png');
+	    end
+		
+		GAMESTATE:ForceSmoothLines(0);
+	end}
+	{4, function()
+		lens:blend('add')
+	end}
+	{36, function()
+		for pn = 1, max_pn do
+	        P[pn]:wag()
+	        P[pn]:effectperiod(8)
+	        P[pn]:effectclock('bgm')
+	    end
+	end}
+	{128, function()
+		for pn = 1, max_pn do
+	        P[pn]:stopeffect()
+	    end
+	end}
+	{132, 160-132, function(beat, mods)
+		for pn = 1, max_pn do
+			mods[pn].invert = (math.sin(beat*math.pi)*mods[pn].move_pos)+50
+      
+			mods[pn].movez0 = (math.cos(beat*math.pi)*50)+50
+			mods[pn].movez1 = (math.cos(beat*math.pi)*-50)+50
+			mods[pn].movez2 = (math.cos(beat*math.pi)*50)+50
+			mods[pn].movez3 = (math.cos(beat*math.pi)*-50)+50
+			mods[pn].movey = math.abs(math.cos(beat*math.pi)*50)*-1
+	    end
+	end}
+	{164, 192-164, function(beat, mods)
+		for pn = 1, max_pn do
+			mods[pn].invert = (math.sin(beat*math.pi)*mods[pn].move_pos)+50
+      
+			mods[pn].movez0 = (math.cos(beat*math.pi)*50)+50
+			mods[pn].movez1 = (math.cos(beat*math.pi)*-50)+50
+			mods[pn].movez2 = (math.cos(beat*math.pi)*50)+50
+			mods[pn].movez3 = (math.cos(beat*math.pi)*-50)+50
+			mods[pn].movey = math.abs(math.cos(beat*math.pi)*50)*-1
+	    end
+	end}
+	{196, 230-196, function(beat, mods)
+		for pn = 1, 2 do
+			local fuck0 = ((pn-1)*4+0)
+			local fuck1 = ((pn-1)*4+1)
+			local fuck2 = ((pn-1)*4+2)
+			local fuck3 = ((pn-1)*4+3)
+				
+			mods[pn].movex0 = 200*math.sin(beat+fuck0/1.25) * mods[pn].ring
+			mods[pn].movex1 = 200*math.sin(beat+fuck1/1.25) * mods[pn].ring
+			mods[pn].movex2 = 200*math.sin(beat+fuck2/1.25) * mods[pn].ring
+			mods[pn].movex3 = 200*math.sin(beat+fuck3/1.25) * mods[pn].ring
+			
+			mods[pn].movez0 = -200*math.cos(beat+fuck0/1.25) * mods[pn].ring
+			mods[pn].movez1 = -200*math.cos(beat+fuck1/1.25) * mods[pn].ring
+			mods[pn].movez2 = -200*math.cos(beat+fuck2/1.25) * mods[pn].ring
+			mods[pn].movez3 = -200*math.cos(beat+fuck3/1.25) * mods[pn].ring
+		end
+	end}
+	{196, function()
+		for pn = 1, max_pn do
+	        P[pn]:wag()
+	        P[pn]:effectperiod(8)
+	        P[pn]:effectclock('bgm')
+	    end
+	end}
+	{256, function()
+		for pn = 1, max_pn do
+	        P[pn]:stopeffect()
+	    end
+		
+		for ppn = 1, 2 do
+			PP[ppn]:hidden(1)
+		end
+		
+		for px = 1, 6 do
+			P2P[px]:hidden(0)
+		end
+	end}
+	{260, function()
+		love_proxymarch:bounce()
+		love_proxymarch:effectmagnitude(0, 0, 175)
+		love_proxymarch:effectclock('bgm')
+		love_proxymarch:effectperiod(1)
+	end}
+	{352, function()
+		love_proxymarch:stopeffect()
+		lens:blend('normal')
+	end}
+	{356, function()
+		love_textcontainer:stopeffect()
+		MESSAGEMAN:Broadcast('Milestone')
+	end}
+	
+	
+	-- aux {modname}
+	-- The aux function creates an auxiliary mod. The template will keep track of the value of the mod, but will not apply it to the players.
+	-- Example, aux {'blacksphere'}, aux {'mod1', 'mod2', 'mod3'}
+	
+	-- node {modname, function(p) [code] end}
+	-- node creates a function that transforms the values of mods before they are applied every frame. node creates a function that takes in mod values and outputs mod values.
+	
+	-- definemod {modname, function(percent) -- implementation end}
+	-- It's like node, but auxes your auxes.
+	
+	aux{'move_pos'}
+	
+	aux{'ring'}
+	
+	aux {'proxywall', 'proxywallx'}
+	node {'proxywall', 'proxywallx', function(a, x)
+		for i,prox in ipairs(P2P) do
+			local pn = ((i - 1) % 2) + 1
+
+			prox:xy(mix(scx, proxPos[i], a / 100) + ((x/100) * proxDist * 2) % (proxDist * 2), scy)
+
+			prox:zoom(mix(1, proxZoom, a / 100))
+			prox:hidden(a == 0 and 1 or 0)
+			prox:diffusealpha(mix(1/#P2P, 1, a / 100))
+		end
+	end}
+	
+	definemod{'kirby', function(p)
+		glines:GetShader():uniform1f('amount', p)
+	end}
+	
+	definemod{'bg', function(p)
+		love_bg:diffusealpha(p)
+	end}
+	
+	definemod{'text0', 'text1', 'text2', 'text3', function(t1, t2, t3, t4)
+		love_text[1]:diffusealpha(t1)
+		love_text[2]:diffusealpha(t2)
+		love_text[3]:diffusealpha(t3)
+		love_text[4]:diffusealpha(t4)
+	end}
+	
+	definemod{'moveText', function(p)
+		love_textcontainer:y(scy+p)
+	end}
+	
+	definemod{'ray', function(p)
+		love_aftsprite:diffusealpha(p)
+	end}
+	
+	definemod{'plr_pos', function(p, plr)
+		if P[plr] then
+	        P[plr]:x(p)
+	    end
+	end}
+	
+	definemod{'stretchy', function(p)
+		local screen = SCREENMAN:GetTopScreen();
+		screen:y(-scy*p)
+		screen:zoomy(p + 1)
+	end}
+	
+	definemod{'focus', function(p)
+		lens:diffusealpha(p)
+	end}
+	
+	definemod {'blacksphere', function(p)
+        local invert = 50 - 50 * math.cos(p * math.pi / 180)
+        local alternate = 25 * math.sin(p * math.pi / 180)
+        local reverse = -12.5 * math.sin(p * math.pi / 180)
+        return invert, alternate, reverse
+    end,
+    'invert', 'alternate', 'reverse'}
+	
+	-- card {start, end, name, difficulty, color}
+	-- let's you add spellcards to a chart.
+	-- color = {r, g, b, a}
+	
+	-- card{0, 4, 'hit the jump (not clickbait)', 0, {1, 0, 0, 1}}
+	
+	card{0, 100, 'reading the code of the theme still kills me help', 4, {1, 1, 1, 1}}
+	card{100, 128, 'simply building you up (lovingly)', 5, {1, 0, .5, 1}, mode = 'end'}
+	card{132, 192, 'simply bass', 7, {0, .5, 1, 1}, mode = 'end'}
+	card{196, 226, 'simply halo (derogatory)', 9, {.5, 1, 0, 1}, mode = 'end'}
+	card{228, 256, 'simply building you up (affectionate)', 5, {1, 0, 0, 1}, mode = 'end'}
+	card{260, 356, 'simply love supremacy', 11, {.5, 0, .5, 1}, mode = 'end'}
+	
+	
+end)"
+Type = "ActorFrame"
+><children>
+	<Layer File="chart2lua" />
+	
+	<Layer Type = "ActorFrame" Name = "love_bgcontainer" OnCommand="x,SCREEN_CENTER_X;y,SCREEN_CENTER_Y;bob;effectmagnitude,0,50,0;effectperiod,8"><children>
+		<Layer Type = "ActorFrame" Name = "love_bg" FOV="90" OnCommand="bob;effectmagnitude,0,0,50;effectperiod,12"><children>
+			<Layer File = "Assets/loveheart.png" Name = "loveheart[1]" InitCommand="%function(self) xero() self:xyz(math.random(-600, 600), math.random(-1000, 0), math.random(-100, -30)); self:zoom(2.5); self:rainbow(); self:effectperiod(12); self:customtexturerect(0,0,1,1); self:texcoordvelocity(.03, .04); end"/>
+			<Layer File = "Assets/loveheart.png" Name = "loveheart[2]" InitCommand="%function(self) xero() self:xyz(math.random(-600, 600), math.random(-1000, 0), math.random(-100, -30)); self:zoom(2.5); self:rainbow(); self:effectperiod(12); self:customtexturerect(0,0,1,1); self:texcoordvelocity(.04, .01); end"/>
+			<Layer File = "Assets/loveheart.png" Name = "loveheart[3]" InitCommand="%function(self) xero() self:xyz(math.random(-600, 600), math.random(-1000, 0), math.random(-100, -30)); self:zoom(2.5); self:rainbow(); self:effectperiod(12); self:customtexturerect(0,0,1,1); self:texcoordvelocity(.05, .02); end"/>
+			<Layer File = "Assets/loveheart.png" Name = "loveheart[4]" InitCommand="%function(self) xero() self:xyz(math.random(-600, 600), math.random(-1000, 0), math.random(-100, -30)); self:zoom(2.5); self:rainbow(); self:effectperiod(12); self:customtexturerect(0,0,1,1); self:texcoordvelocity(.06, .03); end"/>
+			<Layer File = "Assets/loveheart.png" Name = "loveheart[5]" InitCommand="%function(self) xero() self:xyz(math.random(-600, 600), math.random(-1000, 0), math.random(-100, -30)); self:zoom(2.5); self:rainbow(); self:effectperiod(12); self:customtexturerect(0,0,1,1); self:texcoordvelocity(.07, .04); end"/>
+			<Layer File = "Assets/loveheart.png" Name = "loveheart[6]" InitCommand="%function(self) xero() self:xyz(math.random(-600, 600), math.random(-1000, 0), math.random(-100, -30)); self:zoom(2.5); self:rainbow(); self:effectperiod(12); self:customtexturerect(0,0,1,1); self:texcoordvelocity(.04, .01); end"/>
+			<Layer File = "Assets/loveheart.png" Name = "loveheart[7]" InitCommand="%function(self) xero() self:xyz(math.random(-600, 600), math.random(-1000, 0), math.random(-100, -30)); self:zoom(2.5); self:rainbow(); self:effectperiod(12); self:customtexturerect(0,0,1,1); self:texcoordvelocity(.05, .02); end"/>
+			<Layer File = "Assets/loveheart.png" Name = "loveheart[8]" InitCommand="%function(self) xero() self:xyz(math.random(-600, 600), math.random(-1000, 0), math.random(-100, -30)); self:zoom(2.5); self:rainbow(); self:effectperiod(12); self:customtexturerect(0,0,1,1); self:texcoordvelocity(.06, .03); end"/>
+			<Layer File = "Assets/loveheart.png" Name = "loveheart[9]" InitCommand="%function(self) xero() self:xyz(math.random(-600, 600), math.random(-1000, 0), math.random(-100, -30)); self:zoom(2.5); self:rainbow(); self:effectperiod(12); self:customtexturerect(0,0,1,1); self:texcoordvelocity(.07, .04); end"/>
+			<Layer File = "Assets/loveheart.png" Name = "loveheart[10]" InitCommand="%function(self) xero() self:xyz(math.random(-600, 600), math.random(-1000, 0), math.random(-100, -30)); self:zoom(2.5); self:rainbow(); self:effectperiod(12); self:customtexturerect(0,0,1,1); self:texcoordvelocity(.04, .01); end"/>
+		</children></Layer>
+	</children></Layer>
+	
+	<Layer Type = "ActorFrame" Name = "love_textcontainer" FOV="90" OnCommand="bob;effectmagnitude,0,0,-15;effectclock,bgm;effectperiod,1"><children>
+		<Layer Type="BitmapText" Font="Fonts/_wendy white" Name = "love_text[1]" Text="WHAT IS LOVE?" InitCommand="%function(self) xero() self:x(scx); self:zoom(.65); end"/>
+		<Layer Type="BitmapText" Font="Fonts/_wendy white" Name = "love_text[2]" Text="BABY, DON&apos;T HURT ME..." InitCommand="%function(self) xero() self:x(scx); self:zoom(.65); end"/>
+		<Layer Type="BitmapText" Font="Fonts/_wendy white" Name = "love_text[3]" Text="DON&apos;T HURT ME..." InitCommand="%function(self) xero() self:x(scx); self:zoom(.65); end"/>
+		<Layer Type="BitmapText" Font="Fonts/_wendy white" Name = "love_text[4]" Text="NO MORE..." InitCommand="%function(self) xero() self:x(scx); self:zoom(.65); end"/>
+	</children></Layer>
+	
+	<Layer Type = "ActorProxy" Name = "PP[1]" />
+	<Layer Type = "ActorProxy" Name = "PP[2]" />
+	
+	<Layer Type = "ActorFrame" Name = "love_proxymarch" FOV="45" ><children>
+		<Actor Type = "ActorProxy" Name = "P2P[1]" />
+		<Actor Type = "ActorProxy" Name = "P2P[2]" />
+		<Actor Type = "ActorProxy" Name = "P2P[3]" />
+		<Actor Type = "ActorProxy" Name = "P2P[4]" />
+		<Actor Type = "ActorProxy" Name = "P2P[5]" />
+		<Actor Type = "ActorProxy" Name = "P2P[6]" />
+	</children></Layer>
+	
+	<Layer Type = "ActorProxy" Name = "PC[1]" />
+	<Layer Type = "ActorProxy" Name = "PC[2]" />
+	<Layer Type = "ActorProxy" Name = "PJ[1]" />
+	<Layer Type = "ActorProxy" Name = "PJ[2]" />
+	
+	<Layer
+		Type="Sprite"
+		Texture="Assets/lens.png"
+		Name="lens"
+		OnCommand="%function(self) 
+			xero()
+			self:xy(scx, scy);
+			self:zoomtowidth(sw);
+			self:zoomtoheight(sh);
+			-- self:blend('add')
+		end"
+	/>
+	
+	<Layer Type = "ActorFrame" Name = "love_explode" ><children>
+		<Layer
+			File="Assets/heartsplode.png"
+			Name="explode1"
+			InitCommand="%function(self) 
+				xero()
+				self:xy(scx, scy);
+				self:blend('add');
+				self:diffusealpha(0);
+			end"
+			MilestoneMessageCommand="rotationz,10;zoom,.25;diffusealpha,.6;decelerate,0.6;rotationz,0;zoom,4;diffusealpha,0"
+		/>
+		
+		<Layer
+			File="Assets/minisplode.png"
+			Name="explode2"
+			InitCommand="%function(self) 
+				xero()
+				self:xy(scx, scy);
+				self:blend('add');
+				self:diffusealpha(0);
+			end"
+			MilestoneMessageCommand="rotationz,10;zoom,.25;diffusealpha,1;linear,0.4;rotationz,0;zoom,3.6;diffusealpha,0"
+		/>
+	</children></Layer>
+	
+	<Layer
+		Type="Sprite"
+		InitCommand = "%xero.sprite"
+		Name = "love_aftsprite"
+		OnCommand = "%function(self)
+			xero()
+			self:zoom(1)
+			self:queuecommand('renderMe');
+		end"
+			
+		renderMeCommand="%xero(function(self)
+            self:zoom(1.05)
+            self:SetTexture(love_aft:GetTexture())
+            -- self:blend('add')
+			
+			-- self:rainbow()
+        end)"
+		HideMessageCommand="diffusealpha,0;blend,add;zoom,1.05"
+	/>
+	
+	<Layer Type = "ActorFrameTexture" InitCommand = "%xero.aft" Name = "love_aft" />
+	
+	<Layer Type = "ActorFrameTexture" InitCommand = "%xero.aft" Name = "gline_layer" />
+	
+	<Layer 
+		Type = "Sprite"
+		Frag = "Shaders/glitch-lines.frag"
+		InitCommand = "%xero.sprite" 
+		Name = "glines" 
+		OnCommand="%function(self) 
+			xero()
+			self:SetTexture(gline_layer:GetTexture())
+			self:diffusealpha(1)
+		end"
+		HideMessageCommand="diffusealpha,0"
+	/>
+</children></Mods>

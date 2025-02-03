@@ -1,0 +1,143 @@
+<Layer Condition = "(function()
+	
+	-- merge tab1 with tab2, where tab1 has priority over tab2
+	local function merge(tab1, tab2, comparator)
+		
+		-- quick fail
+		if not tab1[1] then return tab2 end
+		if not tab2[1] then return tab1 end
+		
+		-- output table
+		local result = {}
+		
+		-- indices of tab1 and tab2 respectively
+		local i1 = 1
+		local i2 = 1
+		
+		-- index of output table
+		local n = 1
+		
+		-- while both tables have things
+		while tab1[i1] and tab2[i2] do
+			
+			-- if table 2 is worth putting in front
+			if comparator(tab2[i2], tab1[i1]) then
+				-- put table 2
+				result[n] = tab2[i2]
+				n = n + 1
+				i2 = i2 + 1
+				
+			else
+				-- put table 1
+				result[n] = tab1[i1]
+				n = n + 1
+				i1 = i1 + 1
+				
+			end
+			
+		end
+		
+		-- dump the rest of table 1
+		while tab1[i1] do
+			result[n] = tab1[i1]
+			n = n + 1
+			i1 = i1 + 1
+		end
+		
+		-- dump the rest of table 2
+		while result[i2] do
+			result[n] = tab2[i2]
+			n = n + 1
+			i2 = i2 + 1
+		end
+		
+		-- return
+		return result
+	end
+	
+	-- main sort
+	function prefix.stable_sort(tab, comparator)
+		-- quick fail
+		if not tab[2] then return end
+		
+		-- list of sublists
+		local list = {}
+		local listn = 1
+		
+		do
+			-- previous element encountered
+			local last = tab[1]
+			
+			-- sublist
+			local temp = {}
+			-- length of sublist
+			local n = 1
+			
+			-- index of tab
+			local i = 1
+			
+			-- for everything in the list
+			while tab[i] do
+				-- if not ascending
+				if comparator(tab[i], last) then
+					-- make new sublist
+					list[listn] = temp
+					listn = listn + 1
+					temp = {}
+					n = 1
+				end
+				-- add to the current sublist
+				temp[n] = tab[i]
+				last = tab[i]
+				n = n + 1
+				i = i + 1
+			end
+			-- insert last sublist
+			list[listn] = temp
+			
+		end
+		
+		-- if already sorted, return now
+		if listn == 1 then
+			return
+		end
+		
+		-- while more than 1 thing in list of sublists
+		while list[2] do
+			local i = 1
+			
+			-- make a new list of sublists
+			local newlist = {}
+			local n = 1
+			
+			-- for each pair of sublists
+			while list[i + 1] do
+				
+				-- merge adjacent pairs into new list
+				newlist[n] = merge(list[i], list[i + 1], comparator)
+				
+				-- increment
+				n = n + 1
+				i = i + 2
+			end
+			
+			-- carry over final sublist if the number of sublists was odd
+			newlist[n] = list[i]
+			
+			-- swap out lists
+			list = newlist
+		end
+		
+		-- result is the last sublist left over
+		local result = list[1]
+		
+		-- for the last sublist
+		local i = 1
+		while result[i] do
+			-- copy back into original table
+			tab[i] = result[i]
+			i = i + 1
+		end
+	end
+	
+end)()"/>

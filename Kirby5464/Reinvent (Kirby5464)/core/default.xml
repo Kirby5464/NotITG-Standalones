@@ -1,0 +1,537 @@
+<Layer Type = "ActorFrame" InitCommand = "%function()
+	
+	---------------------------------------
+	------------- XGML CONFIG -------------
+	---------------------------------------
+	
+	-- number of players considered for player specific mods
+	local MAX_PN = 2
+	
+	
+	
+	
+	---------------------------------------
+	----------- END XGML CONFIG -----------
+	---------------------------------------
+	
+	local old_prefix = _G.prefix
+	
+	-- global for xml setup and environment for Lua
+	local prefix = setmetatable({}, {
+		__call = function(self, func)
+			setfenv(func, self)
+			return func
+		end,
+		__index = _G
+	})
+	
+	do -- default global vars
+		
+		prefix.scx = SCREEN_CENTER_X
+		prefix.scy = SCREEN_CENTER_Y
+		prefix.sw = SCREEN_WIDTH
+		prefix.sh = SCREEN_HEIGHT
+		prefix.srat = SCREEN_WIDTH / SCREEN_HEIGHT
+		
+		prefix.MAX_PN = MAX_PN
+		
+	end
+	
+	do -- actor helpers
+		
+		-- table for holding named actors
+		prefix.actors = {}
+		
+		-- Use it to insert into prefix.actors at init-time
+		-- NameCommand = &quot;prefix.name.<actor_name>&quot;
+		prefix.name = setmetatable({},{__index = function(self, name)
+			return function(self)
+				prefix.actors[name] = self
+			end
+		end})
+		
+		-- aft function
+		function prefix.aft(self)
+			self:SetWidth(DISPLAY:GetDisplayWidth())
+			self:SetHeight(DISPLAY:GetDisplayHeight())
+			self:EnableDepthBuffer(false)
+			self:EnableAlphaBuffer(false)
+			self:EnableFloat(false)
+			self:EnablePreserveTexture(true)
+			self:Create()
+		end
+		
+		-- aft sprite function
+		function prefix.sprite(self)
+			self:basezoomx((SCREEN_WIDTH/DISPLAY:GetDisplayWidth()))
+			self:basezoomy(-1*(SCREEN_HEIGHT/DISPLAY:GetDisplayHeight()))
+			self:x(SCREEN_CENTER_X)
+			self:y(SCREEN_CENTER_Y)
+		end
+		
+		-- full screen actor function
+		function prefix.image(self)
+			self:zoomto(SCREEN_WIDTH, SCREEN_HEIGHT)
+			self:x(SCREEN_CENTER_X)
+			self:y(SCREEN_CENTER_Y)
+		end
+	end
+	
+	local function throw(exception, level)
+		level = level or 5
+		local _, err = pcall(error, exception, level)
+		SCREENMAN:SystemMessage(err)
+	end
+	
+	-- holds the timing mode
+	local valid_timing_modes = {['len'] = true, ['end'] = true}
+	local timing_mode = 'len'
+	
+	
+	-- setter for timing mode
+	function prefix.set_timing_mode(mode)
+		if not valid_timing_modes[mode] then
+			throw('invalid timing mode \'' .. mode .. '\'', 4)
+		else
+			timing_mode = mode
+		end
+	end
+	
+	-- getter for timing mode
+	function prefix.get_timing_mode()
+		return timing_mode
+	end
+	
+	-- verifier for ease and ease_to
+	local function check_valid_ease(entry, function_name)
+		if type(entry) ~= 'table' then
+			throw('\'{\' expected near \''.. function_name ..'\'')
+		elseif type(entry[1]) ~= 'number' then
+			throw('invalid start beat \'' .. tostring(entry[1]) .. '\'')
+		elseif type(entry[2]) ~= 'number' then
+			throw('invalid ' .. timing_mode .. ' \'' .. tostring(entry[2]) .. '\'')
+		elseif type(entry[3]) ~= 'function' or type(entry[3](0) or nil) ~= 'number' then
+			throw('invalid ease function \'' .. tostring(entry[3]) .. '\'')
+		elseif entry.mode ~= nil and not valid_timing_modes[entry.mode] then
+			throw('invalid timing mode \'' .. tostring(entry.mode) .. '\'')
+		elseif entry.pn ~= nil and (entry.pn < 0 or entry.pn > MAX_PN or entry.pn ~= math.floor(entry.pn)) then
+			throw('invalid player number \'' .. tostring(entry.pn) .. '\'')
+		else
+			local val = 5
+			while entry[val] or entry[val - 1] do
+				if type(entry[val - 1]) ~= 'number' then
+					throw('invalid percentage \'' .. tostring(entry[val - 1]) .. '\' for mod \'' .. tostring(entry[val]) .. '\'')
+					return
+				elseif entry[val] == nil then
+					throw('invalid mod \'nil\'')
+				end
+				val = val + 2
+			end
+			return true
+		end
+	end
+	
+	-- verifier for func
+	local function check_valid_func(entry)
+		if type(entry) ~= 'table' then
+			throw('\'{\' expected near \'func\'')
+		elseif type(entry[1]) ~= 'number' then
+			throw('invalid start beat \'' .. tostring(entry[1]) .. '\'')
+		elseif entry[3] then
+			if type(entry[2]) ~= 'number' then
+				throw('invalid '.. timing_mode .. ' \'' .. tostring(entry[2]) .. '\'')
+			elseif type(entry[3]) ~= 'function' then
+				throw('invalid function \'' .. tostring(entry[3]) .. '\'')
+			elseif entry.mode ~= nil and not valid_timing_modes[entry.mode] then
+				throw('invalid timing mode \'' .. tostring(entry.mode) .. '\'')
+			else
+				return true
+			end
+		elseif type(entry[2]) ~= 'function' then
+			throw('invalid function \'' .. tostring(entry[2]) .. '\'')
+		else
+			return true
+		end
+	end
+	
+	-- converts an ease entry to len mode
+	local function timing_mode_adjust(entry)
+		local mode = entry.mode or timing_mode
+		
+		-- if necessary, adjust to internal 'len' based format
+		if mode == 'end' and type(entry[2]) == 'number' then
+			local adjusted_len = entry[2] - entry[1]
+			if adjusted_len >= 0 then
+				entry[2] = adjusted_len
+			end
+		end
+		
+	end
+	
+	-- exceptions for how to apply mods
+	local ease_vars = {}
+	
+	-- add new exceptions to ease_vars
+	function prefix.ease_var(mod, value)
+		value = value or true
+		ease_vars[mod] = value
+		return prefix.ease_var
+	end
+	
+	
+	-- ease table
+	local mod_ease = {}
+	local mod_ease_active = {}
+	local mod_ease_length = 0
+	local mod_ease_next = 1
+	
+	-- insert table
+	local function insert_ease(entry)
+		timing_mode_adjust(entry)
+		mod_ease_length = mod_ease_length + 1
+		mod_ease[mod_ease_length] = entry
+	end
+	
+	-- ease table insert
+	function prefix.ease(ease_entry)
+		if check_valid_ease(ease_entry, 'ease') then
+			insert_ease(ease_entry)
+		end
+		return prefix.ease
+	end
+	
+	-- ease table insert, for absolute position eases
+	function prefix.ease_to(ease_entry)
+		if check_valid_ease(ease_entry, 'ease_to') then
+			ease_entry.absolute = true
+			insert_ease(ease_entry)
+		end
+		return prefix.ease_to
+	end
+	
+	-- func table
+	local mod_func = {}
+	local mod_func_active = {}
+	local mod_func_length = 0
+	local mod_func_next = 1
+	
+	-- func table insert
+	function prefix.func(entry)
+		if check_valid_func(entry) then
+			timing_mode_adjust(entry)
+			if type(entry[2]) == 'function' then
+				entry[2], entry[3] = nil, entry[2]
+			end
+			mod_func_length = mod_func_length + 1
+			mod_func[mod_func_length] = entry
+		end
+		return prefix.func
+	end
+	
+	-- prepare mods
+	function prefix.ready(self)
+		
+		-- apply default mods
+		prefix.ease_var('xmod', function(percent) return '*9e9 ' .. percent .. 'x' end)
+		prefix.ease_var('cmod', function(percent) return '*9e9 c' .. percent end)
+		
+		local function hide(actor)
+			if actor then
+				actor:hidden(1)
+			end
+		end
+		
+		local top = SCREENMAN:GetTopScreen()
+		
+		-- create player table
+		prefix.plr = {}
+		
+		for pn = 1, MAX_PN do
+			prefix.plr[pn] = top:GetChild('PlayerP' .. pn)
+		end
+		
+		-- plr 0 guaranted to exist for notedata
+		prefix.plr[0] = prefix.plr[1] or prefix.plr[2]
+		
+		-- hide extra stuff
+		hide(top:GetChild('Overlay'))
+		hide(top:GetChild('Underlay'))
+		for pn = 1, 2 do
+			hide(top:GetChild('ScoreP' .. pn))
+			hide(top:GetChild('LifeP' .. pn))
+		end
+		
+		-- load addons
+		prefix.actors.addons:playcommand('Mod')
+		
+		-- load mods
+		prefix.actors.mods:playcommand('Mod')
+		
+		-- sort tables
+		prefix.stable_sort(mod_ease, function(a, b)
+			return a[1] < b[1]
+		end)
+		prefix.stable_sort(mod_func, function(a, b)
+			return a[1] < b[1]
+		end)
+		
+		-- start the update loop
+		self:luaeffect('Update')
+	end
+	
+	-- placeholder 0 for perfuncs
+	local nil_as_0_metatable = {
+		__index = function(self, key)
+			return 0
+		end
+	}
+	
+	-- tables for base values (for accessing and iterating, respectively)
+	local mod_base = {data = {}}
+	
+	-- table for temp values
+	local mod_values = {}
+	
+	-- set up base values
+	for pn = 0, MAX_PN do
+		local data = setmetatable({}, nil_as_0_metatable)
+		mod_base.data[pn] = data
+		mod_base[pn] = setmetatable({}, {
+			__index = data,
+			__newindex = function(self, key, value)
+				if value == 0 then
+					data[key] = nil
+				else
+					data[key] = value
+				end
+			end
+		})
+	end
+	
+	-- progress vars
+	local beat = 0
+	local cur_time = 0
+	local old_time = 0
+	
+	-- adjust an entry that has absolute positions to use relative positions
+	local function adjust_absolute_ease(entry)
+		
+		local pn = entry.pn or 0
+		
+		local val = 5
+		while entry[val] do
+			entry[val - 1] = entry[val - 1] - mod_base[pn][entry[val]]
+			val = val + 2
+		end
+		
+	end
+	
+	-- update mod_base
+	local function start_ease(entry)
+		
+		-- if in absolute coordinates
+		if entry.absolute then
+			adjust_absolute_ease(entry)
+		end
+		
+		local pn = entry.pn or 0
+		local target = entry[3](1)
+		
+		local val = 5
+		while entry[val] do
+			mod_base[pn][entry[val]] = mod_base[pn][entry[val]] + target * entry[val - 1]
+			mod_values[pn][entry[val]] = mod_values[pn][entry[val]] + target * entry[val - 1]
+			val = val + 2
+		end
+		
+		entry.target_value = target
+		
+	end
+	
+	-- apply an ease to mod_values
+	local function apply_ease(entry)
+		
+		local pn = entry.pn or 0
+		local ease
+		
+		-- if not yet done
+		if beat < entry[1] + entry[2] then 
+			ease = entry[3]((beat - entry[1]) / entry[2])
+		
+		-- cap to end value
+		else
+			ease = entry.target_value
+		end
+		
+		local val = 5
+		while entry[val] do
+			mod_values[pn][entry[val]] = mod_values[pn][entry[val]] + (ease - entry.target_value) * entry[val - 1]
+			val = val + 2
+		end
+		
+	end
+	
+	-- update command
+	function prefix.update(self)
+		cur_time = self:GetSecsIntoEffect()
+		if cur_time ~= old_time then
+			
+			old_time = cur_time
+			beat = GAMESTATE:GetSongBeat()
+			
+			-- initialize mod_values to mod_base
+			mod_values = {}
+			for pn = 0, MAX_PN do
+				mod_values[pn] = setmetatable({}, nil_as_0_metatable)
+				for mod, percent in pairs(mod_base.data[pn]) do
+					mod_values[pn][mod] = percent
+				end
+			end
+			
+			-- mod eases
+			while mod_ease_next <= mod_ease_length do
+				local entry = mod_ease[mod_ease_next]
+				if beat < entry[1] then
+					break
+				end
+				start_ease(entry)
+				if beat < entry[1] + entry[2] then
+					mod_ease_active[mod_ease_next] = entry
+				end
+				mod_ease[mod_ease_next] = nil
+				mod_ease_next = mod_ease_next + 1
+				
+			end
+			
+			-- active mod eases
+			for key, entry in pairs(mod_ease_active) do
+				apply_ease(entry)
+				if beat >= entry[1] + entry[2] then
+					mod_ease_active[key] = nil
+				end
+				
+			end
+			
+			-- mod funcs
+			while mod_func_next <= mod_func_length do
+				local entry = mod_func[mod_func_next]
+				if beat < entry[1] then
+					break
+				end
+				if entry[2] then
+					mod_func_active[mod_func_next] = entry
+				else
+					entry[3](beat - entry[1], mod_values, mod_base)
+				end
+				mod_func[mod_func_next] = nil
+				mod_func_next = mod_func_next + 1
+			end
+			
+			-- active mod funcs
+			for key, entry in pairs(mod_func_active) do
+				if beat < entry[1] + entry[2] then
+					entry[3](beat - entry[1], mod_values, mod_base)
+				else
+					mod_func_active[key] = nil
+				end
+			end
+			
+			-- spread P0's mods down to other players when necessary
+			for pn = 1, MAX_PN do
+				for mod, percent in pairs(mod_values[pn]) do
+					local value = mod_values[0][mod]
+					if value then
+						mod_values[pn][mod] = percent + value
+					end
+				end
+			end
+			
+			-- apply mods from mod_values
+			for pn = 0, MAX_PN do
+				local string_out = {pn == 0 and 'mod,clearall' or 'mod'}
+				local n = 1
+				for mod, percent in pairs(mod_values[pn]) do
+					
+					-- if mod is an exception
+					if ease_vars[mod] then
+						if type(ease_vars[mod]) == 'function' then
+							local val = ease_vars[mod](percent, pn)
+							if val then
+								n = n + 1
+								string_out[n] = val
+							end
+						end
+					else
+						-- otherwise apply as normal
+						n = n + 1
+						string_out[n] = '*9e9 ' .. percent .. ' ' .. mod
+					end
+				end
+				if pn == 0 then
+					-- all-player mods
+					GAMESTATE:ApplyGameCommand(table.concat(string_out, ','))
+				elseif n > 1 then
+					-- player specific
+					GAMESTATE:ApplyGameCommand(table.concat(string_out, ','), pn)
+				end
+			end
+			
+		end
+		
+	end
+	
+	-- export prefix as a global
+	_G.prefix = prefix
+	
+	-- runs at the end of init-time
+	function prefix.cleanup()
+	
+		-- remove init-time items
+		prefix.update = nil
+		prefix.ready = nil
+		prefix.name = nil
+		
+		-- clean up global
+		_G.prefix = old_prefix
+		
+	end
+	
+end"
+OnCommand = "propagate,1;queuecommand,Name;sleep,9e9"
+>
+	<children>
+		
+		<!-- Helper files -->
+		<Layer File = "sort.xml" />
+		<Layer File = "easing.xml" />
+		
+		<!-- Actor for running the Update loop without propagating to children -->
+		<Layer
+			Type = "Quad"
+			NameCommand = "queuecommand,Ready"
+			ReadyCommand = "%prefix.ready"
+			UpdateCommand = "%prefix.update"
+			InitCommand = "zoom,0;effectclock,music"
+		/>
+		
+		<!-- Load the addons -->
+		<Layer
+			File = "../addons/addons.xml"
+			NameCommand = "%prefix.name.addons"
+			OnCommand = "hidden, 1"
+		/>
+		
+		<!-- Foreground actors for the modfile -->
+		<Layer File = "../lua/actors.xml" />
+		
+		<!-- Mod initialization -->
+		<Layer
+			File = "../lua/mods.xml"
+			NameCommand = "%prefix.name.mods"
+			OnCommand = "hidden,1"
+		/>
+		
+		<!-- Doesn't get added to scene -->
+		<Layer Condition = "prefix.cleanup()" />
+	</children>
+</Layer>

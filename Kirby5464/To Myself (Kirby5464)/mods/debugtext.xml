@@ -1,0 +1,163 @@
+<ActorFrame OnCommand="%function(self) dynamicposition=0 dynamicposoff=16 end"><children>
+<!--Debug Text! v1.11-->
+<!--Display Seconds, v0.22-->
+	<Layer
+		Type="BitmapText"
+		Font="Common Normal"
+		Text="Seconds"
+		InitCommand="draworder,100000;"
+		OnCommand="%function(self)
+			if not checked then
+				self:horizalign('left'); self:vertalign('top');
+				self:x(SCREEN_WIDTH*.01); self:y(dynamicposition); self:zoom(.5);
+				self:diffusealpha(0.6); self:hidden(1);
+				self:effectclock('music'); self:playcommand('GetTime');
+				dynamicposition=dynamicposition+dynamicposoff
+			end
+		end"
+		
+		GetTimeCommand="%function(self) 
+			if debug_show == true then
+				self:hidden(0);
+			end
+			
+			local totalsongtime = GAMESTATE:GetCurrentSong():MusicLengthSeconds(); --time until audio end
+			--local totalsongtime = GAMESTATE:GetCurrentSong():StepsLengthSeconds();
+			
+			--globals for default if not set
+			--seconds, minutes, hours (why)
+			if not timertype then
+				timertype = 'seconds';
+			end
+			--countdown from totalsongtime
+			if not timercountdown then
+				timercountdown = false;
+			end
+			--round the seconds, only available if timertype is set to seconds (for now)
+			if not timerrounding then
+				timerrounding = false;
+			end
+				
+			local timeintimer = self:GetSecsIntoEffect();
+			
+			if timercountdown == true then
+				timeintimer = totalsongtime - self:GetSecsIntoEffect();
+			end
+			
+			local timerseconds; if timerrounding == false then timerseconds = (math.floor(timeintimer*1000)/1000); else timerseconds = (math.floor(timeintimer)); end
+			local timerminutes = (math.floor(math.mod(timeintimer/60,60)));
+			local timerhours = (math.floor(math.mod(timeintimer/60/60,60)));
+
+			local timestring
+			
+			if timertype == 'seconds' then
+				timestring = (tostring(timerseconds)); 
+			elseif timertype == 'minutes' then
+				timestring = (string.format('%02d:%02d', timerminutes, math.mod(timerseconds,60)));
+			elseif timertype == 'hours' then
+				timestring = (string.format('%d:%02d:%02d', timerhours, timerminutes, math.mod(timerseconds,60)));
+			end
+			
+			self:settext('T: '..(timestring));
+
+			self:sleep(0.02); 
+			self:queuecommand('GetTime'); 
+		end"
+	/>
+	
+	<!--Display Beat, v0.12-->
+	<Layer
+		Type="BitmapText"
+		Font="Common Normal"
+		Text="Beat"
+		InitCommand="draworder,100000"
+		OnCommand="%function(self)
+			if not checked then
+				self:horizalign('left'); self:vertalign('top');
+				self:x(SCREEN_WIDTH*.01); self:y(dynamicposition); self:zoom(.5);
+				self:diffusealpha(0.6); self:hidden(1);
+				self:effectclock('music'); self:playcommand('GetBeat');
+				dynamicposition=dynamicposition+dynamicposoff
+			end
+		end"
+		
+		GetBeatCommand="%function(self) 
+		if debug_show == true then
+			self:hidden(0);
+		end
+		
+		self:settext('B: ' ..(string.format('%.3f',GAMESTATE:GetSongBeat()))); 
+		self:sleep(0.02); 
+		self:queuecommand('GetBeat'); 
+		end"
+	/>
+	
+	<!--Display Auxvar value, v0.13-->
+	<Layer
+		Type="BitmapText"
+		Font="Common Normal"
+		Text="Auxvar"
+		InitCommand="draworder,100000"
+		OnCommand="%function(self)
+			if not checked then
+				self:horizalign('left'); self:vertalign('top');
+				self:x(SCREEN_WIDTH*.01); self:y(dynamicposition); self:zoom(.5);
+				self:diffusealpha(0.6); self:hidden(1);
+				self:effectclock('music'); self:playcommand('GetValue');
+			end
+		end"
+		
+		GetValueCommand="%function(self) 
+			if debug_show == true then
+				self:hidden(0);
+			end
+			
+			if use_aux==true then
+				local a=prefix_aux1 --must be the name of an existing aux
+				self:settext('A1: '..(string.format('%.3f',a:getaux()))..'\nX1: '..(string.format('%.3f',a:GetX()))..'\nY1: '..(string.format('%.3f',a:GetY()))..'\nZ1: '..(string.format('%.3f',a:GetZ()))); 
+				dynamicposition=dynamicposition+(dynamicposoff*4)
+			else
+				self:hidden(1);
+			end 
+		
+		self:sleep(0.02);
+		self:queuecommand('GetValue'); 
+		end"
+	/>
+	
+	<!--Display Mods (previously custom value), v0.11a-->
+	<Layer
+		Type="BitmapText"
+		Font="Common Normal"
+		Text="Custom Value"
+		InitCommand="draworder,100000"
+		OnCommand="%function(self)
+			if not checked then
+				self:horizalign('left'); self:vertalign('top');
+				self:x(SCREEN_WIDTH*.12); self:y(0); self:zoom(.5);
+				self:diffusealpha(0.6); self:hidden(1);
+				self:effectclock('music'); self:playcommand('GetVal');
+			end
+		end"
+		
+		GetValCommand="%function(self)
+		if debug_show == true then
+			self:hidden(0);
+		end
+		
+		if showmods then
+			self:settext('Mods: \n' ..tostring(showmods)); --THIS REQUIRES SOME EXTRA THINGS IN default.xml ITSELF
+			--[[Append
+			showmods = (string.format('%.3f',v[1]))..', '..(string.format('%.3f',v[2]))..', '..(v[3])..', '..(v[4])..' - ('..(tostring(v[5]))..')\n'..(showmods);
+			in the mods table reader to display the mods
+			and then
+			showmods=''
+			somewhere else outside the mods table reader]]
+			--dynamicposition=dynamicposition+dynamicposoff
+		end
+		
+		self:sleep(0.02); 
+		self:queuecommand('GetVal'); 
+		end"
+	/>
+</children><ActorFrame>

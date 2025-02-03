@@ -1,0 +1,58 @@
+<ActorFrame> <children>
+	
+	<Layer
+		File="background"
+		OnCommand="x,SCREEN_CENTER_X;y,SCREEN_CENTER_Y;ZoomToWidth,SCREEN_WIDTH;ZoomToHeight,SCREEN_HEIGHT;diffusealpha,0.5;sleep,22.9;decelerate,5;zoom,0;rotationz,360*3"
+	/>
+	
+	<Layer
+		File="space1"
+		OnCommand="diffusealpha,0;x,SCREEN_CENTER_X;y,SCREEN_CENTER_Y;ZoomToWidth,SCREEN_WIDTH;ZoomToHeight,SCREEN_HEIGHT;sleep,24;linear,4;diffusealpha,1;customtexturerect,0,0,4,2;texcoordvelocity,0,1;diffuse,#AAAAAAFF;sleep,6;diffusealpha,0"
+	/>
+	
+	<Layer
+		File="space2"
+		OnCommand="diffusealpha,0;x,SCREEN_CENTER_X;y,SCREEN_CENTER_Y;ZoomToWidth,SCREEN_WIDTH;ZoomToHeight,SCREEN_HEIGHT;sleep,30.5;diffusealpha,1;customtexturerect,0,2,0,0;texcoordvelocity,0.5,-1;diffuse,#AAAAAAFF;sleep,7;diffusealpha,0.1"
+	/>
+	
+	<Layer
+		File="space3"
+		OnCommand="diffusealpha,0;x,SCREEN_CENTER_X;y,SCREEN_CENTER_Y;ZoomToWidth,SCREEN_WIDTH;ZoomToHeight,SCREEN_HEIGHT;sleep,34.5;diffusealpha,1;customtexturerect,2,0,0,2;texcoordvelocity,2,1;sleep,6;diffusealpha,0"
+	/>
+	
+	<Layer
+		File="space4"
+		OnCommand="diffusealpha,0;x,SCREEN_CENTER_X;y,SCREEN_CENTER_Y;ZoomToWidth,SCREEN_WIDTH;ZoomToHeight,SCREEN_HEIGHT;sleep,38.5;diffusealpha,1;customtexturerect,0,0,2,2;texcoordvelocity,1,-1;sleep,8;diffusealpha,0"
+	/>
+	
+	<Layer
+		File="space5"
+		OnCommand="diffusealpha,0;x,SCREEN_CENTER_X;y,SCREEN_CENTER_Y;ZoomToWidth,SCREEN_WIDTH;ZoomToHeight,SCREEN_HEIGHT;sleep,46;diffusealpha,1;customtexturerect,0,0,2,2;texcoordvelocity,0,2;sleep,8;diffusealpha,0"
+	/>
+	
+	<Layer
+		File="space1"
+		OnCommand="diffusealpha,0;x,SCREEN_CENTER_X;y,SCREEN_CENTER_Y;ZoomToWidth,SCREEN_WIDTH;ZoomToHeight,SCREEN_HEIGHT;sleep,53.5;diffusealpha,1;customtexturerect,0,0,2,1;texcoordvelocity,1,-2;rainbow,1;sleep,8;diffusealpha,0"
+	/>
+	
+	<Layer
+		File="space4"
+		OnCommand="diffusealpha,0;x,SCREEN_CENTER_X;y,SCREEN_CENTER_Y;ZoomToWidth,SCREEN_WIDTH;ZoomToHeight,SCREEN_HEIGHT;sleep,61.5;diffusealpha,1;customtexturerect,0,0,2,2;texcoordvelocity,-1,2;rainbow,1;sleep,8;diffusealpha,0"
+	/>
+	
+	<Layer
+		File="space2"
+		OnCommand="diffusealpha,0;x,SCREEN_CENTER_X;y,SCREEN_CENTER_Y;ZoomToWidth,SCREEN_WIDTH;ZoomToHeight,SCREEN_HEIGHT;sleep,69;diffusealpha,1;customtexturerect,0,2,2,2;texcoordvelocity,-1,2;rainbow,1;sleep,15.5;diffusealpha,0"
+	/>
+	
+	<Layer
+		File="space5"
+		OnCommand="diffusealpha,0;x,SCREEN_CENTER_X;y,SCREEN_CENTER_Y;ZoomToWidth,SCREEN_WIDTH;ZoomToHeight,SCREEN_HEIGHT;sleep,84.6;diffusealpha,0.5;customtexturerect,0,0,2,2;texcoordvelocity,0,2;rainbow,1;sleep,15.2;diffusealpha,0"
+	/>
+	
+	<Layer
+		File="space4"
+		OnCommand="diffusealpha,0;x,SCREEN_CENTER_X;y,SCREEN_CENTER_Y;ZoomToWidth,SCREEN_WIDTH;ZoomToHeight,SCREEN_HEIGHT;sleep,84.6;diffusealpha,0.5;customtexturerect,0,0,2,2;texcoordvelocity,2,0;rainbow,1;sleep,15.2;diffusealpha,0"
+	/>
+
+</children> </ActorFrame>

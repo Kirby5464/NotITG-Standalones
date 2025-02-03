@@ -1,0 +1,1005 @@
+<Mods LoadCommand = "%prefix(function(self)
+	self:SetVanishPoint(scx, scy)
+	self:fov(45)
+	for pn = 1, 2 do
+		function temp(proxy, child)
+			-- child:hidden(1)
+			child:sleep(9e9)
+			proxy:SetTarget(child)
+			proxy:xy(scx * (pn - 0.5), scy)
+		end
+		-- temp(proxy.notefield[pn], P[pn]:GetChild'NoteField')
+		temp(proxy.judge[pn], P[pn]:GetChild'Judgment')
+		temp(proxy.combo[pn], P[pn]:GetChild'Combo')
+		
+		local pc, pj = P[pn]:GetChild('Combo'), P[pn]:GetChild('Judgment')
+		pc:basezoomx(0.75)
+		pc:basezoomy(0.75)
+		pc:y(SCREEN_HEIGHT*0.6)
+		
+		pj:basezoomx(0.75)
+		pj:basezoomy(0.75)
+		pj:y(SCREEN_HEIGHT*0.5)
+	end
+	
+	local m_ea, mm = ease, func
+	local period = 1000
+	
+	--[[
+	lists of eases that can be used:
+	(Persistent)
+		instant				linear
+		inQuad				outQuad			inOutQuad			inCubic			outCubic
+		inOutCubic			inQuart			outQuart			inOutQuart		inQuint
+		outQuint			inOutQuint		inExpo				outExpo			inOutExpo
+		inBack				outBack			inOutBack			inElastic		outElastic	
+		inOutElastic		inBounce		outBounce			inOutBounce		inSine
+		outSine				inOutSine		inCirc				outCirc			inOutCirc
+	
+	(Transient)
+		bounce			bell			pop				pulse
+		tap				tri				spike			inverse		impulse[amt]
+		popElastic[damping_factor][oscillation_speed]	tapElastic[damping_factor][oscillation_speed]
+		pulseElastic[damping_factor][oscillation_speed]	kick(amt)	square
+	]]
+	
+	-- m_ea {beat, len [, mode = 'end'], fn, percent1, mod1 [, percent2, mod2 ...] [, plr = pn]}
+	
+	m_ea{0, 0, instant, 2.5, 'xmod', 100, 'dizzyholds', 100, 'stealthpastreceptors', 100, 'cover', 100, 'spiralholds', -100, 'drawsizeback', 100, 'halgun', 95, 'dark', -420, 'mini', 100, 'stealth', -100, 'arrowpathdrawsizeback', 100, 'disablemines', 100, 'hidemines'}
+	{0, 27, linear, 50, 'flip', 100, 'centered', -100, 'movex0', 100, 'movey1', -100, 'movey2', 100, 'movex3', 100, 'reverse2', 600, 'dpad_setup', .8, 'xmod'}
+	{0, 27, outQuad, 45, 'tipsy', 45, 'tipsy', plr = 1}
+	{0, 27, outQuad, -45, 'tipsy', -45, 'tipsy', plr = 2}
+	{0, 0, instant, 100, 'dark', 100, 'hidenoteflash', 98, 'stealth', -9000, 'tinyz', 600, 'zoomz', 1.5, 'xmod', -300, 'tiny', plr = 3}
+	-- {0, 0, instant, 100, 'dark', 100, 'hidenoteflash', 100, 'stealth', 100, 'stealthpastreceptors', plr = 3}
+	
+	{24, 3, outQuad, 0, 'tipsy', 0, 'drunk', 0, 'dark', 0, 'mini', 0, 'stealth', (-360)*3, 'rotationz'}
+	
+	{28, 0, instant, scx, 'moveVal', 240, 'zoomz'}
+	{28, 1.5, outExpo, 360, 'rotationz', sw/3.5, 'moveVal', -45, 'rotationy', -25, 'rotationx', 85, 'zoom'}
+	{28, 3, kick(2), .85, 'aft_ray'}
+	-- {28, 2, outQuad, -300, 'movex0', 300, 'movey1', -300, 'movey2', 300, 'movex3', 0, 'reverse2', 100, 'reverse1', 600, 'dpad_setup2', -50, 'drawsize', 2, 'xmod'}
+	
+	{32, 1.5, outQuad, -360, 'rotationz', sw*2.75/4, 'moveVal', 45, 'rotationy', 25, 'rotationx', 100, 'zoom'}
+	{32, 3, kick(2), .85, 'aft_ray'}
+	-- {32, 2, outQuad, -100, 'movex0', 100, 'movey1', -100, 'movey2', 100, 'movex3', 100, 'reverse2', 0, 'reverse1', 600, 'dpad_setup', 0, 'drawsize', 1.5, 'xmod'}
+	
+	{36, .5, outQuad, 360, 'rotationz', scx, 'moveVal', -45, 'rotationy', 0, 'rotationx', 100, 'zoom'}
+	{36, 1, kick(2), .85, 'aft_ray'}
+	-- {36, 1, outQuad, -300, 'movex0', 300, 'movey1', -300, 'movey2', 300, 'movex3', 0, 'reverse2', 100, 'reverse1', 600, 'dpad_setup2', -50, 'drawsize', 2, 'xmod'}
+	
+	{37.5, .5, outQuad, -360, 'rotationz', sw*2.75/4, 'moveVal', 0, 'rotationy', -25, 'rotationx', 85, 'zoom'}
+	{37.5, 1, kick(2), .85, 'aft_ray'}
+	-- {37.5, 1, outQuad, -100, 'movex0', 100, 'movey1', -100, 'movey2', 100, 'movex3', 100, 'reverse2', 0, 'reverse1', 600, 'dpad_setup', 0, 'drawsize', 1.5, 'xmod'}
+	
+	{39, 2.5, outQuad, 360, 'rotationz', sw/3.5, 'moveVal', 45, 'rotationy', 25, 'rotationx', 95, 'zoom'}
+	{39, 5, kick(2), .85, 'aft_ray'}
+	-- {39, 3, outQuad, -300, 'movex0', 300, 'movey1', -300, 'movey2', 300, 'movex3', 0, 'reverse2', 100, 'reverse1', 600, 'dpad_setup2', -50, 'drawsize', 2, 'xmod'}
+	
+	{44, 1.5, outQuad, -360, 'rotationz', sw*2.75/4, 'moveVal', -25, 'rotationy', -45, 'rotationx', 100, 'zoom'}
+	{44, 3, kick(2), .85, 'aft_ray'}
+	-- {44, 2, outQuad, -100, 'movex0', 100, 'movey1', -100, 'movey2', 100, 'movex3', 100, 'reverse2', 0, 'reverse1', 600, 'dpad_setup', 0, 'drawsize', 1.5, 'xmod'}
+	
+	{46.5, 1, kick(1), 100, 'drunk', 100, 'tipsy'}
+	
+	{48, 1.5, outQuad, 360, 'rotationz', sw/3.5, 'moveVal', -45, 'rotationy', -25, 'rotationx', 85, 'zoom'}
+	{48, 3, kick(2), .85, 'aft_ray'}
+	-- {48, 2, outQuad, -300, 'movex0', 300, 'movey1', -300, 'movey2', 300, 'movex3', 0, 'reverse2', 100, 'reverse1', 600, 'dpad_setup2', -50, 'drawsize', 2, 'xmod'}
+	
+	{52, 1.5, outQuad, -360, 'rotationz', sw*2.75/4, 'moveVal', 45, 'rotationy', 25, 'rotationx', 95, 'zoom'}
+	{52, 3, kick(2), .85, 'aft_ray'}
+	-- {52, 2, outQuad, -100, 'movex0', 100, 'movey1', -100, 'movey2', 100, 'movex3', 100, 'reverse2', 0, 'reverse1', 600, 'dpad_setup', 0, 'drawsize', 1.5, 'xmod'}
+	
+	{56, 7, inOutQuad, 360*7, 'rotationz', 0, 'movex0', 0, 'movey1', 0, 'movey2', 0, 'movex3', 0, 'reverse2', 0, 'reverse1', 0, 'dpad_setup', 0, 'flip', 0, 'centered', 2.5, 'xmod', 700, 'zoomz', 0, 'rotationy', 0, 'rotationx', 100, 'zoom'}
+	{56, 7*2, kick(2), .85, 'aft_ray'}
+	
+	{60, 1, outQuad, 0, 'particles'}
+	
+	{62.5, 1, outQuad, .75, 'charaIdle'}
+	
+	{64, 30, inQuad, 45, 'magnitude'}
+	{64, 0, instant, 0, 'rotationz'}
+	
+	{80, 8, inQuad, 150, 'distant'}
+	
+	{88, 6, inQuad, 720*6, 'rotationy', 420, 'holdgirth', 69, 'magnitude', 666, 'longholds'}
+	{88, 4, outQuad, 1, 'light'}
+	{88, 1, outQuad, 0, 'charaIdle', .75, 'charaCast'}
+	
+	{92, 0, instant, 0, 'charaCast'}
+	
+	{94, .25, outBack, 0, 'movez0', 0, 'movez1', 0, 'movez2', 0, 'movez3', 0, 'holdgirth', 0, 'longholds'}
+	{94, 1, outQuad, 0, 'distant', 100, 'zoomz', 0, 'magnitude'}
+	{94, 0, instant, 4, 'xmod', 400, 'drawsize', 400, 'drawsizeback', 100, 'wireframe', -1000, 'tinyz', 600, 'zoomz', 90, 'rotationx', 1500, 'zoomy', -50, 'movez', -5, 'flip', 5, 'invert', 85, 'stealth', plr = 3}
+	
+	{96, 1.5, kick(4), .85, 'aft_ray', 55, 'stealth'}
+	
+	{104, 3, kick(4), .85, 'aft_ray', 55, 'stealth'}
+	
+	{108, 1, outExpo, 100, 'reverse2', plr = 1}
+	
+	{108.5, 1, outExpo, 100, 'reverse1', plr = 1}
+	
+	{109, 1, outExpo, 100, 'reverse0', 100, 'reverse3', plr = 1}
+	
+	{110, 1, outExpo, 100, 'reverse0', plr = 2}
+	
+	{110.5, 1, outExpo, 100, 'reverse3', plr = 2}
+	
+	{111, 1, outExpo, 100, 'reverse1', 100, 'reverse2', plr = 2}
+	
+	{112, 2, kick(4), .85, 'aft_ray', 55, 'stealth'}
+	
+	{120, 3, kick(4), .85, 'aft_ray', 55, 'stealth'}
+	
+	{127, .65, outQuad, 1337, 'movex1', 1337, 'movex3', plr = 1}
+	{127, .65, outQuad, -1337, 'movex0', -1337, 'movex2', plr = 2}
+	
+	{140, .65, outQuad, 15, 'rotationz', 100, 'mini', plr = 1}
+	{140, .65, outQuad, -25, 'rotationz', -100, 'mini', plr = 2}
+	
+	{140.75, .65, outQuad, -25, 'rotationz', -100, 'mini', plr = 1}
+	{140.75, .65, outQuad, 15, 'rotationz', 100, 'mini', plr = 2}
+	
+	{141.5, .65, outQuad, -40, 'mini', 100, 'flip'}
+	{141.5, .65, outQuad, 15, 'rotationz', plr = 1}
+	{141.5, .65, outQuad, -25, 'rotationz', plr = 2}
+	
+	{142, .65, outQuad, 0, 'mini', 0, 'flip', 0, 'rotationz', 100, 'invert'}
+	
+	{143, .45, outExpo, 0, 'invert'}
+	
+	{144, 152, linear, 1, 'incrVal', mode = 'end'}
+	{144, 1, outQuad, .75, 'charaIdle'}
+	
+	{152, 7, inOutQuad, 180*8, 'rotationy', 1.5, 'xmod', 0, 'incrVal'}
+	{152, 4.5, outQuad, 100, 'stealth', plr = 3}
+	{152, 0, instant, 0, 'movex1', 0, 'movex3', 200, 'tiny1', 200, 'tiny3', plr = 1}
+	{152, 0, instant, 0, 'movex0', 0, 'movex2', 200, 'tiny0', 200, 'tiny2', plr = 2}
+	{152, 1, outQuad, 0, 'charaIdle', .75, 'charaCast'}
+	
+	{158, 1, outQuad, 0, 'charaCast'}
+	
+	{160, 1.5, kick(4), .85, 'aft_ray', 55, 'stealth'}
+	{160, 1, outExpo, 700, 'zoomz'}
+	{160, 1, outExpo, 15, 'rotationy', 0, 'tiny1', 0, 'tiny3', 100, 'dark1', 100, 'dark3', 100, 'stealth1', 100, 'stealth3', 100, 'hidenoteflash1', 100, 'hidenoteflash3', plr = 1}
+	{160, 1, outExpo, -15, 'rotationy', 0, 'tiny0', 0, 'tiny2', 100, 'dark0', 100, 'dark2', 100, 'stealth0', 100, 'stealth2', 100, 'hidenoteflash0', 100, 'hidenoteflash2', plr = 2}
+	
+	{176, 2, kick(4), .85, 'aft_ray', 55, 'stealth'}
+	
+	{192, 2, kick(4), .85, 'aft_ray', 55, 'stealth'}
+	
+	{194, 220, linear, 1, 'incrVal', mode = 'end'}
+	
+	{220, 5, inQuad, 1440*5, 'rotationz', 0, 'rotationy', 0, 'confusionxoffset', 0, 'rotationx', 100, 'zoomz', 50, 'flip'}
+	{220, 0, instant, 2, 'xmod', 0, 'light', 0, 'dark1', 0, 'dark3', 0, 'stealth1', 0, 'stealth3', 0, 'hidenoteflash1', 0, 'hidenoteflash3', 0, 'dark0', 0, 'dark2', 0, 'stealth0', 0, 'stealth2', 0, 'hidenoteflash0', 0, 'hidenoteflash2'}
+	
+	{224, 30, linear, 30 * 200, 'movey'}
+	{224, 0, instant, -90, 'rotationx', 157, 'confusionxoffset', 0, 'reverse', 1337, 'drawsize'}
+	{224, 3, instant, period * .25, 'bumpyxoffset', period * .5, 'bumpyoffset', pn = 1}
+	{224, 3, instant, period * .75, 'bumpyxoffset', period * 1, 'bumpyoffset', pn = 2}
+	{224, 3, outExpo, 500, 'bumpyx', 500, 'bumpy'}
+	{224, 0, instant, period, 'bumpyxperiod', period, 'bumpyperiod'}
+	{224, 0, instant, 5000, 'zoomy', -1000, 'tinyz', 2, 'xmod', -400, 'flip', 400, 'invert', 600, 'zoomz', 85, 'stealth', plr = 3}
+	
+	{252, 2, outExpo, 0, 'flip', 2.5, 'xmod', 700, 'zoomz', 400, 'centered', 0, 'drawsize'}
+	
+	{254, 2, outQuad, 0, 'centered'}
+	{254, 0, instant, 0, 'movey', 0, 'rotationx', 0, 'confusionxoffset', 0, 'bumpy', 0, 'bumpyx'}
+	
+	{256, 279, inQuad, 45, 'magnitude', mode = 'end'}
+	{256, 1, outQuad, .75, 'charaIdle'}
+	
+	{272, 7, inQuad, 150, 'hallway'}
+	{272, 7*12, linear, 1337, 'movez', plr = 3}
+	
+	{280, 5, inQuad, -720*5, 'rotationy', 420, 'holdgirth', 69, 'magnitude', 666, 'longholds', 0, 'hallway', -70, 'rotationx', 122, 'confusionxoffset', 300, 'zoomz'}
+	{280, 4, outQuad, 1, 'light'}
+	{280, 1, outQuad, 0, 'charaIdle', .75, 'charaCast'}
+	
+	{284, 0, instant, 0, 'charaCast'}
+	
+	{286, .25, outBack, 0, 'movez0', 0, 'movez1', 0, 'movez2', 0, 'movez3', 0, 'holdgirth', 0, 'longholds', -25, 'flip', 0, 'rotationy'}
+	{286, 1, outQuad, 0, 'magnitude', 200, 'drawsize', 600, 'arrowpathdrawsize', 25, 'arrowpath', 2.5, 'xmod', 1, 'star', 500, 'suddenoffset'}
+	{286, 1, outQuad, 80, 'dark', 94, 'stealth', 125, 'flip', plr = 2}
+	
+	{288, 0, instant, 69, 'beat', 0, 'light', 0, 'incrVal'}
+	{288, 0, instant, 69, 'beatz', plr = 1}
+	{288, 0, instant, -69, 'beatz', plr = 2}
+	
+	{300, .5, outExpo, -100, 'movez1', -100, 'movez3'}
+	
+	{300.5, .5, outExpo, 100, 'invert'}
+	
+	{301, .5, outExpo, 0, 'movez1', 0, 'movez3'}
+	
+	{302, .5, outExpo, 100, 'movez1', 100, 'movez3'}
+	
+	{302.5, .5, outExpo, 0, 'invert'}
+	
+	{303, .5, outExpo, 0, 'movez1', 0, 'movez3'}
+	
+	{304, 1, kick(1), 55, 'stealth', plr = 1}
+	
+	{318.5, 320, kick(4), 628, 'dizzy', mode = 'end'}
+	
+	{320, 1, kick(1), 55, 'stealth', plr = 1}
+	
+	{332, 0, instant, -25, 'flip', 0, 'invert'}
+	
+	{334, 2, outQuad, 360*2, 'rotationy'}
+	
+	{336, 0, instant, 0, 'rotationy', 0, 'rotationz'}
+	
+	--lol
+	{336.1, 1.5, outExpo, sw/4, 'moveVal', 75, 'zoom', 100, 'space'}
+	
+	{336.75, 1.5, outExpo, sw*3/4, 'moveVal', 100, 'zoom', 100, 'hallway', 0, 'space'}
+	
+	{337.5, 1.5, outExpo, sw/4, 'moveVal', 90, 'zoom', -25, 'rotationy', 0, 'hallway'}
+	
+	{338.25, 1.5, outExpo, scx, 'moveVal', 85, 'zoom', 100, 'distant'}
+	
+	{340, 1.5, outExpo, sw/4, 'moveVal', 100, 'zoom', 0, 'distant', 100, 'incoming'}
+	
+	{340.75, 1.5, outExpo, sw*3/4, 'moveVal', 65, 'zoom', 0, 'incoming', 25, 'rotationz'}
+	
+	{341.5, 1.5, outExpo, sw/4, 'moveVal', 90, 'zoom', 0, 'rotationz', 25, 'rotationy', 100, 'distant'}
+	
+	{342.25, 1.5, outExpo, scx, 'moveVal', 100, 'zoom', 0, 'rotationy', 100, 'hallway'}
+	
+	{343, 2, outQuad, 0, 'hallway'}
+	
+	{344, 4, inQuad, -1440*4, 'rotationy', 100, 'zoomz', 0, 'rotationx', 0, 'confusionxoffset', 0, 'hallway', 0, 'reverse', 0, 'flip', 0, 'beat', 0, 'beatz', 0, 'arrowpath', 69, 'magnitude', 1, 'light', 0, 'reverse0', 0, 'reverse1', 0, 'reverse2', 0, 'reverse3'}
+	
+	{348, 1, outQuad, 0, 'magnitude', 0, 'light', 1, 'particles', 0, 'flip', 0, 'invert', 0, 'dark', .75, 'charaCast'}
+	{348, 352, linear, 1, 'ring', 50, 'flip', 0, 'stealth', 100, 'stealth0', 100, 'stealth1', 100, 'stealth2', 100, 'stealth3', 400, 'zoomz', 100, 'pulseinner', mode = 'end'}
+	
+	{352, 385, outQuad, 1, 'incrVal', mode = 'end'}
+	{352, 1, outQuad, 0, 'charaCast'}
+	
+	{359, 1, outQuad, 0, 'star', 0, 'particles'}
+	
+	{368, 1, outQuad, 1, 'star', 1, 'particles'}
+	
+	{375, 1, outQuad, 0, 'star', 0, 'particles'}
+	
+	{384, 1, outExpo, 100, 'split'}
+	
+	{384.5, 1, outExpo, 100, 'reverse', 0, 'split'}
+	
+	{385, 1, outQuad, 1, 'star', 1, 'particles'}
+	
+	{382, 2, kick(4), -628, 'dizzy'}
+	
+	{396, 1, outExpo, 300, 'invert'}
+	
+	{397, 1, outExpo, 0, 'invert'}
+	
+	{400, 0, instant, 0, 'stealth0', 0, 'stealth1', 0, 'stealth2', 0, 'stealth3'}
+	
+	{408, 416, inQuad, 720*(416-408), 'rotationy', mode = 'end'}
+	
+	{414, 2, outQuad, -3000, 'tiny'}
+	
+	{416, 0, instant, 0, 'star', 0, 'tiny'}
+	{416, 0, instant, 0, 'movez', 98, 'stealth', -9000, 'tinyz', 600, 'zoomz', 1.5, 'xmod', -300, 'tiny', 0, 'rotationx', 0, 'wireframe', 0, 'flip', 0, 'invert', 100, 'zoomy', plr = 3}
+	{416, 435, outQuad, -5000, 'tinyy', 100, 'dark', 5, 'confusion', mode = 'end'}
+	{416, 455, linear, 100, 'stealth', plr = 3, mode = 'end'}
+	
+	switcheroo(98.5, .5, outExpo, 'ludr')
+	switcheroo(98.75, .5, outExpo, 'reset')
+	switcheroo(99.25, .5, outExpo, 'ludr')
+	switcheroo(99.5, .5, outExpo, 'reset')
+	
+	switcheroo(102.5, .5, outExpo, 'udlr')
+	switcheroo(102.75, .5, outExpo, 'reset')
+	switcheroo(103.25, .5, outExpo, 'udlr')
+	switcheroo(103.5, .5, outExpo, 'reset')
+	
+	switcheroo(106.5, .5, outExpo, 'rdul')
+	switcheroo(106.75, .5, outExpo, 'reset')
+	switcheroo(107.25, .5, outExpo, 'rdul')
+	switcheroo(107.5, .5, outExpo, 'reset')
+	
+	switcheroo(114.5, .5, outExpo, 'lrud')
+	switcheroo(114.75, .5, outExpo, 'reset')
+	switcheroo(115.25, .5, outExpo, 'lrud')
+	switcheroo(115.5, .5, outExpo, 'reset')
+	
+	switcheroo(118, .5, outExpo, 'rdul')
+	switcheroo(118.5, .5, outExpo, 'reset')
+	switcheroo(118.75, .5, outExpo, 'rdul')
+	switcheroo(119.25, .5, outExpo, 'reset')
+	switcheroo(119.5, .5, outExpo, 'rdul')
+	switcheroo(119.75, .5, outExpo, 'reset')
+	
+	switcheroo(122, .5, outExpo, 'rdul')
+	switcheroo(122.5, .5, outExpo, 'reset')
+	switcheroo(122.75, .5, outExpo, 'lrud')
+	switcheroo(123.25, .5, outExpo, 'reset')
+	switcheroo(123.5, .5, outExpo, 'lrud')
+	switcheroo(123.75, .5, outExpo, 'reset')
+	
+	wiggle(96, 124-96, 2, tri, 10, 'rotationz', 1)
+	wiggle(96, 124-96, 2, tri, -10, 'rotationz', 2)
+	
+	wiggle(100, 1, .05, kick(6), 400, 'square')
+	
+	wiggle(101, 1, .05, kick(6), -400, 'square')
+	
+	wiggle(116, 1, .05, kick(6), 400, 'zigzag')
+	
+	wiggle(117, 1, .05, kick(6), -400, 'zigzag')
+	
+	wiggle(132, 1, .05, kick(6), 400, 'sawtooth')
+	
+	wiggle(133, 1, .05, kick(6), -400, 'sawtooth')
+	
+	wiggle(142, 1, .05, kick(6), 400, 'digital')
+	
+	wiggle(143, 1, .05, kick(6), -400, 'digital')
+	
+	wiggle(125, 3, 1, bounce, 200, 'invert')
+	
+	wiggle0(129, 12, 2, outExpo, 100, 'invert')
+	
+	wiggle0(145, 153-145, 2, outExpo, 100, 'flip')
+	
+	wiggle0(188, 192-188, 1, outExpo, 100, 'invert')
+	
+	wiggle2lua(grav_dididi, pop, 50, 'drunk')
+	wiggle2lua(grav_dididi, pop, 50, 'tipsy')
+	
+	local grav_dididi2 = (P[1] or P[2]):GetNoteData(184, 188)
+	
+	wiggle2lua(grav_dididi2, pop, -50, 'drunk')
+	wiggle2lua(grav_dididi2, pop, -50, 'tipsy')
+	
+	drivendrop(162, 6, 1, 1.5)
+	
+	drivendrop(168, 178-168, 2, 1.5)
+	
+	drivendrop(178, 184-178, 1, 1.5)
+	
+	drivendrop(184, 11, 2, 1.5)
+	
+	drivendrop(194, 6, 1, 1.5)
+	
+	drivendrop(200, 8, 2, 1.5)
+	
+	drivendrop(208, 12, 1, 1.5)
+	
+	drivendrop(224, 30, 30, 2)
+	
+	for beat=64,80,8 do
+		m_ea{beat, 2, kick(3), 55, 'stealth'}
+	end
+	
+	for beat=82,88,2 do
+		m_ea{beat, 2, kick(3), 55, 'stealth'}
+	end
+	
+	for beat=162,208,2 do
+		local player = math.floor(math.mod(beat / 2, 2) + 1)
+		local player2 = math.floor(math.mod(beat / 2 - 1, 2) + 1)
+		m_ea{beat, 1, outExpo, 100, 'dark1', 100, 'dark3', 100, 'stealth1', 100, 'stealth3', 100, 'hidenoteflash1', 100, 'hidenoteflash3', 0, 'dark0', 0, 'dark2', 0, 'stealth0', 0, 'stealth2', 0, 'hidenoteflash0', 0, 'hidenoteflash2', plr = player}
+		{beat, 1, outExpo, 0, 'dark1', 0, 'dark3', 0, 'stealth1', 0, 'stealth3', 0, 'hidenoteflash1', 0, 'hidenoteflash3', 100, 'dark0', 100, 'dark2', 100, 'stealth0', 100, 'stealth2', 100, 'hidenoteflash0', 100, 'hidenoteflash2', plr = player2}
+		-- print(player)
+	end
+	
+	for beat=208,219.75,.25 do
+		add{beat, .25, outExpo, -180/48, 'rotationx', 314/48, 'confusionxoffset'}
+	end
+	
+	for beat=289,332,2 do
+		local player = math.floor(math.mod(beat / 2, 2) + 1)
+		local player2 = math.floor(math.mod(beat / 2 - 1, 2) + 1)
+		local percentageInvert = {150, 0, 0}
+		local percentageFlip = {-25, 125, -25}
+		m_ea{beat, 1, outExpo, 80, 'dark', 94, 'stealth', percentageInvert[math.mod(beat, 3) + 1], 'invert', percentageFlip[math.mod(beat, 3) + 1], 'flip', plr = player}
+		{beat, 1, outExpo, 0, 'dark', 0, 'stealth', percentageInvert[math.mod(beat - 1, 3) + 1], 'invert', percentageFlip[math.mod(beat - 1, 3) + 1], 'flip', plr = player2}
+		-- print(percentageInvert[math.mod(beat, 3) + 1])
+	end
+	
+	for beat=352,400,.25 do
+		local column = math.mod(beat * 4, 4)
+		local player = math.floor(math.mod(beat, 2) + 1)
+		m_ea{beat, 2, kick(2), 5, 'stealth'..column..'', plr = player}
+	end
+	
+	local grav_inoutro = {{5, 24}, {417, 443}}
+	
+	for i,v in pairs(grav_inoutro) do
+		for beat=v[1],v[2],8 do
+			m_ea{beat, 1, kick(2), .65, 'aft_ray'}
+			{beat+1.5, 1, kick(2), .65, 'aft_ray'}
+		end
+	end
+	
+	local grav_jump = {{96, 122}, {128, 138}, {144, 150}}
+	
+	for i,v in pairs(grav_jump) do
+		for beat=v[1],v[2] do
+			local player = math.floor(math.mod(beat, 2) + 1)
+			local player2 = math.floor(math.mod(beat - 1, 2) + 1)
+			m_ea{beat, 2, bounce, 50, 'zoom', plr = player}
+			{beat, 2, bounce, 125, 'zoom', plr = player2}
+		end
+	end
+	
+	local grav_poof = {{97, 123}, {129, 140}, {145, 152}, {162, 188}, {194, 208}, {289, 332}, {353, 359}, {369, 375}, {385, 399}}
+	
+	for i,v in pairs(grav_poof) do
+		for beat=v[1],v[2],2 do
+			m_ea{beat, 1, kick(5), -500, 'tiny'}
+		end
+	end
+	
+	local grav_pop = (P[1] or P[2]):GetNoteData(64, 87.75)
+	
+	for i = 1,table.getn(grav_pop) do
+		local beat = grav_pop[i]
+		local column = grav_pop[i][2]
+		local player = math.floor(math.mod(beat[1], 2) + 1)
+		local player2 = math.floor(math.mod(beat[1] - 1, 2) + 1)
+		m_ea{beat[1], .25, outBack, 50, 'movez'..column..'', plr = player}
+		{beat[1], .25, outBack, -25, 'movez'..column..'', plr = player2}
+		-- print(column)
+	end
+	
+	for i = 1,table.getn(grav_dududu) do
+		local beat = grav_dududu[i]
+		add{beat[1], .25, outExpo, 180/18, 'rotationx', -314/18, 'confusionxoffset'}
+	end
+	
+	for i = 1,table.getn(grav_dududu2) do
+		local beat = grav_dududu2[i]
+		add{beat[1], .25, outExpo, -180/15, 'rotationx', 314/15, 'confusionxoffset'}
+	end
+	
+	for i = 1,table.getn(grav_dududu3) do
+		local beat = grav_dududu3[i]
+		add{beat[1], .25, outExpo, 180/18, 'rotationx', -314/18, 'confusionxoffset'}
+	end
+	
+	local grav_switch = (P[1] or P[2]):GetNoteData(209, 219)
+	
+	for i = 1,table.getn(grav_switch) do
+		local beat = grav_switch[i]
+		local player = math.floor(math.mod(i, 2) + 1)
+		local player2 = math.floor(math.mod(i - 1, 2) + 1)
+		m_ea{beat[1], 1, outExpo, 100, 'dark1', 100, 'dark3', 100, 'stealth1', 100, 'stealth3', 100, 'hidenoteflash1', 100, 'hidenoteflash3', 0, 'dark0', 0, 'dark2', 0, 'stealth0', 0, 'stealth2', 0, 'hidenoteflash0', 0, 'hidenoteflash2', plr = player}
+		{beat[1], 1, outExpo, 0, 'dark1', 0, 'dark3', 0, 'stealth1', 0, 'stealth3', 0, 'hidenoteflash1', 0, 'hidenoteflash3', 100, 'dark0', 100, 'dark2', 100, 'stealth0', 100, 'stealth2', 100, 'hidenoteflash0', 100, 'hidenoteflash2', plr = player2}
+		{beat[1], 1, kick(5), -500, 'tiny'}
+		-- print(player)
+	end
+	
+	local grav_pop2 = (P[1] or P[2]):GetNoteData(256, 279.5)
+	
+	for i = 1,table.getn(grav_pop2) do
+		local beat = grav_pop2[i]
+		local column = grav_pop2[i][2]
+		local player = math.floor(math.mod(beat[1], 2) + 1)
+		local player2 = math.floor(math.mod(beat[1] - 1, 2) + 1)
+		m_ea{beat[1], .25, outBack, 50, 'movez'..column..'', plr = player}
+		{beat[1], .25, outBack, -25, 'movez'..column..'', plr = player2}
+		-- print(column)
+	end
+	
+	local grav_dadada = (P[1] or P[2]):GetNoteData(332, 333.5)
+	
+	for i = 1,table.getn(grav_dadada) do
+		local beat = grav_dadada[i]
+		add{beat[1], 1, outExpo, 70/3, 'rotationx', -122/3, 'confusionxoffset'}
+	end
+	
+	local grav_bibibi = (P[1] or P[2]):GetNoteData(360, 368)
+	
+	for i = 1,table.getn(grav_bibibi) do
+		local beat = grav_bibibi[i]
+		m_ea{beat[1], .125, square, -90, 'mini', 100, 'wireframe'}
+	end
+	
+	local grav_bibibi2 = (P[1] or P[2]):GetNoteData(376, 381)
+	
+	for i = 1,table.getn(grav_bibibi2) do
+		local beat = grav_bibibi2[i]
+		m_ea{beat[1], .125, square, -90, 'mini', 100, 'wireframe'}
+	end
+	
+	for i = 1,table.getn(grav_foop) do
+		local beat = grav_foop[i]
+		local column = grav_foop[i][2]
+		m_ea{beat[1], 1, kick(3), -666, 'tiny'..column..''}
+		-- print(column)
+	end
+	
+	-- mm {{beat [, len [, mode = 'end']], function(beat, poptions) ... end [, defer = true]}
+	-- can be used as perframe or mod_action
+	
+	mm{0, function(beat) 
+	    for pn = 1, 2 do
+	        P[pn]:GetChild('Judgment'):hidden(1)
+			P[pn]:GetChild('Combo'):hidden(1)
+			P[pn]:NoClearSplines(true)
+			
+			P[pn]:linear(9)
+			P[pn]:x(scx)
+	    end
+		
+		if P[3] then
+			P[3]:SetAwake(true)
+			P[3]:SetNoteDataFromLua(grav_visual)
+			P[3]:hidden(0)
+			P[3]:GetChild('Judgment'):hidden(1)
+			P[3]:GetChild('Combo'):hidden(1)
+			
+			P[3]:spin()
+		end
+		
+		grav_chara:bob()
+		grav_chara:effectmagnitude(0, 25, 0)
+		grav_chara:effectclock('bgm')
+		grav_chara:effectperiod(8)
+	end}
+	{0, 448, function(beat, mods)
+		if P[3] then
+			mods[3].stealthgb = math.sin(beat*math.pi*0.25) * 200 + 200
+			mods[3].stealthgg = -math.cos(beat*math.pi*0.25) * 200 + 200
+		end
+	end}
+	{24, 64, function(beat, mods)	
+		for pn = 1, 2 do
+			-- rotationz has counteracting confusionoffset
+			mods[pn].confusionoffset = -100*math.rad(mods[pn].rotationz)
+		end
+	end, mode = 'end'}
+	{28, 55, function(beat, mods)	
+		for pn = 1, 2 do
+			P[pn]:x(mods[pn].moveVal)
+		end
+	end, mode = 'end'}
+	{56, function(beat)
+		if P[1] then
+			P[1]:linear(1)
+			P[1]:x(sw/3.5)
+		end
+		if P[2] then
+			P[2]:linear(1)
+			P[2]:x(sw*2.75/4)
+		end
+		if P[3] then
+			P[3]:rotationz(0)
+			P[3]:stopeffect()
+		end
+	end}
+	{64, function(beat)
+		for pn = 1, 2 do
+	        P[pn]:ResetXSplines()
+	        P[pn]:ResetYSplines()
+			
+	        P[pn]:vibrate()
+	        P[pn]:effectmagnitude(0, 0, 0)
+	    end
+	end}
+	{88, function(beat)
+		for pn = 1, 2 do
+	        P[pn]:linear(1)
+	        P[pn]:x(scx)
+	    end
+	end}
+	{94, function(beat)
+		if P[1] then
+			P[1]:decelerate(.5)
+			P[1]:x(sw/4)
+		end
+		if P[2] then
+			P[2]:decelerate(.5)
+			P[2]:x(sw*3/4)
+		end
+		MESSAGEMAN:Broadcast('WhiteFlash')
+		MESSAGEMAN:Broadcast('Side')
+	end}
+	{96, function(beat) 
+	    for pn = 1, 2 do
+	        P[pn]:bounce()
+	        P[pn]:effectmagnitude(0, -69, 0)
+			P[pn]:effectclock('bgm')
+			P[pn]:effectperiod(1)
+	    end
+	end}
+	{96, 124, function(beat, mods)
+		if P[1] then
+			mods[1].x = math.sin(beat*math.pi) * 160 + 160
+		end
+		
+		if P[2] then
+			mods[2].x = math.sin(beat*math.pi) * (-160) + (-160)
+		end
+	end, mode = 'end'}
+	{124, function(beat) 
+	    for pn = 1, 2 do
+	        P[pn]:stopeffect()
+	    end
+	end}
+	{127, function(beat) 
+	    for pn = 1, 2 do
+	        P[pn]:decelerate(.5)
+	        P[pn]:x(scx)
+	    end
+	end}
+	{128, function(beat) 
+	    for pn = 1, 2 do
+	        P[pn]:bounce()
+	        P[pn]:effectmagnitude(0, -69, 0)
+			P[pn]:effectclock('bgm')
+			P[pn]:effectperiod(1)
+	    end
+	end}
+	{140, function(beat) 
+	    for pn = 1, 2 do
+	        P[pn]:stopeffect()
+	    end
+	end}
+	{144, function(beat) 
+	    for pn = 1, 2 do
+	        P[pn]:bounce()
+	        P[pn]:effectmagnitude(0, -69, 0)
+			P[pn]:effectclock('bgm')
+			P[pn]:effectperiod(1)
+	    end
+	end}
+	{144, 152, function(beat, mods)	
+		for pn = 1, 2 do
+			mods[pn].digitalz = math.sin(beat*math.pi*10) * 3333 * mods[pn].incrVal
+		end
+	end, mode = 'end'}
+	{152, function(beat) 
+	    for pn = 1, 2 do
+	        P[pn]:stopeffect()
+	    end
+	end}
+	{194, 220, function(beat, mods)	
+		for pn = 1, 2 do
+			mods[pn].drunk = math.sin(beat*math.pi*4) * 250 * mods[pn].incrVal
+			mods[pn].tipsy = math.sin(beat*math.pi*4) * 250 * mods[pn].incrVal
+		end
+	end, mode = 'end'}
+	{220, 5, function(beat, mods)	
+		for pn = 1, 2 do
+			-- rotationz has counteracting confusionoffset
+			mods[pn].confusionoffset = -100*math.rad(mods[pn].rotationz)
+		end
+	end}
+	{224, function(beat)
+		MESSAGEMAN:Broadcast('LongWhiteFlash')
+		MESSAGEMAN:Broadcast('Middle')
+	end}
+	{252, function(beat)
+		for pn = 1, 2 do
+	        P[pn]:vibrate()
+	        P[pn]:effectmagnitude(0, 0, 0)
+	    end
+		
+		if P[1] then
+			P[1]:linear(.5)
+			P[1]:x(sw/3.5)
+		end
+		if P[2] then
+			P[2]:linear(.5)
+			P[2]:x(sw*2.75/4)
+		end
+	end}
+	{280, function(beat)
+		for pn = 1, 2 do
+	        P[pn]:linear(1)
+	        P[pn]:x(scx)
+	    end
+	end}
+	{286, function(beat)
+		-- for pn = 1, 2 do
+			-- local multi = -1; if pn == 2 then multi = 1 end;
+			-- P[pn]:decelerate(.15)
+			-- P[pn]:x(scx+42*multi)
+	    -- end
+		MESSAGEMAN:Broadcast('WhiteFlash')
+	end}
+	{288, 332, function(beat, mods)
+		for pn = 1, 2 do
+			mods[pn].movex = math.sin(beat*(math.pi/4))*160
+			mods[pn].movey = math.sin(beat*(math.pi/2))*40
+			-- mods[pn].rotationx = -math.sin(beat*(math.pi/2))*5
+			mods[pn].rotationy = math.sin(beat*(math.pi/4))*10
+			mods[pn].rotationz = math.sin(beat*(math.pi/4))*10
+	    end
+	end, mode = 'end'}
+	{320, 332, function(beat, mods)	
+		for pn = 1, 2 do
+		local multi = -1; if pn == 2 then multi = 1 end;
+			if math.mod(math.floor(beat + 1), 4) < 2 then
+				P[pn]:x((inQuad(math.tan(beat * math.pi * 0.5)) * SCREEN_WIDTH / 32) + scx);
+			else
+				P[pn]:x((inQuad(math.tan(beat * math.pi * 0.5)) * -SCREEN_WIDTH / 32) + scx);
+			end
+		end
+	end, mode = 'end'}
+	{336, 348, function(beat, mods)	
+		for pn = 1, 2 do
+			P[pn]:x(mods[pn].moveVal)
+		end
+	end, mode = 'end'}
+	{348, function(beat)
+		for pn = 1, 2 do
+			P[pn]:x(scx)
+	    end
+		MESSAGEMAN:Broadcast('WhiteFlash')
+	end}
+	{348, 448, function(beat, mods)
+		-- please please please dont kill me for this i am very sorry
+		for pn = 1, 2 do
+			local fuck0 = ((pn-1)*4+0)
+			local fuck1 = ((pn-1)*4+1)
+			local fuck2 = ((pn-1)*4+2)
+			local fuck3 = ((pn-1)*4+3)
+				
+			mods[pn].movex0 = 300*math.sin(beat+fuck0/1.25) * mods[pn].ring
+			mods[pn].movex1 = 300*math.sin(beat+fuck1/1.25) * mods[pn].ring
+			mods[pn].movex2 = 300*math.sin(beat+fuck2/1.25) * mods[pn].ring
+			mods[pn].movex3 = 300*math.sin(beat+fuck3/1.25) * mods[pn].ring
+			
+			mods[pn].movez0 = -300*math.cos(beat+fuck0/1.25) * mods[pn].ring
+			mods[pn].movez1 = -300*math.cos(beat+fuck1/1.25) * mods[pn].ring
+			mods[pn].movez2 = -300*math.cos(beat+fuck2/1.25) * mods[pn].ring
+			mods[pn].movez3 = -300*math.cos(beat+fuck3/1.25) * mods[pn].ring
+			
+			mods[pn].distant = math.sin(beat*math.pi*.25) * 50 * mods[pn].incrVal
+		end
+	end, mode = 'end'}
+	{352, function(beat)
+		for pn = 1, 2 do
+	        P[pn]:bounce()
+	        P[pn]:effectmagnitude(0, 0, 160)
+	        P[pn]:effectclock('bgm')
+	        P[pn]:effectperiod(1)
+	    end
+	end}
+	{360, function(beat)
+		for pn = 1, 2 do
+	        P[pn]:stopeffect()
+	    end
+	end}
+	{368, function(beat)
+		for pn = 1, 2 do
+	        P[pn]:bounce()
+	        P[pn]:effectmagnitude(0, 0, 160)
+	        P[pn]:effectclock('bgm')
+	        P[pn]:effectperiod(1)
+	    end
+	end}
+	{376, function(beat)
+		for pn = 1, 2 do
+	        P[pn]:stopeffect()
+	    end
+	end}
+	{385, function(beat)
+		for pn = 1, 2 do
+	        P[pn]:bounce()
+	        P[pn]:effectmagnitude(0, 0, 160)
+	        P[pn]:effectclock('bgm')
+	        P[pn]:effectperiod(1)
+	    end
+	end}
+	{416, function(beat)
+		MESSAGEMAN:Broadcast('WhiteFlash')
+		
+		for pn = 1, 2 do
+	        P[pn]:stopeffect()
+	    end
+		
+		if P[3] then
+			P[3]:spin()
+		end
+	end}
+	
+	-- alias (name [, effect])
+	-- Adds a new ease variable. Takes in the name of the ease variable, and an optional function.
+	-- example, alias('blacksphere')
+	
+	alias('incrVal')
+	
+	alias('moveVal')
+	
+	alias('ring')
+	
+	alias('dpad_setup', function(percent)
+		for pn = 1, 2 do
+			P[pn]:SetXSpline(1,0,-percent,600,-1)
+			P[pn]:SetXSpline(1,3,percent,600,-1)
+			P[pn]:SetYSpline(1,0,-percent,600,-1)
+			P[pn]:SetYSpline(1,3,-percent,600,-1)
+		end
+	end)
+	
+	alias('dpad_setup2', function(percent)
+		for pn = 1, 2 do
+			P[pn]:SetXSpline(1,0,percent,600,-1)
+			P[pn]:SetXSpline(1,3,-percent,600,-1)
+			P[pn]:SetYSpline(1,0,-percent,600,-1)
+			P[pn]:SetYSpline(1,3,-percent,600,-1)
+		end
+	end)
+	
+	alias('magnitude', function(percent)
+		for pn = 1, 2 do
+			P[pn]:effectmagnitude(percent, percent, percent)
+		end
+	end)
+	
+	alias('aft_ray', function(percent)
+		grav_aftsprite:diffusealpha(percent)
+	end)
+	
+	alias('particles', function(percent)
+		grav_snow:diffusealpha(percent)
+	end)
+	
+	alias('light', function(percent)
+		grav_quad:diffusealpha(percent)
+	end)
+	
+	alias('star', function(percent)
+		grav_starfield:diffusealpha(percent)
+	end)
+	
+	alias('charaIdle', function(percent)
+		grav_idle:zoomy(percent)
+	end)
+	
+	alias('charaCast', function(percent)
+		grav_cast:zoomy(percent)
+	end)
+	
+	
+	-- spellcard {beat, length, color = {r, g, b, a}, name = name, difficulty = diffnum [, mode = 'end']}
+	-- let's you add spellcards to a chart.
+	-- `color`, `name`, and `difficulty` are all optional.
+	spellcard{0, 28, color = {0, 0, .5, 1}, name = 'funny intro thing', mode = 'end'}
+	spellcard{28, 63, color = {0, 0, .55, 1}, name = 'its everyones fav gimmick, d of pad', mode = 'end'}
+	spellcard{64, 94, color = {0, 0, .6, 1}, name = 'lets get poppin', mode = 'end'}
+	spellcard{96, 158, color = {0, 0, .65, 1}, name = 'not analys', mode = 'end'}
+	spellcard{160, 224, color = {0, 0, .75, 1}, name = 'psyched agosto my balls', mode = 'end'}
+	spellcard{232, 252, color = {0, .5, .5, 1}, name = 'funny spiral break', mode = 'end'}
+	spellcard{256, 286, color = {0, 0, .8, 1}, name = 'lets get poppin 2', mode = 'end'}
+	spellcard{288, 348, color = {0, 0, .85, 1}, name = 'theres no such thing as double universe', mode = 'end'}
+	spellcard{352, 416, color = {0, 0, .9, 1}, name = 'spin wheeeeel', mode = 'end'}
+	
+	
+end)"
+Type = "ActorFrame"
+><children>
+
+	<Layer File="chart2lua" />
+	
+	<Layer Type = "ActorFrame" Name = "grav_chara"><children>
+		<Layer 
+			File = "Cathon/pingu_idle.png"
+			Name = "grav_idle" 
+			InitCommand="%function(self) 
+				prefix()
+				self:xy(scx+38, scy)
+				self:diffusealpha(1)
+				self:zoom(.75)
+				self:zoomy(0)
+			end"
+			MiddleMessageCommand="%function(self)
+				prefix()
+				self:xy(scx+38, scy)
+			end"
+			SideMessageCommand="%function(self)
+				prefix()
+				self:xy(scx+232, scy)
+			end"
+		/>
+		
+		<Layer 
+			File = "Cathon/pingu_cast.png"
+			Name = "grav_cast" 
+			InitCommand="%function(self) 
+				prefix()
+				self:xy(scx+38, scy)
+				self:diffusealpha(1)
+				self:zoom(.75)
+				self:zoomy(0)
+			end"
+			MiddleMessageCommand="%function(self)
+				prefix()
+				self:xy(scx+38, scy)
+			end"
+			SideMessageCommand="%function(self)
+				prefix()
+				self:xy(scx+232, scy)
+			end"
+		/>
+	</children></Layer>
+
+	<Layer Type = "ActorProxy" Name = "proxy.combo[1]" />
+	<Layer Type = "ActorProxy" Name = "proxy.combo[2]" />
+	<Layer Type = "ActorProxy" Name = "proxy.judge[1]" />
+	<Layer Type = "ActorProxy" Name = "proxy.judge[2]" />
+	<!--
+	<Layer Type = "ActorProxy" Name = "proxy.notefield[1]" />
+	<Layer Type = "ActorProxy" Name = "proxy.notefield[2]" />
+	-->
+	
+	<Layer 
+		Type = "Quad" 
+		InitCommand = "%prefix.sprite" 
+		Name = "grav_quad" 
+		OnCommand = "%function(self)
+			prefix()
+			self:xy(SCREEN_CENTER_X,SCREEN_CENTER_Y);
+			self:zoom(9e9);
+			self:diffusealpha(0);
+		end"
+		WhiteFlashMessageCommand="finishtweening;diffusealpha,1;linear,0.6;diffusealpha,0"
+		LongWhiteFlashMessageCommand="finishtweening;diffusealpha,1;linear,3.6;diffusealpha,0"
+	/>
+	
+	<Layer
+		Type="Sprite"
+		InitCommand = "%prefix.sprite"
+		Name = "grav_aftsprite"
+		OnCommand = "%function(self)
+			prefix()
+			self:diffusealpha(0)
+			self:zoom(1)
+			self:queuecommand('renderMe');
+		end"
+			
+		renderMeCommand="%prefix(function(self)
+            self:zoom(1.05)
+            self:SetTexture(grav_aft:GetTexture())
+            self:blend('add')
+        end)"
+		HideMessageCommand="diffusealpha,0;blend,add;zoom,1.05"
+	/>
+	
+	<Layer Type = "ActorFrameTexture" InitCommand = "%prefix.aft" Name = "grav_aft" />
+	
+	<Layer Type = "ActorFrameTexture" InitCommand = "%prefix.aft" Name = "grav_snowlayer" />
+	
+	<Layer 
+		Type = "Sprite"
+		Frag = "Shaders/snowfall.frag"
+		InitCommand = "%prefix.sprite" 
+		Name = "grav_snow" 
+		OnCommand="%function(self) 
+			prefix()
+			self:SetTexture(grav_snowlayer:GetTexture())
+			self:diffusealpha(1)
+			self:GetShader():uniform1f('amt', .25)
+			self:GetShader():uniform1f('blur', 1)
+		end"
+	/>
+	
+	<Layer Type = "ActorFrameTexture" InitCommand = "%prefix.aft" Name = "grav_starlayer" />
+	
+	<Layer 
+		Type = "Sprite"
+		Frag = "Shaders/starfield.frag"
+		InitCommand = "%prefix.sprite" 
+		Name = "grav_starfield" 
+		OnCommand="%function(self) 
+			prefix()
+			self:SetTexture(grav_starlayer:GetTexture())
+			self:diffusealpha(0)
+			self:GetShader():uniform1f('speed', 3)
+			self:blend('add')
+			
+			local function nextpow2(x)return math.pow(2, math.ceil(math.log(x)/math.log(2))) end
+			self:GetShader():uniform1f('vscale',DISPLAY:GetDisplayHeight()/nextpow2(DISPLAY:GetDisplayHeight()))
+			self:GetShader():uniform1f('hscale',DISPLAY:GetDisplayWidth()/nextpow2(DISPLAY:GetDisplayWidth()))
+		end"
+	/>
+	
+</children></Mods>

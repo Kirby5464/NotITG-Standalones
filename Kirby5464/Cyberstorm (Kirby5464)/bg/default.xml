@@ -1,0 +1,2476 @@
+<Layer
+	Type="ActorFrame"
+	InitCommand="hidden,1;sleep,1000;"
+><children>
+	<Layer Type="Quad"
+		InitCommand="hidden,1;"
+		OnCommand="%function(self) Cyber_PosOffset = 200; end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	<Layer File="Arrows 16x1.png"
+		InitCommand="hidden,1"
+		OnCommand="%function(self) self:hibernate(12.6) self:queuecommand('Fall') end"
+		FallCommand="%function(self)
+			local x_rand=math.random(SCREEN_LEFT,SCREEN_RIGHT+Cyber_PosOffset)
+			self:xy(x_rand,-100);
+			self:rotationz(25)
+			self:sleep(math.random()*3)
+			self:hidden(0)
+			self:linear(0.5);
+			self:xy(x_rand-Cyber_PosOffset-math.random(100),SCREEN_BOTTOM+50)
+			if GAMESTATE:GetSongBeat()>=110 then
+				self:hidden(1)
+			else
+				self:queuecommand('Fall')
+			end
+		end"
+	/>
+	z
+</children></Layer>

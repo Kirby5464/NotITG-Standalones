@@ -1,0 +1,1068 @@
+<Mods LoadCommand = "%xero(function(self)
+	-- judgment / combo proxies
+	for pn = 1, 2 do
+		setupJudgeProxy(PJ[pn], P[pn]:GetChild('Judgment'), pn)
+		setupJudgeProxy(PC[pn], P[pn]:GetChild('Combo'), pn)
+		
+		PC[pn]:basezoomx(0.75)
+		PC[pn]:basezoomy(0.75)
+		PC[pn]:y(SCREEN_HEIGHT*0.55)
+		
+		PJ[pn]:basezoomx(0.75)
+		PJ[pn]:basezoomy(0.75)
+		PJ[pn]:y(SCREEN_HEIGHT*0.5)
+	end
+	-- player proxies
+	for pn = 1, #PP do
+		PP[pn]:SetTarget(P[pn])
+		P[pn]:hidden(1)
+	end
+	-- your code goes here here:
+	
+	local sqrt = math.sqrt
+	local sin = math.sin
+	local cos = math.cos
+	local pow = math.pow
+	local exp = math.exp
+	local pi = math.pi
+	local abs = math.abs
+	local kick_cache = {}
+	
+	local function kick(amt)
+		kick_cache[amt] = kick_cache[amt] or function(t)
+			return (sqrt(t) * pow(1 - t, amt)) * (2.5 + amt * .6)
+		end
+		return kick_cache[amt]
+	end
+	
+	local function square(t) return t == 1 and 0 or 1 end
+	
+	local m_ea, mm = ease, func
+	local period = 1000
+	
+	--[[
+	lists of eases that can be used:
+	(Persistent)
+		instant				linear
+		inQuad				outQuad			inOutQuad			inCubic			outCubic
+		inOutCubic			inQuart			outQuart			inOutQuart		inQuint
+		outQuint			inOutQuint		inExpo				outExpo			inOutExpo
+		inBack				outBack			inOutBack			inElastic		outElastic	
+		inOutElastic		inBounce		outBounce			inOutBounce		inSine
+		outSine				inOutSine		inCirc				outCirc			inOutCirc
+	
+	(Transient)
+		bounce			bell			pop				pulse
+		tap				tri				spike			inverse		impulse[amt]
+		popElastic[damping_factor][oscillation_speed]	tapElastic[damping_factor][oscillation_speed]
+		pulseElastic[damping_factor][oscillation_speed]	kick(amt)	square
+	]]
+	
+	-- set {beat, percent1, mod1 [, percent2, mod2 ...] [, plr = pn]}
+	set{0, 2.35, 'xmod', 100, 'dizzyholds', 100, 'stealthpastreceptors', 100, 'cover', 100, 'halgun', -.5, 'byeperiod', -.5, 'byehow', .7, 'cropomg', plr = {1, 2, 3}}
+	{0, sw/4, 'plr_pos', plr = 1}
+	{0, sw*3/4, 'plr_pos', plr = 2}
+	{0, scx, 'plr_pos', 100, 'hidenoteflash', plr = 3}
+	
+	{7, 69, 'textvibb'}
+	
+	{4, 0, 'tiny', 200, 'mini', 0, 'kirby', 100, 'hidemines'}
+	{4, 50, 'flip', 100, 'centered', -100, 'movex0', 100, 'movey1', -100, 'movey2', 100, 'movex3', 100, 'reverse2', plr = 3}
+	
+	{64, 100, 'stealth', 0, 'xmod'}
+	
+	{68, 20, 'effectperiod'}
+	
+	{128, 75, 'flip', -125, 'invert'}
+	
+	{297, sw/4, 'plr_pos', plr = 1}
+	{297, sw*3/4, 'plr_pos', plr = 2}
+	
+	{332, 100, 'dark', 1.75, 'xmod'}
+	{332, 90, 'rotationz', 50, 'flip', 420, 'arrowpathgirth', 100, 'stealth', 100, 'dark', 900, 'arrowpathdrawsize', 900, 'arrowpathdrawsizeback', 100, 'arrowpath', scx/1.5, 'movex', 0, 'mini', plr = 3}
+	
+	{344, 0, 'dark', 2.35, 'xmod'}
+	{344, 0, 'arrowpath', plr = 3}
+	
+	-- m_ea {beat, len [, mode = 'end'], fn, percent1, mod1 [, percent2, mod2 ...] [, plr = pn]}
+	m_ea{1, 3, inQuad, -6666, 'tiny'}
+	
+	{2, 2, outQuad, .09, 'kirby'}
+	
+	{4, 36, linear, 25*(36-4), 'rotationx', 180*(36-4), 'rotationz', plr = 3, mode = 'end'}
+	
+	{8, 5, outQuad, 0, 'textvibb'}
+	{8, 5, tri, .09, 'kirby'}
+	{8, 6, outQuad, .25, 'byehow'}
+	
+	{15.5, 3, tri, -69, 'textvibb'}
+	{15.5, 3, tri, .09, 'kirby'}
+	
+	{29, 36, outQuad, 0, 'mini', mode = 'end'}
+	{29, 36, outQuad, 200, 'tiny', plr = 3, mode = 'end'}
+	
+	{36, 1, outQuad, scx, 'plr_pos', plr = {1, 2}}
+	{36, 0, instant, .25, 'byeperiod'}
+	{36, 50, outQuad, 169, 'magnitudeX', mode = 'end'}
+	
+	--lol
+	{36.1, 3, outQuad, -.5, 'byeperiod'}
+	
+	{64, .5, outQuad, 0, 'magnitudeX'}
+	{64, 0, instant, period * .25, 'bumpyxoffset', period * .5, 'bumpyoffset'}
+	{64, 0, instant, period, 'bumpyxperiod', period, 'bumpyperiod'}
+	
+	{66, 2, outQuad, 2.35, 'xmod', 0, 'stealth'}
+	
+	-- {68, 14, outQuad, 169, 'magnitudeX'}
+	{68, 1, outQuad, .65, 'aftray'}
+	{68, 32, linear, -32 * 235, 'movey'}
+	
+	{93, 7, linear, 0, 'aftray', 0, 'bumpyx', 0, 'bumpy', 0, 'rotationx', 0, 'confusionxoffset', 0, 'bumpyxoffset', 0, 'bumpyoffset'}
+	
+	{98, 3, kick(2), .5, 'byefocus'}
+	{98, 0, instant, 0, 'zoomhow'}
+	
+	{100, 2, outQuad, -690/3, 'bumpy', 690/3, 'bumpyy', 500, 'bumpyyperiod', 500, 'bumpyperiod', 150, 'bumpyyoffset', -100, 'bumpy', 100, 'bumpyy', 50, 'reverse', 100, 'spiralholds'}
+	{100, 0, instant, 0, 'movey', 0, 'bumpyxoffset', 0, 'bumpyoffset'}
+	
+	-- {116, 1, outQuad, 314, 'dizzy'}
+	
+	{127, 0, instant, period * .25, 'bumpyxoffset', period * .5, 'bumpyoffset'}
+	{127, 0, instant, period, 'bumpyxperiod', period, 'bumpyperiod'}
+	
+	{128, 0, instant, 0, 'dizzy'}
+	
+	{129, 0, instant, 0, 'bumpyy', 0, 'spiralholds', 100, 'stealth', 0, 'xmod'}
+	
+	{130, 2, outQuad, 2.35, 'xmod', 0, 'stealth'}
+	{130, 0, instant, 65, 'rotationx', -157, 'confusionxoffset', 100, 'dark', 0, 'tiny', 0, 'flip', 0, 'centered', 0, 'movex0', 0, 'movey1', 0, 'movey2', 0, 'movex3', 0, 'reverse2', 700, 'zoomz', 69, 'bumpy', plr = 3}
+	
+	{132, 1, outQuad, .65, 'aftray'}
+	{132, 10, linear, -10 * 235, 'movey'}
+	
+	{136, 1, outQuad, 200, 'mini', 0, 'aftray'}
+	
+	{138, 1, outQuad, 1, 'byeconcentrate'}
+	
+	{139, 0, instant, .09, 'kirby', 1, 'freeze'}
+	
+	{140, 8, outQuad, 0, 'kirby', 0, 'byeconcentrate'}
+	{140, 8*4, inQuad, 600, 'byefreeze'}
+	
+	{143, 0, instant, 0, 'bumpy', 0, 'bumpyx', 0, 'movey', 0, 'rotationx', 0, 'confusionxoffset', 0, 'centered2', 0, 'mini', 0, 'bumpyxoffset', 0, 'bumpyoffset'}
+	
+	{145, 3, linear, 0, 'freeze'}
+	
+	{148, 0, instant, 0, 'byefreeze'}
+	
+	{159, 0, instant, 0, 'rotationx', 0, 'confusionxoffset', 100, 'zoomz', 0, 'bumpy', plr = 3}
+	
+	{160, 2, outQuad, 100, 'distant', 25, 'rotationz'}
+	
+	{162, 2, outQuad, 150, 'hallway', -25, 'rotationz'}
+	
+	{164, 1, outQuad, 0, 'hallway', 0, 'rotationz', 0, 'distant'}
+	
+	{176, 0, instant, 100, 'stealth', 0, 'xmod'}
+	
+	{178, 1, outQuad, 2.35, 'xmod', 0, 'stealth'}
+	
+	{196, 1, outExpo, 0, 'reverse'}
+	
+	{208, 2, outQuad, 100, 'distant'}
+	
+	{210, 3, inQuad, -6666, 'tiny'}
+	
+	{212, 0, instant, 0, 'tiny', 200, 'mini', 0, 'distant'}
+	{212, 0, instant, sw/4, 'plr_pos', plr = 1}
+	{212, 0, instant, sw*3/4, 'plr_pos', plr = 2}
+	{212, 243, outQuad, 0, 'mini', mode = 'end'}
+	
+	{242, 3, kick(2), .5, 'byefocus'}
+	{242, 0, instant, 0, 'zoomhow'}
+	
+	{243, 2, outQuad, -50, 'flip', -690/3, 'bumpy', 690/3, 'bumpyy', 500, 'bumpyyperiod', 500, 'bumpyperiod', 150, 'bumpyyoffset', -100, 'bumpy', 100, 'bumpyy', 50, 'reverse', 100, 'spiralholds'}
+	{243, 2, outQuad, scx+32*1, 'plr_pos', plr = 1}
+	{243, 2, outQuad, scx+32*-1, 'plr_pos', plr = 2}
+	
+	{251, 1, outQuad, 360, 'rotationx', -628, 'confusionxoffset'}
+	{251, 1, kick(2), .05, 'kirby'}
+	
+	{256, 1, outQuad, -360, 'rotationx', 628, 'confusionxoffset'}
+	{256, 1, kick(2), .05, 'kirby'}
+	
+	-- {260, 1, outQuad, -314, 'dizzy'}
+	
+	{268, 4, inOutQuad, 720*4, 'rotationx'}
+	
+	{273, 2, outQuad, 50, 'mini', 0, 'bumpy', 0, 'bumpyy', 0, 'reverse', 0, 'spiralholds', 0, 'flip', 0, 'dark', 0, 'hidenoteflash', 0, 'dizzy', 0, 'invert', plr = {1, 2, 3}}
+	{273, 2, outQuad, sw/6, 'plr_pos', 100, 'stealthgg', plr = 1}
+	{273, 2, outQuad, scx, 'plr_pos', 100, 'stealthgr', 100, 'flip', 314, 'confusionoffset', plr = 2}
+	{273, 2, outQuad, sw*5/6, 'plr_pos', 100, 'stealthgr', plr = 3}
+	{273, 4, tri, 55, 'stealth', plr = {1, 2, 3}}
+	
+	{276, 2, outQuad, scx, 'plr_pos', plr = 1}
+	{276, 2, outQuad, sw/6, 'plr_pos', plr = 2}
+	
+	{278, 2, outQuad, sw*5/6, 'plr_pos', plr = 1}
+	{278, 2, outQuad, scx, 'plr_pos', plr = 3}
+	
+	{284, 2, outQuad, scx, 'plr_pos', plr = 2}
+	{284, 2, outQuad, sw/6, 'plr_pos', plr = 3}
+	
+	{286, 2, outQuad, scx, 'plr_pos', plr = 1}
+	{286, 2, outQuad, sw*5/6, 'plr_pos', plr = 2}
+	
+	{288, 2, outQuad, sw/6, 'plr_pos', plr = 1}
+	{288, 2, outQuad, scx, 'plr_pos', plr = 3}
+	
+	{290, 2, outQuad, sw*5/6, 'plr_pos', plr = 1}
+	{290, 2, outQuad, sw/6, 'plr_pos', plr = 2}
+	
+	{292, 0, instant, 0, 'stealthgg', 0, 'stealthgr'}
+	{292, 4, outQuad, 0, 'mini', 1, 'byeomg', 69, 'magomg'}
+	{292, 8, linear, 3, 'crazyomg'}
+	{292, 4, outQuad, sw*3/4, 'plr_pos', plr = 1}
+	{292, 4, outQuad, 0, 'flip', 0, 'confusionoffset', sw/4, 'plr_pos', plr = 2}
+	{292, 4, outQuad, 200, 'mini', plr = 3}
+	
+	{294, 1, outQuad, .35, 'cropomg'}
+	
+	{296, 1, outQuad, 0, 'cropomg'}
+	
+	{298, 2, outQuad, 0, 'byeomg'}
+	
+	-- {298, 1, outQuad, scx+32*1, 'plr_pos', plr = 1}
+	-- {298, 1, outQuad, scx+32*-1, 'plr_pos', plr = 2}
+	
+	{300, 1, outQuad, 1, 'moveVal'}
+	
+	{312, 2, outQuad, 0, 'moveVal'}
+	{312, 1, outExpo, 100, 'reverse0'}
+	
+	{312.5, 1, outExpo, 100, 'reverse1'}
+	
+	{313, 1, outExpo, 100, 'reverse2'}
+	
+	{313.5, 1, outExpo, 100, 'reverse3'}
+	
+	{316, 1, outQuad, 1, 'moveVal'}
+	
+	{326, 2, outQuad, 0, 'moveVal'}
+	
+	{328, 2, outQuad, 100, 'distant', 25, 'rotationz', plr = 1}
+	{328, 2, outQuad, 150, 'hallway', -25, 'rotationz', plr = 2}
+	
+	{330, 2, outQuad, 150, 'hallway', -25, 'rotationz', plr = 1}
+	{330, 2, outQuad, 100, 'distant', 25, 'rotationz', plr = 2}
+	
+	{332, 1, outExpo, 0, 'distant', 0, 'hallway', 0, 'rotationz', 1, 'freeze'}
+	
+	{344, 1, outExpo, 0, 'reverse3', 0, 'freeze'}
+	{344, 6, tri, 150, 'hallway'}
+	
+	{344.5, 1, outExpo, 0, 'reverse2'}
+	
+	{344.75, 1, outExpo, 0, 'reverse1'}
+	
+	{345, 1, outExpo, 0, 'reverse0'}
+	
+	{348, 1, outQuad, 1, 'moveVal'}
+	
+	{358, 2, outQuad, 0, 'moveVal'}
+	
+	{360, 0, instant, 100, 'disablemines', 0, 'hidemines'}
+	{360, 2, outQuad, 100, 'dark', 150, 'hallway', -25, 'rotationz', 100, 'stealth', plr = 1}
+	
+	{362, 2, outQuad, 100, 'dark', 100, 'distant', 25, 'rotationz', 100, 'stealth', plr = 2}
+	
+	wiggle(36, 64-36, 1, kick(3), 25, 'drunk')
+	wiggle(36, 64-36, 1, kick(3), 25, 'tipsy')
+	
+	wiggle(36, 64-36, 6, tri, 25, 'rotationy')
+	wiggle(36, 64-36, 6, tri, 15, 'rotationx')
+	wiggle(36, 64-36, 6, tri, 5, 'rotationz')
+	
+	wiggle(93, 7, 1, kick(3), -25, 'drunk')
+	wiggle(93, 7, 1, kick(3), -25, 'tipsy')
+	
+	wiggle(116, 128-116, .25, kick(2), 45, 'drunk')
+	
+	wiggle(208, 212-208, .25, tri, 100, 'tipsy')
+	
+	wiggle(212, 243-212, 1, kick(3), 25, 'drunk')
+	wiggle(212, 243-212, 1, kick(3), 25, 'tipsy')
+	wiggle(212, 243-212, 6, tri, -25, 'rotationy', 1)
+	wiggle(212, 243-212, 6, tri, -15, 'rotationx', 1)
+	wiggle(212, 243-212, 6, tri, -5, 'rotationz', 1)
+	wiggle(212, 243-212, 6, tri, 25, 'rotationy', 2)
+	wiggle(212, 243-212, 6, tri, 15, 'rotationx', 2)
+	wiggle(212, 243-212, 6, tri, 5, 'rotationz', 2)
+	
+	wiggle(260, 272-260, .25, kick(2), -45, 'drunk')
+	
+	wiggle(300, 14, 1, tri, 75, 'distant', 1)
+	wiggle(300, 14, 1, tri, 75, 'hallway', 2)
+	
+	wiggle(316, 328-316, 1, tri, 75, 'hallway', 1)
+	wiggle(316, 328-316, 1, tri, 75, 'distant', 2)
+	
+	wiggle(344, 4, .25, tri, -100, 'tipsy')
+	
+	wiggle(348, 360-348, 1, tri, 75, 'distant', 1)
+	wiggle(348, 360-348, 1, tri, 75, 'hallway', 2)
+	
+	local ct_melody = (P[1] or P[2]):GetNoteData(68.5, 92.5)
+	
+	wiggle2lua(ct_melody, bounce, 50, 'drunk')
+	wiggle2lua(ct_melody, bounce, 50, 'tipsy')
+	
+	local ct_melody2 = (P[1] or P[2]):GetNoteData(132.5, 135)
+	
+	wiggle2lua(ct_melody2, bounce, -50, 'drunk')
+	wiggle2lua(ct_melody2, bounce, -50, 'tipsy')
+	
+	local ct_fakesesh = (P[1] or P[2]):GetNoteData(276, 296)
+	
+	wiggle2lua(ct_fakesesh, kick(2), 70, 'drunk')
+	wiggle2lua(ct_fakesesh, kick(2), 70, 'tipsy')
+	
+	-- include player 3 heck
+	wiggle2lua(ct_fakesesh, kick(2), 70, 'drunk', 3)
+	wiggle2lua(ct_fakesesh, kick(2), 70, 'tipsy', 3)
+	
+	wiggle0(348, 360-348, 2, outExpo, 100, 'reverse', 2)
+	wiggle0(348, 360-348, 2.5, instant, 85, 'stealth', 2)
+	
+	wiggle0(349, 360-349, 2, outExpo, 100, 'reverse', 1)
+	wiggle0(349, 360-349, 2.5, instant, 85, 'stealth', 1)
+	
+	switcheroo(64, .5, outExpo, 'reset')
+	
+	switcheroo(128, 0, instant, 'reset')
+	
+	drivendrop(68, 32, 32, 2.35)
+	
+	drivendrop(100, 28, 28, 2.35)
+	
+	drivendrop(132, 10, 10, 2.35)
+	
+	drivendrop(244, 276-248, 276-248, 2.35)
+	
+	local swaps = {'flip', 'invert', 'ludr', 'rdul', 'reset', 'drlu', 'ulrd', 'urld'}
+	
+	for beat=64.25,65,.25 do
+		-- add{beat, 0, instant, 150/4, 'distant'}
+		add{beat, 0, instant, -90/4, 'rotationx', 157/4, 'confusionxoffset', 500/4, 'bumpy', 500/4, 'bumpyx'}
+	end
+	
+	for beat=116,126,2 do
+		switcheroo(beat, 1, outExpo, swaps[math.mod(beat / 2, 8) + 1])
+	end
+	
+	for beat=128.25,129,.25 do
+		add{beat, 0, instant, -75/4, 'flip', 125/4, 'invert', -50/4, 'reverse', 90/4, 'rotationx', -157/4, 'confusionxoffset', -250/4, 'bumpy', -250/4, 'bumpyx'}
+	end
+	
+	for beat=176,177,.25 do
+		add{beat, 0, instant, 100/5, 'reverse'}
+	end
+	
+	for beat=208.25,209,.25 do
+		add{beat, 0, instant, -100/4, 'flip'}
+	end
+	
+	for beat=260,270,2 do
+		local flipVal = {150, 150, -50, -50}
+		local invertVal = {0, -200, 200, 0}
+		m_ea{beat, .5, outExpo, flipVal[math.floor(math.mod(beat / 2, 4) + 1)], 'flip', invertVal[math.floor(math.mod(beat / 2, 4) + 1)], 'invert'}
+	end
+	
+	for beat=298,300,.25 do
+		add{beat, 0, instant, -50/9, 'flip'}
+		-- this math is stupid
+		{beat, 0, instant, (scx/2+32*1)/9, 'plr_pos', plr = 1}
+		{beat, 0, instant, (-scx/2+32*-1)/9, 'plr_pos', plr = 2}
+		-- print(beat)
+	end
+	
+	local ct_trate = {{0, 1}, {4, 5}, {100, 102}, {106, 110}, {114, 115}, {160, 162}, {210, 211}, {244, 246}, {252, 254}, {258, 259}, {282, 283}, {328, 330}, {346, 347}, {360, 362}}
+	
+	for i,v in pairs(ct_trate) do
+		for beat=v[1],v[2],2 do
+			m_ea{beat, 1, kick(1), .25, 'byeconcentrate'}
+		end
+	end
+	
+	local ct_co = {{104, 106}, {112, 114}, {159.25, 160}, {161.25, 162}, {248, 250}}
+	
+	for i,v in pairs(ct_co) do
+		for beat=v[1],v[2],.5 do
+			m_ea{beat, .25, square, .25, 'byecon'}
+		end
+	end
+	
+	local ct_tch = {{36, 64}, {93, 126}, {212, 256}, {260, 268}}
+	
+	for i,v in pairs(ct_tch) do
+		for beat=v[1],v[2] do
+			m_ea{beat, 1, kick(4), -69, 'tiny'}
+		end
+	end
+	
+	local ct_flicker = {{64.25, 65}, {159.25, 160}, {161.25, 162}, {176, 177}, {208.25, 209}, {298, 300}, {315, 316}, {329.25, 330}, {344.25, 345}, {361.25, 362}}
+	
+	for i,v in pairs(ct_flicker) do
+		for beat=v[1],v[2],.25 do
+			m_ea{beat, .125, square, 100, 'hide'}
+		end
+	end
+	
+	local ct_flickhow = {{94, 95}, {238, 239}}
+	
+	for i,v in pairs(ct_flickhow) do
+		for beat=v[1],v[2],.25 do
+			add{beat, 0, instant, 1/5, 'zoomhow'}
+			m_ea{beat, .125, square, 1, 'byehow2'}
+		end
+	end
+	
+	for i = 1,table.getn(ct_stealth) do
+		local beat = ct_stealth[i]
+		m_ea{beat[1], 1, kick(2.5), 55, 'stealth', plr = {1, 2, 3}}
+	end
+	
+	for i = 1,table.getn(ct_introswap) do
+		local beat = ct_introswap[i]
+		switcheroo(beat[1], .5, outExpo, swaps[math.floor(math.mod(beat[1] * 4, 8) + 1)])
+		-- print(math.floor(math.mod(beat[1] * 4, 8)))
+	end
+	
+	local ct_glitch1 = (P[1] or P[2]):GetNoteData(148, 175)
+	
+	for i = 1,table.getn(ct_glitch1) do
+		local beat = ct_glitch1[i]
+		m_ea{beat[1], 1, kick(12), .5, 'vertical_kirby'}
+		{beat[1], 1, kick(7), -360, 'tiny'}
+	end
+	
+	local ct_quicksand = (P[1] or P[2]):GetNoteData(148, 159)
+	
+	for i = 1,table.getn(ct_quicksand) do
+		local beat = ct_quicksand[i]
+		switcheroo(beat[1], .5, outExpo, swaps[math.floor(math.mod(beat[1] * 4, 8) + 1)])
+		-- print(swaps[math.floor(math.mod(beat[1] * 4, 8) + 1)])
+	end
+	wiggle2lua(ct_quicksand, kick(4), 420, 'movey0')
+	wiggle2lua(ct_quicksand, kick(4), -420, 'movey1')
+	wiggle2lua(ct_quicksand, kick(4), 420, 'movey2')
+	wiggle2lua(ct_quicksand, kick(4), -420, 'movey3')
+	
+	local ct_quicksand2 = (P[1] or P[2]):GetNoteData(164, 175)
+	
+	for i = 1,table.getn(ct_quicksand2) do
+		local beat = ct_quicksand2[i]
+		switcheroo(beat[1], .5, outExpo, swaps[math.floor(math.mod(beat[1] * 4, 8) + 1)])
+		-- print(swaps[math.floor(math.mod(beat[1] * 4, 8) + 1)])
+	end
+	wiggle2lua(ct_quicksand2, kick(4), -420, 'movey0')
+	wiggle2lua(ct_quicksand2, kick(4), 420, 'movey1')
+	wiggle2lua(ct_quicksand2, kick(4), -420, 'movey2')
+	wiggle2lua(ct_quicksand2, kick(4), 420, 'movey3')
+	
+	local ct_glitch2 = (P[1] or P[2]):GetNoteData(179, 207)
+	
+	for i = 1,table.getn(ct_glitch2) do
+		local beat = ct_glitch2[i]
+		local flipVal = {100, 0, 0}
+		local invertVal = {0, 100, 0}
+		m_ea{beat[1], 1, kick(12), .25, 'kirby'}
+		{beat[1], 1, kick(7), -360, 'tiny'}
+		{beat[1], .5, outExpo, flipVal[math.floor(math.mod(beat[1] * 4, 3) + 1)], 'flip', invertVal[math.floor(math.mod(beat[1] * 4, 3) + 1)], 'invert'}
+	end
+	wiggle2lua(ct_glitch2, kick(4), -500, 'movex0')
+	wiggle2lua(ct_glitch2, kick(4), 500, 'movex1')
+	wiggle2lua(ct_glitch2, kick(4), -500, 'movex2')
+	wiggle2lua(ct_glitch2, kick(4), 500, 'movex3')
+	
+	local ct_glitch2_point_five = (P[1] or P[2]):GetNoteData(284, 290)
+	
+	for i = 1,table.getn(ct_glitch2_point_five) do
+		local beat = ct_glitch2_point_five[i]
+		m_ea{beat[1], 1, kick(12), .25, 'kirby'}
+		{beat[1], 1, kick(7), -360, 'tiny', plr = {1, 2, 3}}
+	end
+	
+	local ct_kick = (P[1] or P[2]):GetNoteData(332, 344)
+	
+	for i = 1,table.getn(ct_kick) do
+		local beat = ct_kick[i]
+		m_ea{beat[1], 1, kick(5), 0, 'freeze'}
+		{beat[1], 1, kick(8), 5, 'nyoom', 1, 'black'}
+	end
+	wiggle2lua(ct_kick, kick(2), 20, 'rotationy')
+	wiggle2lua(ct_kick, kick(3), 75, 'distant')
+	wiggle2lua(ct_kick, kick(3), 100, 'drunk')
+	wiggle2lua(ct_kick, kick(3), 100, 'tipsy')
+	wiggle2lua(ct_kick, kick(3), -75, 'rotationx', 3)
+	wiggle2lua(ct_kick, kick(3), 20, 'rotationz', 3)
+	
+	for i = 1,table.getn(ct_ayakashiswap) do
+		local beat = ct_ayakashiswap[i]
+		local flipVal = {150, 150, -50, -50}
+		local invertVal = {0, -200, 0, 200}
+		m_ea{beat[1], .5, outExpo, flipVal[math.floor(math.mod(beat[1] * 2, 4) + 1)], 'flip', invertVal[math.floor(math.mod(beat[1] * 2, 4) + 1)], 'invert'}
+	end
+	
+	for i = 1,table.getn(ct_glitch3) do
+		local beat = ct_glitch3[i]
+		m_ea{beat[1], 1, kick(12), .01, 'kirby2'}
+		{beat[1], 1, kick(7), -360, 'tiny'}
+	end
+	
+	-- mm {{beat [, len [, mode = 'end']], function(beat, poptions) ... end [, defer = true]}
+	-- can be used as perframe or mod_action
+	
+	mm{0, function(beat)
+		for pn = 1, max_pn do
+	        -- P[pn]:x(scx)
+	        P[pn]:GetChild('Judgment'):hidden(1)
+			P[pn]:GetChild('Combo'):hidden(1)
+	    end
+		
+		if P[3] then
+			P[3]:SetAwake(true)
+			P[3]:SetNoteDataFromLua(ct_fake)
+			P[3]:hidden(1)
+			P[3]:GetChild('Judgment'):hidden(1)
+			P[3]:GetChild('Combo'):hidden(1)
+		end
+		
+		ct_introtext:vibrate()
+		ct_introtext:effectmagnitude(0, 0, 0)
+	end}
+	{4, function(beat)
+		if P[3] then
+			P[3]:wag()
+			P[3]:effectmagnitude(0, 45, 0)
+			P[3]:effectclock('bgm')
+			P[3]:effectperiod(8)
+		
+			P[3]:hidden(0)
+		end
+	
+		MESSAGEMAN:Broadcast('WhiteFlash')
+	end}
+	{15, function(beat)
+		MESSAGEMAN:Broadcast('HideHow')
+		MESSAGEMAN:Broadcast('ApprFocus')
+	end}
+	{18, function(beat)
+		MESSAGEMAN:Broadcast('HideFocus')
+		MESSAGEMAN:Broadcast('ApprAnswer')
+	end}
+	{21, function(beat)
+		MESSAGEMAN:Broadcast('HideAnswer')
+		MESSAGEMAN:Broadcast('ApprImportant')
+	end}
+	{28, function(beat)
+		MESSAGEMAN:Broadcast('HideImportant')
+		MESSAGEMAN:Broadcast('ApprLifetime')
+	end}
+	{36, function(beat)
+		for pn = 1, 2 do
+	        P[pn]:bob()
+	        P[pn]:effectmagnitude(0, 0, 0)
+	        P[pn]:effectclock('bgm')
+	        P[pn]:effectperiod(8)
+	    end
+		
+		ct_introtext:stopeffect()
+		
+		MESSAGEMAN:Broadcast('HideLifetime')
+	end}
+	{95, function(beat)
+		MESSAGEMAN:Broadcast('ApprStay')
+	end}
+	{98, function(beat)
+		MESSAGEMAN:Broadcast('HideStay')
+	end}
+	{100, function(beat)
+		for pn = 1, 2 do
+	        P[pn]:stopeffect()
+	    end
+		
+		if P[3] then
+			P[3]:stopeffect()
+		end
+	end}
+	{212, function(beat)
+		MESSAGEMAN:Broadcast('WhiteFlash')
+	end}
+	{239, function(beat)
+		MESSAGEMAN:Broadcast('ApprStay')
+	end}
+	{242, function(beat)
+		MESSAGEMAN:Broadcast('HideStay')
+	end}
+	{300, 14, function(beat, mods)
+		if P[1] then
+			mods[1].movex = math.sin(beat*math.pi) * 100 * mods[1].moveVal
+			mods[1].movez = -math.cos(beat*math.pi) * 400 * mods[1].moveVal
+		end
+		if P[2] then
+			mods[2].movex = math.sin(beat*math.pi) * -100 * mods[2].moveVal
+			mods[2].movez = -math.cos(beat*math.pi) * -400 * mods[2].moveVal
+		end
+	end}
+	{316, 328, function(beat, mods)
+		if P[1] then
+			mods[1].movex = math.sin(beat*math.pi) * -100 * mods[1].moveVal
+			mods[1].movez = -math.cos(beat*math.pi) * -400 * mods[1].moveVal
+		end
+		if P[2] then
+			mods[2].movex = math.sin(beat*math.pi) * 100 * mods[2].moveVal
+			mods[2].movez = -math.cos(beat*math.pi) * 400 * mods[2].moveVal
+		end
+	end, mode = 'end'}
+	{348, 360, function(beat, mods)
+		if P[1] then
+			mods[1].movex = math.sin(beat*math.pi) * 100 * mods[1].moveVal
+			mods[1].movez = -math.cos(beat*math.pi) * 400 * mods[1].moveVal
+		end
+		if P[2] then
+			mods[2].movex = math.sin(beat*math.pi) * -100 * mods[2].moveVal
+			mods[2].movez = -math.cos(beat*math.pi) * -400 * mods[2].moveVal
+		end
+	end, mode = 'end'}
+	
+	
+	-- aux {modname}
+	-- The aux function creates an auxiliary mod. The template will keep track of the value of the mod, but will not apply it to the players.
+	-- Example, aux {'blacksphere'}, aux {'mod1', 'mod2', 'mod3'}
+	
+	-- node {modname, function(p) [code] end}
+	-- node creates a function that transforms the values of mods before they are applied every frame. node creates a function that takes in mod values and outputs mod values.
+	
+	aux{'plr_pos'}
+	node{'plr_pos', function(percent, plr)
+		if P[plr] then
+	        P[plr]:x(percent)
+	    end
+	end}
+	
+	aux{'magnitudeX'}
+	node{'magnitudeX', function(percent)
+		for pn = 1, 2 do
+	        P[pn]:effectmagnitude(percent, 0, 0)
+	    end
+	end}
+	
+	aux{'effectperiod'}
+	node{'effectperiod', function(percent)
+		for pn = 1, 2 do
+	        P[pn]:effectperiod(percent)
+	    end
+	end}
+	
+	aux{'byehow'}
+	node{'byehow', function(percent)
+		ct_how_do:diffusealpha(percent + .5)
+	end}
+	
+	aux{'byeperiod'}
+	node{'byeperiod', function(percent)
+		ct_period:diffusealpha(percent + .5)
+	end}
+	
+	aux{'textvibb'}
+	node{'textvibb', function(percent)
+		ct_introtext:effectmagnitude(percent, 0, 0)
+	end}
+	
+	aux{'aftray'}
+	node{'aftray', function(percent)
+		ct_aftsprite:diffusealpha(percent)
+	end}
+	
+	aux{'kirby'}
+	node{'kirby', function(percent)
+		ct_lines:GetShader():uniform1f('amount', percent)
+	end}
+	
+	aux{'vertical_kirby'}
+	node{'vertical_kirby', function(percent)
+		ct_color:GetShader():uniform1f('offset', percent)
+	end}
+	
+	aux{'byehow2'}
+	node{'byehow2', function(percent)
+		ct_how:diffusealpha(percent)
+	end}
+	
+	aux{'zoomhow'}
+	node{'zoomhow', function(percent)
+		ct_how:zoom(percent)
+	end}
+	
+	aux{'byefocus'}
+	node{'byefocus', function(percent)
+		ct_focused:diffusealpha(percent)
+	end}
+	
+	aux{'freeze'}
+	node{'freeze', function(percent)
+		ct_freezesprite:diffusealpha(percent)
+	end}
+	
+	aux{'byefreeze'}
+	node{'byefreeze', function(percent)
+		ct_freezesprite:y(percent + scy)
+	end}
+	
+	aux{'byeconcentrate'}
+	node{'byeconcentrate', function(percent)
+		ct_concentrate:diffusealpha(percent)
+	end}
+	
+	aux{'byecon'}
+	node{'byecon', function(percent)
+		ct_con:diffusealpha(percent)
+	end}
+	
+	aux{'moveVal'}
+	
+	aux{'kirby2'}
+	node{'kirby2', function(percent)
+		ct_hori:GetShader():uniform1f('amp', percent)
+	end}
+	
+	aux{'nyoom'}
+	node{'nyoom', function(percent)
+		ct_freezesprite:zoomx(percent + 1)
+	end}
+	
+	aux{'black'}
+	node{'black', function(percent)
+		ct_quad2:diffuse(0, 0, 0, percent)
+	end}
+	
+	aux{'byeomg'}
+	node{'byeomg', function(percent)
+		ct_omg:diffusealpha(percent)
+	end}
+	
+	aux{'cropomg'}
+	node{'cropomg', function(percent)
+		ct_omg:cropright(percent)
+	end}
+	
+	aux{'magomg'}
+	node{'magomg', function(percent)
+		ct_omg:effectmagnitude(percent, percent, percent)
+	end}
+	
+	aux{'crazyomg'}
+	node{'crazyomg', function(percent)
+		ct_omg:zoom(percent)
+	end}
+	
+	aux{'funy'}
+	node{'funy', function(percent)
+		for pn = 1, 2 do
+	        P[pn]:SetRotZSpline(1, -1, percent, 200, -1)
+	    end
+	end}
+	
+	-- card {start, end, name, difficulty, color}
+	-- let's you add spellcards to a chart.
+	-- color = {r, g, b, a}
+	
+	-- card{0, 4, 'hit the jump (not clickbait)', 0, {1, 0, 0, 1}}
+	card{4, 64, 'what? waiting for a dpad? dont, just focus', 0, {0, .5, .5, 1}}
+	card{68, 100, 'walk with me', 0, {1, 1, 1, 1}}
+	card{100, 128, 'driving on the bumpy road', 0, {0, 1, 0, 1}}
+	card{132, 137, 'walk with me 2', 0, {1, 1, 1, 1}}
+	card{138, 148, 'yeah, hit those notes, its real, hit them, its possible, its good, its healthy', 0, {.5, .5, .5, 1}}
+	card{148, 175, 'quiksans by cam', 0, {1, 1, 0, 1}}
+	card{164, 208, 'quiksans by cam, x-axis edition', 0, {.5, .5, 0, 1}}
+	card{212, 244, 'still waiting for a dpad? theres no dpad soz pensive emoji', 0, {0, .25, .25, 1}}
+	card{244, 272, 'driving on the bumpy road 2', 0, {0, 1, 0, 1}}
+	card{276, 296, 'this effect is totally not overused smiley face', 0, {0, 0, 1, 1}}
+	card{300, 328, 'lookin them go! marry go round', 0, {1, .5, 0, 1}}
+	card{332, 344, 'hey remember that file with the title only-', 0, {.5, .5, .5, 1}}
+	card{348, 360, 'lookin them go! marry go round TWO', 0, {1, .75, 0, 1}}
+	
+end)"
+Type = "ActorFrame"
+><children>
+	<Layer File="chart2lua" />
+
+	<Layer Type = "ActorProxy" Name = "PC[1]" />
+	<Layer Type = "ActorProxy" Name = "PC[2]" />
+	<Layer Type = "ActorProxy" Name = "PJ[1]" />
+	<Layer Type = "ActorProxy" Name = "PJ[2]" />
+	<Layer Type = "ActorProxy" Name = "PP[1]" />
+	<Layer Type = "ActorProxy" Name = "PP[2]" />
+	
+	<Layer 
+		Type = "Quad" 
+		InitCommand = "%xero.sprite" 
+		Name = "ct_quad" 
+		OnCommand = "%function(self)
+			xero()
+			self:xy(SCREEN_CENTER_X,SCREEN_CENTER_Y);
+			self:zoom(9e9);
+			self:diffusealpha(0);
+		end"
+		WhiteFlashMessageCommand="finishtweening;diffusealpha,1;linear,0.6;diffusealpha,0"
+		LongWhiteFlashMessageCommand="finishtweening;diffusealpha,1;linear,3.6;diffusealpha,0"
+	/>
+	
+	<Layer 
+		Type = "Quad" 
+		InitCommand = "%xero.sprite" 
+		Name = "ct_quad2" 
+		OnCommand = "%function(self)
+			xero()
+			self:xy(SCREEN_CENTER_X,SCREEN_CENTER_Y);
+			self:zoom(9e9);
+			self:diffusealpha(0);
+		end"
+	/>
+	
+	<Layer Type = "ActorFrame" Name = "ct_introtext"><children>
+		<Layer 
+			File = "Texts/how_do.png"
+			Name = "ct_how_do" 
+			InitCommand="%function(self) 
+				xero()
+				self:xy(scx, scy)
+				self:diffusealpha(0)
+				self:zoom(.5)
+			end"
+			ApprHowMessageCommand="diffusealpha,.5"
+			HideHowMessageCommand="diffusealpha,0"
+		/>
+	
+		<Layer 
+			File = "Texts/focused.png"
+			Name = "ct_focused" 
+			InitCommand="%function(self) 
+				xero()
+				self:xy(scx, scy)
+				self:diffusealpha(0)
+				self:zoom(.5)
+			end"
+			ApprFocusMessageCommand="diffusealpha,.5"
+			HideFocusMessageCommand="diffusealpha,0"
+		/>
+	
+		<Layer 
+			File = "Texts/answering.png"
+			Name = "ct_answering" 
+			InitCommand="%function(self) 
+				xero()
+				self:xy(scx, scy)
+				self:diffusealpha(0)
+				self:zoom(.5)
+			end"
+			ApprAnswerMessageCommand="diffusealpha,.5"
+			HideAnswerMessageCommand="diffusealpha,0"
+		/>
+	
+		<Layer 
+			File = "Texts/most_important.png"
+			Name = "ct_important" 
+			InitCommand="%function(self) 
+				xero()
+				self:xy(scx, scy)
+				self:diffusealpha(0)
+				self:zoom(.3)
+			end"
+			ApprImportantMessageCommand="diffusealpha,.5"
+			HideImportantMessageCommand="diffusealpha,0"
+		/>
+	
+		<Layer 
+			File = "Texts/lifetime.png"
+			Name = "ct_lifetime" 
+			InitCommand="%function(self) 
+				xero()
+				self:xy(scx, scy)
+				self:diffusealpha(0)
+				self:zoom(.4)
+			end"
+			ApprLifetimeMessageCommand="diffusealpha,.5"
+			HideLifetimeMessageCommand="diffusealpha,0"
+		/>
+	
+		<Layer 
+			File = "Texts/period.png"
+			Name = "ct_period" 
+			InitCommand="%function(self) 
+				xero()
+				self:xy(scx, scy)
+				self:diffusealpha(0)
+				self:zoom(.5)
+			end"
+			ApprPeriodMessageCommand="diffusealpha,.5"
+			HidePeriodMessageCommand="diffusealpha,0"
+		/>
+		
+		<Layer 
+			File = "Texts/how.png"
+			Name = "ct_how" 
+			InitCommand="%function(self) 
+				xero()
+				self:xy(scx, scy)
+				self:diffusealpha(0)
+				self:zoom(0)
+			end"
+			ApprHMessageCommand="diffusealpha,.5"
+			HideHMessageCommand="diffusealpha,0"
+		/>
+		
+		<Layer 
+			File = "Texts/stay.png"
+			Name = "ct_stay" 
+			InitCommand="%function(self) 
+				xero()
+				self:xy(scx, scy)
+				self:diffusealpha(0)
+				self:zoom(.5)
+			end"
+			ApprStayMessageCommand="diffusealpha,.5"
+			HideStayMessageCommand="diffusealpha,0"
+		/>
+		
+		<Layer 
+			File = "Texts/con2.png"
+			Name = "ct_con" 
+			InitCommand="%function(self) 
+				xero()
+				self:xy(scx, scy)
+				self:diffusealpha(0)
+				self:zoom(.5)
+			end"
+			ApprConMessageCommand="diffusealpha,.5"
+			HideConMessageCommand="diffusealpha,0"
+		/>
+		
+		<Layer 
+			File = "Texts/concentrate.png"
+			Name = "ct_concentrate" 
+			InitCommand="%function(self) 
+				xero()
+				self:xy(scx, scy)
+				self:diffusealpha(0)
+				self:zoom(.5)
+			end"
+			ApprConcentrateMessageCommand="diffusealpha,.5"
+			HideConcentrateMessageCommand="diffusealpha,0"
+		/>
+		
+		<Layer 
+			File = "Texts/omg.png"
+			Name = "ct_omg" 
+			InitCommand="%function(self) 
+				xero()
+				self:xy(scx, scy)
+				self:diffusealpha(0)
+				self:zoom(.05)
+				
+				self:vibrate()
+				self:effectmagnitude(0, 0, 0)
+			end"
+			ApprOMGMessageCommand="diffusealpha,.5"
+			HideOMGMessageCommand="diffusealpha,0"
+		/>
+	</children></Layer>
+	
+	<Layer
+		Type="Sprite"
+		InitCommand = "%xero.sprite"
+		Name = "ct_aftsprite"
+		OnCommand = "%function(self)
+			xero()
+			self:diffusealpha(0)
+			self:zoom(1)
+			self:queuecommand('renderMe');
+		end"
+			
+		renderMeCommand="%xero(function(self)
+            self:zoom(1.05)
+            self:SetTexture(ct_bright_aft:GetTexture())
+            self:blend('add')
+        end)"
+		HideMessageCommand="diffusealpha,0;blend,add;zoom,1.05"
+	/>
+	
+	<Layer Type = "ActorFrameTexture" InitCommand = "%xero.aft" Name = "ct_bright_aft" />
+	
+	<Layer
+		Type="Sprite"
+		InitCommand = "%xero.sprite"
+		Name = "ct_freezesprite"
+		OnCommand = "%function(self)
+			xero()
+			self:diffusealpha(0)
+			self:zoom(1)
+			self:queuecommand('renderMe');
+		end"
+			
+		renderMeCommand="%xero(function(self)
+            -- self:zoom(1.05)
+            self:SetTexture(ct_freeze_aft:GetTexture())
+            -- self:blend('add')
+        end)"
+		HideMessageCommand="diffusealpha,0;blend,add;zoom,1.05"
+	/>
+	
+	<Layer Type = "ActorFrameTexture" InitCommand = "%xero.aft" Name = "ct_freeze_aft" />
+	
+	<Layer Type = "ActorFrameTexture" InitCommand = "%xero.aft" Name = "ct_shader_aft" />
+	
+	<Layer 
+		Type = "Sprite"
+		Frag = "Shaders/glitch-lines.frag"
+		InitCommand = "%xero.sprite" 
+		Name = "ct_lines" 
+		OnCommand="%function(self) 
+			xero()
+			self:SetTexture(ct_shader_aft:GetTexture())
+			self:diffusealpha(1)
+		end"
+	/>
+	
+	<Layer Type = "ActorFrameTexture" InitCommand = "%xero.aft" Name = "ct_shader_aft2" />
+	
+	<Layer 
+		Type = "Sprite"
+		Frag = "Shaders/color.frag"
+		InitCommand = "%xero.sprite" 
+		Name = "ct_color" 
+		OnCommand="%function(self) 
+			xero()
+			local function nextpow2(x) return math.pow(2, math.ceil(math.log(x) / math.log(2))) end
+			self:SetTexture(ct_shader_aft2:GetTexture())
+			self:GetShader():uniform2f('screen', DISPLAY:GetDisplayWidth() / nextpow2(DISPLAY:GetDisplayWidth()), DISPLAY:GetDisplayHeight() / nextpow2(DISPLAY:GetDisplayHeight()))
+			self:diffusealpha(1)
+		end"
+	/>
+	
+	<Layer Type = "ActorFrameTexture" InitCommand = "%xero.aft" Name = "ct_shader_aft3" />
+	
+	<Layer 
+		Type = "Sprite"
+		Frag = "Shaders/horizon.frag"
+		InitCommand = "%xero.sprite" 
+		Name = "ct_hori" 
+		OnCommand="%function(self) 
+			xero()
+			self:SetTexture(ct_shader_aft3:GetTexture())
+			self:diffusealpha(1)
+		end"
+	/>
+</children></Mods>

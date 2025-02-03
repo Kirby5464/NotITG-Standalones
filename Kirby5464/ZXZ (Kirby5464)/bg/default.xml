@@ -1,0 +1,32 @@
+<ActorFrame><children>
+	
+	<Layer
+		Type="Sprite"
+		Texture="bg.png"
+		Shader="Shaders/spiral.frag"
+		OnCommand="%function(self) 
+			zxz_spiral = self; 
+			self:x(SCREEN_CENTER_X);
+            self:y(SCREEN_CENTER_Y);
+            self:zoomtowidth(SCREEN_WIDTH);
+            self:zoomtoheight(SCREEN_HEIGHT);
+			self:GetShader():uniform1f('radius', 0.75);
+			self:diffusealpha(0);
+		end"
+		SurpriseMeMessageCommand="diffusealpha,1"
+		UnSurpriseMeMessageCommand="diffusealpha,0"
+	/>
+	
+	<Layer
+		Type="Quad"
+		InitCommand="%function(self) zxz_bgquad = self end"
+		OnCommand="%function(self)
+		self:x(SCREEN_CENTER_X);
+		self:y(SCREEN_CENTER_Y);
+		self:zoomto(SCREEN_WIDTH,SCREEN_HEIGHT);
+		self:diffuse(0,0,0,0);
+		end"
+		BGWhiteFlashMessageCommand="finishtweening;diffuse,1,1,1,1;linear,1.2;diffusealpha,0"
+	/>
+	
+</children></ActorFrame>

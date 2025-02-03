@@ -1,0 +1,288 @@
+<Layer Condition = "prefix(function()
+	local sqrt = math.sqrt
+	local abs = math.abs
+	local pow = math.pow
+	local exp = math.exp
+	local sin = math.sin
+	local cos = math.cos
+	local tan = math.tan
+	local pi = math.pi
+	
+	function instant()
+		return 1
+	end
+	
+	function bounce(t)
+		return 4 * t * (1 - t)
+	end
+	
+	function bell(t)
+		return (t == 1) and 0 or (inOutCubic(tri(t)))
+	end
+	
+	function pop(t)
+		return (t == 1) and 0 or (3.5 * (1 - t) * (1 - t) * sqrt(t))
+	end
+	
+	function elastic(t)
+		return pow(50, -t) * sin(t * 3 * pi) * 1.76
+	end
+	
+	local kick_cache = {}
+	
+	function kick(amt)
+		kick_cache[amt] = kick_cache[amt] or function(t)
+			return (sqrt(t) * pow(1 - t, amt)) * (2.5 + amt * .6)
+		end
+		return kick_cache[amt]
+	end
+	
+	function tap(t)
+		return (t == 1) and 0 or (3.5 * t * t * sqrt(1 - t))
+	end
+	
+	function circ(t)
+		return (t == 1) and 0 or (t > .5 and 20 * (1 - t) * (t - 1) * sqrt(t - .5) or 20 * t * t * sqrt(.5 - t))
+	end
+	
+	function square(t)
+		return t == 1 and 0 or 1
+	end
+	
+	function tri(t)
+		return 1 - abs(2 * t - 1)
+	end
+	
+	function tooth(t)
+		return 1 - t
+	end
+	
+	function spike(t)
+		return (t == 1) and 0 or exp(-10 * abs(2 * t - 1))
+	end
+	
+	function cosc(t)
+		return (t == 1) and 0 or (t == .5) and .9675 or (t * (1 - t) * cos(30 * t - 15) / (t - .5) * 0.13)
+	end
+	
+	function sinc(t)
+		return (t == 1) and 0 or (t == .5) and .9675 or (t * (1 - t) * sin(30 * t - 15) / (t - .5) * 0.13)
+	end
+	
+	function inverse(x)
+		return x * x * (1 - x) * (1 - x) / (x - 0.5)
+	end
+	
+	function linear(t)
+		return t
+	end
+	
+	function inQuad(t)
+		return t * t
+	end
+	
+	function outQuad(t)
+		return -t * (t - 2)
+	end
+	
+	function inOutQuad(t)
+		if t < .5 then
+			return 2 * t * t
+		else
+			return -2 * t * t + 4 * t - 1
+		end
+	end
+	
+	function inCubic(t)
+		return t * t * t
+	end
+	
+	function outCubic(t)
+		t = 1 - t
+		return 1 - t * t * t
+	end
+	
+	function inOutCubic(t)
+		if t < .5 then
+			return 4 * t * t * t
+		else
+			t = 1 - t
+			return 1 - 4 * t * t * t
+		end
+	end
+	
+	function inQuart(t)
+		return (t == 1) and 1 or pow(t, 4)
+	end
+	
+	function outQuart(t)
+		return (t == 1) and 1 or 1 - pow(1 - t, 4)
+	end
+	
+	function inOutQuart(t)
+		if t == 1 then
+			return 1
+		end
+		t = t * 2
+		if t < 1 then
+			return .5 * pow(t, 4)
+		else
+			return 1 - .5 * pow(2 - t, 4)
+		end
+	end
+	
+	function inQuint(t)
+		return (t == 1) and 1 or pow(t, 5)
+	end
+	
+	function outQuint(t)
+		return (t == 1) and 1 or 1 - pow(1 - t, 5)
+	end
+	
+	function inOutQuint(t)
+		if t == 1 then
+			return 1
+		end
+		t = t * 2
+		if t < 1 then
+			return .5 * pow(t, 5)
+		else
+			return 1 - .5 * (pow(2 - t, 5))
+		end
+	end
+	
+	function inExpo(t)
+		return (t == 1) and 1 or pow(1000, t - 1) - .001
+	end
+	
+	function outExpo(t)
+		return (t == 1) and 1 or .999 - pow(1000, -t)
+	end
+	
+	function inOutExpo(t)
+		if t == 1 then
+			return 1
+		end
+		t = t * 2
+		if t < 1 then
+			return .5 * pow(1000, t - 1) - .0005
+		else
+			return .9995 - .5 * pow(1000, 1 - t)
+		end
+	end
+	
+	-- custom not-standard implementation for back
+	-- recommended m is 3
+	-- no restrictions on m
+	-- m is how far back it pulls
+	
+	local inBack_cache = {}
+	
+	function inBack(m)
+		local m1 = m + 1
+		inBack_cache[m] = inBack_cache[m] or function(t)
+			return (t == 1) and 1 or t * t * t * (t * t * m1 - m)
+		end
+		return inBack_cache[m]
+	end
+	
+	local outBack_cache = {}
+	
+	function outBack(m)
+		local m1 = m + 1
+		outBack_cache[m] = outBack_cache[m] or function(t)
+			t = 1 - t
+			return (t == 0) and 1 or 1 - t * t * t * (t * t* m1 - m)
+		end
+		return outBack_cache[m]
+	end
+	
+	local inOutBack_cache = {}
+	
+	function inOutBack(m)
+		local m1 = m + 1
+		local ib = inBack(m)
+		inOutBack_cache[m] = inOutBack_cache[m] or function(t)
+			return (t == 1) and 1 or (t < .5) and .5 * ib(t * 2) or 1 - .5 * ib(2 - t * 2)
+		end
+		return inOutBack_cache[m]
+	end
+	
+	-- custom non-standard implementation for elastic
+	-- recommended m is 3
+	-- m must be a non-negative integer
+	-- m is the number of squiggles
+	
+	local inElastic_cache = {}
+	
+	function inElastic(m)
+		local factor = pi * (m + .5)
+		local factor2 = (math.mod(m, 2) == 0) and 1 or -1
+		inElastic_cache[m] = inElastic_cache[m] or function(t)
+			return (t == 1) and 1 or factor2 * (pow(1000, t - 1) - .001) * sin(t * factor)
+		end
+		return inElastic_cache[m]
+	end
+	
+	local outElastic_cache = {}
+	
+	function outElastic(m)
+		local factor = pi * (m + .5)
+		local factor2 = (math.mod(m, 2) == 0) and 1 or -1
+		outElastic_cache[m] = outElastic_cache[m] or function(t)
+			t = 1 - t
+			return (t == 0) and 1 or 1 - factor2 * (pow(1000, t - 1) - .001) * sin(t * factor)
+		end
+		return outElastic_cache[m]
+	end
+	
+	local inOutElastic_cache = {}
+	
+	function inOutElastic(m)
+		local m1 = m + 1
+		local ie = inElastic(m)
+		inOutElastic_cache[m] = inOutElastic_cache[m] or function(t)
+			return (t == 1) and 1 or (t < .5) and .5 * ie(t * 2) or 1 - .5 * ie(2 - t * 2)
+		end
+		return inOutElastic_cache[m]
+	end
+	
+	-- custom non-standard implementation for bounce
+	-- recommended m is 6
+	-- m must be a non-negative integer
+	-- m is the number of bounces
+	
+	local inBounce_cache = {}
+	
+	function inBounce(m)
+		local factor = pi * (m + .5)
+		inBounce_cache[m] = inBounce_cache[m] or function(t)
+			local k = 1 - t
+			return (t == 1) and 1 or (pow(50, t - 1) - .02) * math.abs(sin((1 - k ^ 1.5) * factor))
+		end
+		return inBounce_cache[m]
+	end
+	
+	local outBounce_cache = {}
+	
+	function outBounce(m)
+		local factor = pi * (m + .5)
+		outBounce_cache[m] = outBounce_cache[m] or function(t)
+			local k = 1 - t
+			return (k == 1) and 1 or 1 -(pow(50, k - 1) - .02) * math.abs(sin((1 - t ^ 1.5) * factor))
+		end
+		return outBounce_cache[m]
+	end
+	
+	local inOutBounce_cache = {}
+	
+	function inOutBounce(m)
+		local m1 = m + 1
+		local ib = inBounce(m)
+		inOutBounce_cache[m] = inOutBounce_cache[m] or function(t)
+			return (t == 1) and 1 or (t < .5) and .5 * ib(t * 2) or 1 - .5 * ib(2 - t * 2)
+		end
+		return inOutBounce_cache[m]
+	end
+	
+end)()" />

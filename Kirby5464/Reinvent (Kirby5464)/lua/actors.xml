@@ -1,0 +1,53 @@
+<ActorFrame>
+	<children>
+		<!--
+		<Actor Type = "ActorProxy" NameCommand = "%prefix.name.player1" />
+		<Actor Type = "ActorProxy" NameCommand = "%prefix.name.player2" />
+		-->
+		<Actor Type = "ActorProxy" NameCommand = "%prefix.name.player1judgment" />
+		<Actor Type = "ActorProxy" NameCommand = "%prefix.name.player2judgment" />
+		<Actor Type = "ActorProxy" NameCommand = "%prefix.name.player1combo" />
+		<Actor Type = "ActorProxy" NameCommand = "%prefix.name.player2combo" />
+		
+		<Layer File="chart2lua" />
+		
+		<Layer
+			Type = "Quad"
+			InitCommand="%function(self)
+				function TiB(b)
+					return (1/GAMESTATE:GetCurBPS()) * b
+				end
+			end"
+			NameCommand = "%prefix.name.rinvent_quad"
+			OnCommand="x,SCREEN_CENTER_X;y,SCREEN_CENTER_Y;zoomto,SCREEN_WIDTH,SCREEN_HEIGHT;diffuse,0,0,0,0"
+			WhiteFlashMessageCommand="finishtweening;diffuse,1,1,1,1;linear,0.6;diffusealpha,0"
+		/>
+		
+		<Layer
+			Type = "ActorFrameTexture"
+			NameCommand = "%prefix.name.rinvent_aft"
+			InitCommand = "%prefix.aft"
+		/>
+		
+		<Layer
+			Type="Sprite"
+			Texture="transparent.png"
+			InitCommand = "%prefix.sprite"
+			OnCommand="%function(self)
+			self:diffusealpha(0)
+			self:zoom(1)
+			self:queuecommand('renderMe');
+			end"
+			
+			renderMeCommand="%prefix(function(self)
+            self:zoom(1.05)
+            self:SetTexture(actors.rinvent_aft:GetTexture())
+            self:blend('add')
+            end)"
+			BeatMessageCommand="diffusealpha,1;decelerate,TiB(12);diffusealpha,0"
+			ShortBeatMessageCommand="diffusealpha,1;decelerate,TiB(6);diffusealpha,0"
+			HideMessageCommand="diffusealpha,0;blend,add;zoom,1.05"
+		/>
+		
+	</children>
+</ActorFrame>

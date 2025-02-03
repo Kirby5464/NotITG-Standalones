@@ -1,0 +1,65 @@
+<ActorFrame>
+	<children>
+		
+		<Actor Type = "ActorProxy" NameCommand = "%prefix.name.player1" />
+		<Actor Type = "ActorProxy" NameCommand = "%prefix.name.player2" />
+		<Actor Type = "ActorProxy" NameCommand = "%prefix.name.player3" />
+		<Actor Type = "ActorProxy" NameCommand = "%prefix.name.player4" />
+		<Actor Type = "ActorProxy" NameCommand = "%prefix.name.player1judgment" />
+		<Actor Type = "ActorProxy" NameCommand = "%prefix.name.player2judgment" />
+		<Actor Type = "ActorProxy" NameCommand = "%prefix.name.player1combo" />
+		<Actor Type = "ActorProxy" NameCommand = "%prefix.name.player2combo" />
+		
+		<Layer File="chart2lua" />
+		
+		<Layer
+			Type = "Quad"
+			NameCommand = "%prefix.name.hoax_quad"
+			OnCommand="x,SCREEN_CENTER_X;y,SCREEN_CENTER_Y;zoomto,SCREEN_WIDTH,SCREEN_HEIGHT;diffuse,0,0,0,0"
+			WhiteFlashMessageCommand="finishtweening;diffuse,1,1,1,1;linear,0.6;diffusealpha,0"
+		/>
+		
+		<Layer
+			Type = "ActorFrameTexture"
+			NameCommand = "%prefix.name.hoax_aft"
+			InitCommand = "%prefix.aft"
+		/>
+		
+		<Layer
+			Type="Sprite"
+			Frag="Shaders/glitch-lines.frag"
+			NameCommand = "%prefix.name.hoax_glitch"
+			InitCommand = "%prefix.sprite"
+			GlitchHideMessageCommand="diffusealpha,0"
+			GlitchShowMessageCommand="diffusealpha,1"
+		/>
+		
+		<Layer
+			Type="Sprite"
+			Frag="Shaders/heat.frag"
+			NameCommand = "%prefix.name.hoax_heat"
+			InitCommand = "%prefix.sprite"
+			GlitchHideMessageCommand="diffusealpha,1"
+			GlitchShowMessageCommand="diffusealpha,0"
+		/>
+		
+		<Layer
+			Type="Sprite"
+			InitCommand = "%prefix.sprite"
+			Texture="transparent.png"
+			NameCommand = "%prefix.name.hoax_flash"
+			OnCommand="%function(self)
+			self:diffusealpha(0)
+			self:zoom(1)
+			self:queuecommand('renderMe');
+			end"
+			
+			renderMeCommand="%prefix(function(self)
+            self:zoom(1.05)
+            self:SetTexture(actors.hoax_aft:GetTexture())
+            self:blend('add')
+            end)"
+		/>
+		
+	</children>
+</ActorFrame>

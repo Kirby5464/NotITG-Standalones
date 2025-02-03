@@ -1,0 +1,607 @@
+<Layer Type = "Quad" ModCommand = "%prefix(function(self)
+	
+	for pn = 1, 2 do
+		if plr[pn] then
+			local p, pc, pj = plr[pn], plr[pn]:GetChild('Combo'), plr[pn]:GetChild('Judgment')
+			local d = 0.25; if pn == 2 then d = 0.75 end
+			-- actors['player' .. pn]:SetTarget(p)
+			actors['player' .. pn .. 'combo']:SetTarget(pc)
+			actors['player' .. pn .. 'judgment']:SetTarget(pj)
+			-- p:hidden(1)
+			pc:hidden(1)
+			pj:hidden(1)
+			
+			pc:basezoomx(0.75)
+			pc:basezoomy(0.75)
+			pc:x(SCREEN_WIDTH*d)
+			pc:y(SCREEN_HEIGHT*0.6)
+			
+			pj:basezoomx(0.75)
+			pj:basezoomy(0.75)
+			pj:x(SCREEN_WIDTH*d)
+			pj:y(SCREEN_HEIGHT*0.5)
+			
+			pc:sleep(9e9)
+			pj:sleep(9e9)
+		end
+	end
+	
+	
+	local m_ea, mm = ease_to, func
+	local gun_players = {1,2}
+	local gun_players2 = {2,1}
+	local period = 1000
+	
+	--[[
+	lists of eases that can be used:
+	(Persistent)
+		instant				linear
+		inQuad				outQuad			inOutQuad			inCubic			outCubic
+		inOutCubic			inQuart			outQuart			inOutQuart		inQuint
+		outQuint			inOutQuint		inExpo				outExpo			inOutExpo
+		inSine				outSine			inOutSine			inBack(amt)		outBack(amt)	
+		inOutBack(amt)		inElastic(amt)	outElastic(amt)		inOutElastic(amt)	
+		inBounce(amt)		outBounce(amt)	inOutBounce(amt)
+	
+	(Transient)
+		bounce			bell			pop				kick(amt)		tooth
+		tap				circ			square			tri				
+		spike			cosc			sinc			inverse
+	]]
+	
+	-- m_ea {start_beat, length, ease, percent1, mod1, ··· [, pn = playernum]}
+
+	m_ea{0, 0, instant, 2.5, 'xmod', 100, 'dizzyholds', 100, 'stealthpastreceptors', 100, 'cover', 100, 'disablemines', 100, 'hidemines', 100, 'hidenoteflash', 100, 'blind', 200, 'mini'}
+	{0, 30, tri, 0, 'mini'}
+	
+	{15, 1, outExpo, 0, 'hidemines'}
+	{15, 2, outExpo, 100, 'stealth'}
+	{15, 3, tri, 100, 'arrowpath'}
+	
+	{20, 0, instant, 100, 'hidemines', 0, 'stealth'}
+	
+	{32, 6, pop, 0, 'mini'}
+	{32, 0, instant, .5, 'static'}
+	{32, 56, outQuad, 0, 'static', mode = 'end'}
+	{32, 1, outExpo, 0, 'hidemines'}
+	{32, 2, outExpo, 100, 'stealth'}
+	
+	{44, 2, outExpo, 0, 'stealth', 0, 'blind', 0, 'hidenoteflash', 0, 'mini', 500, 'tipsy', 500, 'drunk', 5, 'confusion', -300, 'tiny', -100, 'drawsizeback'}
+	{44, 0, instant, 200, 'mini', pn = 3}
+	
+	{55, 1, outQuad, 100, 'dark'}
+	
+	{58, 0, instant, 0, 'drunk', 0, 'tipsy', 0, 'tiny', 0, 'confusion'}
+	
+	{61, 0, instant, 50, 'flip', 0, 'mini', 100, 'dark', 90, 'rotationz', 360, 'arrowpathgirth', -scx/1.5, 'movex', 900, 'arrowpathdrawsize', 900, 'arrowpathdrawsizeback', pn = 3}
+	{61, 2, linear, 100, 'arrowpath', pn = 3}
+	
+	{64, 0, instant, 0, 'disablemines', 0, 'dark'}
+	{64, 0, instant, .5, 'static'}
+	{64, 24, outQuad, 0, 'static'}
+	{64, 24, outQuad, 100, 'hidemines', pn = 1}
+	{64, 24, outQuad, 100, 'hidemines', pn = 2}
+	{64, 2, tri, 55, 'stealth'}
+	{64, 0, instant, 0, 'arrowpath', 0, 'flip', 200, 'mini', 0, 'dark', 0, 'rotationz', 0, 'arrowpathgirth', 0, 'movex', 0, 'arrowpathdrawsize', 0, 'arrowpathdrawsizeback', pn = 3}
+	
+	{96, 0, instant, .5, 'static'}
+	{96, 24, outQuad, 0, 'static'}
+	{96, 1, outExpo, 100, 'reverse'}
+	{96, 1, kick(8), 900, 'beat'}
+	{96, 2, tri, 55, 'stealth'}
+	
+	{112, 120, inQuad, 690, 'pulseinner', mode = 'end'}
+	
+	{120, 1, outQuad, 100, 'stealth', 0, 'pulseinner'}
+	{120, 1, outQuad, 100, 'dark', pn = 1}
+	{120, 1, outQuad, 100, 'dark', pn = 2}
+	
+	{122, 0, instant, 50, 'reverse', 200, 'tiny0', 200, 'tiny1', 200, 'tiny2', 200, 'tiny3', 0, 'stealth'}
+	{122, 0, instant, 0, 'dark', pn = 1}
+	{122, 0, instant, 0, 'dark', pn = 2}
+	
+	{124, 1, outQuad, 0, 'tiny3'}
+	{124, 0, instant, 6, 'xmod', 100, 'dark', 100, 'wireframe', 0, 'mini', 100, 'hidenoteflash', -1000, 'tinyz', 600, 'zoomz', 90, 'rotationx', 105, 'rotationy', 500, 'noteskew', 100, 'stealth', pn = 3}
+	
+	{124.5, 1, outQuad, 0, 'tiny2'}
+	
+	{125.75, 1, outQuad, 0, 'tiny1'}
+	
+	{126, 1, outQuad, 0, 'tiny0', 0, 'reverse'}
+	
+	{127, 1, outQuad, 0, 'stealth'}
+	{127, 1, outQuad, 0, 'dark', pn = 1}
+	{127, 1, tooth, 690, 'zoomz', 35, 'space', 45*3, 'fov'}
+	{127, 1, outQuad, 100, 'hidemines', pn = 1}
+	{127, 1, outQuad, 100, 'hidemines', pn = 2}
+	{127, 0, instant, 100, 'reverse', pn = 2}
+	{127, 1, kick(1), 100, 'stealth', pn = 2}
+	
+	{128, 1, outQuad, 0, 'dark'}
+	
+	{139, 6, tri, 95, 'stealth', pn = 3}
+	
+	{142, 2, tri, 1, 'gun_accel'}
+	
+	{171, 6, tri, 95, 'stealth', pn = 3}
+	
+	{173.5, 3.25, bell, 0, 'rotationz', 200, 'zoomy'}
+	
+	{208, 1.5, tri, 95, 'stealth', pn = 3}
+	
+	{210, 1.5, tri, 95, 'stealth', pn = 3}
+	
+	{212, 1.5, tri, 95, 'stealth', pn = 3}
+	
+	-- {214, 1.5, tri, 95, 'stealth', pn = 3}
+	
+	{216, 1.5, tri, 95, 'stealth', pn = 3}
+	
+	{218, 1.5, tri, 95, 'stealth', pn = 3}
+	
+	{220, 1.5, tri, 95, 'stealth', pn = 3}
+	
+	{222, 1, outQuad, 0, 'reverse', 0, 'rotationz', 0, 'stealth', 0, 'dark', pn = 1}
+	{222, 1, outQuad, 0, 'reverse', 0, 'rotationz', 0, 'stealth', 0, 'dark', pn = 2}
+	
+	{223, 1, outQuad, 50, 'flip', 90, 'rotationx', -157, 'confusionxoffset', 100, 'arrowpath', 900, 'drawsize', 900, 'arrowpathdrawsize', pn = 1}
+	{223, 1, outQuad, 50, 'flip', 90, 'rotationx', -157, 'confusionxoffset', 100, 'arrowpath', 900, 'drawsize', 900, 'arrowpathdrawsize', pn = 2}
+	
+	{224, 4, outExpo, period * .25, 'zigzagoffset', period * .5, 'zigzagzoffset', -5000, 'tinyy', 50, 'zoom', 200, 'beat', 500, 'zigzag', 500, 'zigzagz', period - 300, 'zigzagperiod', period - 300, 'zigzagzperiod', pn = 1}
+	{224, 4, outExpo, period * .25, 'zigzagoffset', period * .5, 'zigzagzoffset', -5000, 'tinyy', 50, 'zoom', 200, 'beat', 500, 'zigzag', 500, 'zigzagz', period - 300, 'zigzagperiod', period - 300, 'zigzagzperiod', pn = 2}
+	{224, 32, linear, -32 * 200, 'movey', pn = 1}
+	{224, 32, linear, -32 * 200, 'movey', pn = 2}
+	{224, 252, outQuad, 1, 'gun_IncrVal', 25, 'distant', mode = 'end'}
+	
+	{236, 3, tri, 95, 'stealth', pn = 3}
+	
+	{240, 0, instant, .25, 'static'}
+	{240, 24, outQuad, 0, 'static'}
+	
+	{248, 4, tri, 95, 'stealth', pn = 3}
+	
+	{255, 3, outQuad, 0, 'movey', 0, 'zigzag', 0, 'zigzagz', 0, 'tinyy', 0, 'zoom', 0, 'beat', 0, 'flip', 0, 'rotationx', 0, 'confusionxoffset', 0, 'arrowpath', 0, 'drawsize', 0, 'arrowpathdrawsize', pn = 1}
+	{255, 3, outQuad, 0, 'movey', 0, 'zigzag', 0, 'zigzagz', 0, 'tinyy', 0, 'zoom', 0, 'beat', 0, 'flip', 0, 'rotationx', 0, 'confusionxoffset', 0, 'arrowpath', 0, 'drawsize', 0, 'arrowpathdrawsize', pn = 2}
+	
+	{257, 1, outQuad, 0, 'distant'}
+	
+	{258, 314, inQuad, 90*56, 'rotationy', -100, 'flip', 200, 'distant', 100, 'bumpy', 100, 'bumpyperiod', mode = 'end'}
+	{258, 2, tri, 55, 'stealth'}
+	
+	{313, 1, outQuad, 0, 'confusionyoffset', 0, 'distant', 0, 'bumpy', 100, 'stealth'}
+	{313, 7, tri, 0, 'hidemines', pn = 1}
+	{313, 7, tri, 0, 'hidemines', pn = 2}
+	{313, 321, outQuad, 100, 'reverse', 100, 'dark', 0, 'flip', mode = 'end'}
+	
+	{321, 1, tooth, 690, 'zoomz', 15, 'incoming', 45*3, 'fov'}
+	{321, 1, outQuad, 0, 'stealth', 0, 'dark'}
+	
+	{322, 336, linear, 90*14, 'rotationy', mode = 'end'}
+	{322, 6, outQuart, -25, 'flip'}
+	-- {322, 336, tri, 5, 'wagX', mode = 'end'}
+	
+	{334, 6, tri, 95, 'stealth', pn = 3}
+	
+	{338, 352, inSine, -90*14, 'rotationy', mode = 'end'}
+	{338, 6, outQuart, 125, 'flip'}
+	{338, 352, tri, 5, 'wagX', mode = 'end'}
+	
+	{354, 367, inSine, 90*14, 'rotationy', mode = 'end'}
+	{354, 6, outQuart, -25, 'flip'}
+	{354, 367, tri, 10, 'wagX', mode = 'end'}
+	
+	{366, 6, tri, 95, 'stealth', pn = 3}
+	
+	{370, 382, inSine, -90*14, 'rotationy', mode = 'end'}
+	{370, 6, outQuart, 125, 'flip'}
+	{370, 382, tri, 15, 'wagX', mode = 'end'}
+	
+	{386, 400, inSine, 90*14, 'rotationy', mode = 'end'}
+	{386, 6, outQuart, -25, 'flip'}
+	{386, 400, tri, 25, 'wagX', mode = 'end'}
+	
+	{402, 415, inSine, -90*14, 'rotationy', mode = 'end'}
+	{402, 6, outQuart, 125, 'flip'}
+	{402, 415, tri, 40, 'wagX', mode = 'end'}
+	
+	{416, 2, outQuad, 0, 'reverse'}
+	
+	{417, 0, instant, 0, 'confusionyoffset', 0, 'rotationy', 0, 'flip'}
+	
+	{418, 434, outQuad, 9, 'xmod', 100, 'mini', -90, 'rotationx', 157, 'confusionxoffset', 300, 'drawsize', 100, 'shrinklineary', 90*16, 'rotationy', 300, 'arrowpathdrawsize', mode = 'end'}
+	
+	{427, 0, instant, 0, 'confusionyoffset'}
+	
+	{434, 1, outQuad, 100, 'dark', 100, 'stealth', 0, 'arrowpath'}
+	
+	{440, 0, instant, 2, 'xmod', 0, 'mini', 0, 'rotationx', 0, 'confusionxoffset', 0, 'drawsize', 0, 'shrinklineary', 0, 'rotationy', 0, 'confusionoffset', 0, 'arrowpathdrawsize'}
+	{440, 0, instant, 100, 'reverse', pn = 2}
+	
+	{448, 1, tooth, 690, 'zoomz', 15, 'space', 45*3, 'fov'}
+	{448, 1, outQuad, 0, 'stealth', 0, 'dark', -100, 'mini'}
+	
+	{450, 511, linear, 75, 'wagX', mode = 'end'}
+	
+	{512, 2, outQuad, 0, 'wagX'}
+	{512, 2, outQuad, 0, 'centered', pn = 1}
+	{512, 2, outQuad, 0, 'centered', 0, 'reverse', pn = 2}
+	
+	{514, 577, outQuad, 90*63, 'rotationx', mode = 'end', pn = 1}
+	{514, 577, outQuad, 90*63, 'rotationx', mode = 'end', pn = 2}
+	{514, 544, outQuad, 135, 'mini', mode = 'end'}
+	
+	{526, 3, tri, 95, 'stealth', pn = 3}
+	
+	{538, 6, tri, 95, 'stealth', pn = 3}
+	
+	{546, 574, outQuad, -200, 'mini', mode = 'end'}
+	{546, 0, instant, 100, 'disablemines'}
+	
+	{572, 1, outQuad, 100, 'dark', 100, 'stealth'}
+	
+	{575.5, 0, instant, 0, 'rotationx', 0, 'confusionxoffset', pn = 1}
+	{575.5, 0, instant, 0, 'rotationx', 0, 'confusionxoffset', pn = 2}
+	
+	{577, 3, outQuad, 0, 'dark', 0, 'mini', 100, 'centered'}
+	{577, 3, outQuad, 200, 'drunk', 200, 'tipsy', 5, 'confusion', pn = 1}
+	{577, 3, outQuad, -200, 'drunk', -200, 'tipsy', -5, 'confusion', pn = 2}
+	{577, 2, kick(2), -5000, 'tiny'}
+	
+	{580, 1, outQuad, 100, 'dark'}
+
+	drivendrop(224, 32, 32, 2.5, 1)
+	drivendrop(224, 32, 32, 2.5, 2)
+	
+	switcheroo(222, 1, outExpo, 'reset', 1)
+	switcheroo(222, 1, outExpo, 'reset', 2)
+	
+	switcheroo(512, 1, outExpo, 'reset', 1)
+	switcheroo(512, 1, outExpo, 'reset', 2)
+	
+	wiggle0(0.5, 57, 4, outExpo, 100, 'flip')
+	
+	wiggle0(112, 120-112, .5, outQuad, 100, 'invert')
+	
+	wiggle0(259.5, 271.5-259.5, 2, kick(2), .1, 'gun_colors')
+	
+	wiggle0(275.5, 287.5-275.5, 2, kick(2), .2, 'gun_colors')
+	
+	wiggle0(291.5, 303.5-291.5, 2, kick(2), .25, 'gun_colors')
+	
+	wiggle0(303.5, 314.5-303.5, 1, kick(2), .3, 'gun_colors')
+	
+	wiggle0(514.5, 528.5-514.5, 2, kick(2), .2, 'gun_colors')
+	
+	wiggle0(530.5, 542.5-530.5, 2, kick(2), .2, 'gun_colors')
+	
+	wiggle0(546.5, 559.5-546.5, 2, kick(2), .25, 'gun_colors')
+	
+	wiggle0(562, 14, 4, outExpo, 100, 'invert')
+	
+	wiggle0(322, 434-322, 1, outExpo, 100, 'arrowpath', 1)
+	wiggle0(322, 434-322, 1, outExpo, 100, 'arrowpath', 2)
+	
+	wiggle(0, 44, 2, kick(4), 50, 'drunk')
+	wiggle(0, 44, 2, kick(4), 50, 'tipsy')
+	
+	wiggle(15, 5, .02, square, 5, 'digital')
+	
+	wiggle(142, 2, .02, square, 1, 'gun_flick')
+	
+	wiggle(160, 221-160, 1, outQuart, 5, 'rotationz', 1)
+	wiggle(160, 221-160, 1, inQuart, -5, 'rotationz', 2)
+	
+	wiggle(176, 221-176, 1, outQuint, 10, 'rotationx', 1)
+	wiggle(176, 221-176, 1, inQuint, -10, 'rotationx', 2)
+	
+	wiggle(526, 4, .02, square, 1, 'gun_flick')
+	
+	wiggle2lua(gun_shake1, kick(3), 10, 'gun_quake')
+	wiggle2lua(gun_shake2, kick(3), 10*3, 'gun_quake')
+	wiggle2lua(gun_shake3, kick(3), 10*5, 'gun_quake')
+	
+	wiggle2lua(gun_switch, kick(8), 900, 'beat')
+	
+	wiggle2lua(gun_intro, kick(3), 100, 'drunk')
+	wiggle2lua(gun_intro, kick(3), 100, 'tipsy')
+	
+	wiggle2lua(gun_intro2, kick(3), 100, 'drunk')
+	wiggle2lua(gun_intro2, kick(3), 100, 'tipsy')
+	
+	wiggle2lua(gun_shake2, kick(3), 150, 'drunk')
+	wiggle2lua(gun_shake2, kick(3), 150, 'tipsy')
+	
+	wiggle2lua(gun_switch2, kick(8), -900, 'beat')
+	
+	wiggle2lua(gun_intro3, kick(3), 100, 'drunk')
+	wiggle2lua(gun_intro3, kick(3), 100, 'tipsy')
+	
+	wiggle2lua(gun_shake3, kick(8), 300, 'drunk')
+	wiggle2lua(gun_shake3, kick(8), 300, 'tipsy')
+	
+	wiggle2lua(gun_ending, kick(3), 100, 'drunk')
+	wiggle2lua(gun_ending, kick(3), 100, 'tipsy')
+	
+	for beat=64,117,4 do
+		m_ea{beat, 2, tri, 1, 'xmod'}
+	end
+	
+	for beat=450,482,2 do
+		m_ea{beat, 3, kick(6), 95, 'stealth', pn = 3}
+	end
+	
+	gun_woah={{188.5,191},{382.5,386}}
+	
+	for i,v in pairs(gun_woah) do
+		for beat=v[1],v[2] do
+			m_ea{beat, .5, tri, 55, 'stealth'}
+		end
+	end
+	
+	gun_flickass={{196,205},{228,236},{390,399},{406,415},{454,463},{470,479},{486,495},{502,511}}
+	
+	for i,v in pairs(gun_flickass) do
+		for beat=v[1],v[2],8 do
+			m_ea{beat, 4, tri, 1, 'gun_accel'}
+			wiggle(beat, 4, .02, square, 1, 'gun_flick')
+		end
+	end
+	
+	gun_perpVal = 100
+	for i = 1,table.getn(gun_screech) do
+		local beat = gun_screech[i]
+		m_ea{beat[1], 2, tri, .3, 'gun_colors'}
+		{beat[1], 2, tri, 300, 'zoomx'}
+		{beat[1], 2, tri, gun_perpVal*2, 'distant'}
+		{beat[1], 2, tri, 95, 'hidemines', pn = 1}
+		{beat[1], 2, tri, 95, 'hidemines', pn = 2}
+		gun_perpVal = -gun_perpVal
+	end
+	
+	local gun_swaps={'invert', 'reset'}
+	for i = 1,table.getn(gun_shake1) do
+		local beat = gun_shake1[i]
+		local gun_plr1 = gun_players[math.floor(math.mod(i, 2) + 1)]
+		local gun_plr2 = gun_players2[math.floor(math.mod(i, 2) + 1)]
+		m_ea{beat[1], 1, outBack(1), 100, 'stealth', pn = gun_plr2}
+		{beat[1], 1, outBack(1), 0, 'stealth', pn = gun_plr1}
+		{beat[1], 1, outBack(1), 0, 'dark', pn = gun_plr1}
+		{beat[1], 1, outBack(1), 100, 'dark', pn = gun_plr2}
+		{beat[1], 2, kick(4), 0, 'movez', pn = gun_plr2}
+		{beat[1], 2, kick(4), 400, 'movez', pn = gun_plr1}
+		switcheroo(beat[1], 1, outExpo, gun_swaps[math.mod(i, 2) + 1], gun_plr1)
+		switcheroo(beat[1], 1, outExpo, 'reset', gun_plr2)
+		-- print(gun_swaps[math.mod(i, 3) + 1])
+	end
+	
+	for i = 1,table.getn(gun_switch) do
+		local beat = gun_switch[i]
+		local gun_plr1 = gun_players[math.floor(math.mod(i, 2) + 1)]
+		local gun_plr2 = gun_players2[math.floor(math.mod(i, 2) + 1)]
+		m_ea{beat[1], .5, outQuart, 0, 'reverse', pn = gun_plr1}
+		{beat[1], .5, outQuart, 100, 'reverse', pn = gun_plr2}
+	end
+	
+	for i = 1,table.getn(gun_intro) do
+		local beat = gun_intro[i]
+		m_ea{beat[1], 1, kick(4), -500, 'tiny'}
+	end
+	
+	for i = 1,table.getn(gun_intro2) do
+		local beat = gun_intro2[i]
+		m_ea{beat[1], 1, kick(4), -700, 'tiny'}
+	end
+	
+	for i = 1,table.getn(gun_shot) do
+		local beat = gun_shot[i]
+		local column = gun_shot[i][2]
+		m_ea{beat[1], 1, kick(4), -900, 'tiny'..column..''}
+		-- print(column)
+	end
+	
+	for i = 1,table.getn(gun_shake2) do
+		local beat = gun_shake2[i]
+		m_ea{beat[1], 1, kick(2), -500, 'tiny'}
+		-- {beat[1], 1, kick(2), .1, 'gun_colors'}
+	end
+	
+	local percentages = {100, 0}
+	for i = 1,table.getn(gun_switch2) do
+		local beat = gun_switch2[i]
+		local reverseVal = percentages[math.floor(math.mod(i, 2) + 1)]
+		m_ea{beat[1], 1, outBack(4), reverseVal, 'reverse'}
+		-- print(reverseVal)
+	end
+	
+	for i = 1,table.getn(gun_intro3) do
+		local beat = gun_intro3[i]
+		m_ea{beat[1], 1, kick(4), -100, 'tiny'}
+	end
+	
+	-- local gun_swaps={'urld', 'reset'}
+	for i = 1,table.getn(gun_shake3)-1 do
+        local beat = gun_shake3[i]
+        local beat2 = gun_shake3[i+1]
+        local gun_plr1 = gun_players[math.floor(math.mod(i, 2) + 1)]
+        local gun_plr2 = gun_players2[math.floor(math.mod(i, 2) + 1)]
+        m_ea{beat[1], beat2[1]+.5, outExpo, 0, 'centered', pn = gun_plr1, mode = 'end'}
+        {beat[1], beat2[1]+.5, outExpo, 350, 'centered', pn = gun_plr2, mode = 'end'}
+		{beat[1], 1, kick(6), -400, 'tiny'}
+		{beat[1], 1, kick(6), 25, 'stealth', pn = 1}
+		{beat[1], 1, kick(6), 25, 'stealth', pn = 2}
+		-- {beat[1], 1, kick(12), .1, 'gun_colors'}
+		-- switcheroo(beat[1], 1, outExpo, gun_swaps[math.mod(i, 2) + 1], gun_plr1)
+		-- switcheroo(beat[1], 1, outExpo, 'reset', gun_plr2)
+    end
+	
+	for i = 1,table.getn(gun_ending) do
+		local beat = gun_ending[i]
+		m_ea{beat[1], 1, kick(4), -300, 'tiny'}
+	end
+	
+	-- mm {start_beat, [end_beat,] function}
+	-- can be used as perframe or mod_action
+	mm{0, function(beat) 
+	    for pn = 1, MAX_PN do
+	        plr[pn]:x(SCREEN_CENTER_X)
+	        plr[pn]:GetChild('Judgment'):hidden(1)
+			plr[pn]:GetChild('Combo'):hidden(1)
+	    end
+		if plr[3] then
+			plr[3]:SetAwake(true)
+			plr[3]:hidden(0)
+			plr[3]:SetNoteDataFromLua(gun_pn3)
+		end
+		actors.gun_channel:SetTexture(actors.gun_aft:GetTexture())
+		actors.gun_channel:diffusealpha(1)
+	end}
+	{32, 256, function(beat, mods)	
+		-- all players
+        mods = mods[0]
+		
+		actors.gun_static:diffusealpha(math.sin(beat*math.pi) * mods.static + mods.static)
+    
+	end, mode = 'end'}
+	{64, function(beat) 
+	    for pn = 1, MAX_PN do
+	        plr[pn]:bob()
+	        plr[pn]:effectmagnitude(200, 0, 0)
+			plr[pn]:effectclock('bgm')
+	        plr[pn]:effectperiod(8)
+	    end
+	end}
+	{124, function(beat) 
+	    for pn = 1, MAX_PN do
+	        plr[pn]:stopeffect()
+	    end
+	end}
+	{128, 574, function(beat, mods)	
+		for pn = 1, MAX_PN do
+			local ValX = SCREEN_CENTER_X;
+			plr[pn]:x(ValX + math.sin(beat * math.pi) * 25 * mods[0].gun_flick * mods[0].gun_accel);
+			plr[pn]:y(SCREEN_CENTER_Y + math.cos(beat * math.pi) * 25 * mods[0].gun_flick * mods[0].gun_accel);
+		end
+	end, mode = 'end'}
+	{224, 252, function(beat, mods)	
+		-- all players
+        mods = mods[0]
+		
+		-- zoomy zoom
+        mods.arrowpathgirth = math.sin(beat*math.pi*2) * 1200 + 1200 * mods.gun_IncrVal
+		
+	end, mode = 'end'}
+	{258, 290, function(beat, mods)	
+		-- all players
+        mods = mods[0]
+		
+		-- zoomy zoom
+        mods.zoomx = math.sin(beat*math.pi*.5) * 50 + 50
+        mods.zoomy = math.cos(beat*math.pi*.5) * 25 - 25
+		
+	end, mode = 'end'}
+	{291, 305, function(beat, mods)	
+		-- all players
+        mods = mods[0]
+		
+		-- zoomy zoom
+        mods.zoomx = math.sin(beat*math.pi) * 50 + 50
+        mods.zoomy = math.cos(beat*math.pi) * 25 - 25
+		
+	end, mode = 'end'}
+	{306, 314, function(beat, mods)	
+		-- all players
+        mods = mods[0]
+		
+		-- zoomy zoom
+        mods.zoomx = math.sin(beat*math.pi*2) * 50 + 50
+        mods.zoomy = math.cos(beat*math.pi*2) * 25 - 25
+		
+	end, mode = 'end'}
+	{258, 314, function(beat, mods)	
+		-- all players
+        mods = mods[0]
+		
+		-- rotationy has counteracting confusionyoffset
+        mods.confusionyoffset = -100*math.rad(mods.rotationy)
+		
+	end, mode = 'end'}
+	{322, 416, function(beat, mods)	
+		-- all players
+        mods = mods[0]
+		
+		-- rotationy has counteracting confusionyoffset
+        mods.confusionyoffset = -100*math.rad(mods.rotationy)
+		
+	end, mode = 'end'}
+	{418, 426, function(beat, mods)	
+		-- all players
+        mods = mods[0]
+		
+		-- rotationy has counteracting confusionyoffset
+        mods.confusionyoffset = -100*math.rad(mods.rotationy)
+		
+	end, mode = 'end'}
+	{426, 434, function(beat, mods)	
+		-- all players
+        mods = mods[0]
+		
+		-- rotationy has counteracting confusionoffset
+        mods.confusionoffset = 100*math.rad(mods.rotationy)
+		
+	end, mode = 'end'}
+	{514, 575, function(beat, mods)		
+		-- rotationy has counteracting confusionoffset
+        mods[1].confusionxoffset = -100*math.rad(mods[1].rotationx)
+        mods[2].confusionxoffset = -100*math.rad(mods[2].rotationx)
+		
+	end, mode = 'end'}
+	
+	-- ease_var (name [, effect])
+	-- Adds a new ease variable. Takes in the name of the ease variable, and an optional function.
+	-- example, ease_var('blacksphere')
+	ease_var('gun_accel')
+	ease_var('gun_IncrVal')
+	ease_var('gun_flick')
+	
+	ease_var('gun_quake', function(percent)
+		local screen = SCREENMAN:GetTopScreen();
+		screen:vibrate()
+		screen:effectmagnitude(percent, 0, 0)
+	end)
+	
+	ease_var('gun_colors', function(percent)
+		actors.gun_channel:GetShader():uniform1f('xaxis', percent)
+		actors.gun_channel:GetShader():uniform1f('yaxis', percent)
+		actors.gun_channel:GetShader():uniform1f('intensity', percent)
+	end)
+	
+	ease_var('zoom', function(percent) return '*9e9 ' .. percent + 100 .. ' zoom' end)
+	ease_var('zoomx', function(percent) return '*9e9 ' .. percent + 100 .. ' zoomx' end)
+	ease_var('zoomy', function(percent) return '*9e9 ' .. percent + 100 .. ' zoomy' end)
+	ease_var('zoomz', function(percent) return '*9e9 ' .. percent + 100 .. ' zoomz' end)
+	
+	ease_var('fov', function(percent, pn)
+	    if pn == 0 then
+	        -- 0 means all players
+	        for i = 1, MAX_PN do
+	            plr[i]:fov(percent+45)
+	        end
+	    else
+	        -- specific player
+	        plr[pn]:fov(percent+45)
+	    end
+	end)
+	
+	ease_var('static')
+	
+	ease_var('wagX', function(percent)
+		for pn = 1, MAX_PN do
+			plr[pn]:wag()
+			plr[pn]:effectmagnitude(percent, 0, 0)
+			plr[pn]:effectclock('bgm')
+			plr[pn]:effectperiod(2)
+		end
+	end)
+	
+	
+end)"/>

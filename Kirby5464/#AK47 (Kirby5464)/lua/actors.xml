@@ -1,0 +1,35 @@
+<ActorFrame>
+	<children>
+		<!-- Your actors here -->
+		<!-- <Actor Type = "ActorProxy" NameCommand = "%prefix.name.player1" />
+		<Actor Type = "ActorProxy" NameCommand = "%prefix.name.player2" /> -->
+		<Actor Type = "ActorProxy" NameCommand = "%prefix.name.player1judgment" />
+		<Actor Type = "ActorProxy" NameCommand = "%prefix.name.player2judgment" />
+		<Actor Type = "ActorProxy" NameCommand = "%prefix.name.player1combo" />
+		<Actor Type = "ActorProxy" NameCommand = "%prefix.name.player2combo" />
+		
+		<Layer File="chart2lua" />
+		
+		<Layer
+			Type = "ActorFrameTexture"
+			NameCommand = "%prefix.name.gun_aft"
+			InitCommand = "%prefix.aft"
+		/>
+		
+		<Layer
+			Type="Sprite"
+			Frag="Shaders/Color channel offset.frag"
+			NameCommand = "%prefix.name.gun_channel"
+			InitCommand = "%prefix.sprite"
+			HideMessageCommand="diffusealpha,0"
+		/>
+		
+		<Layer
+	    File = "_static 4x1.png"
+	    NameCommand = "%prefix.name.gun_static"
+	    InitCommand = "%prefix.image"
+		OnCommand="diffusealpha,0"
+	/>
+		
+	</children>
+</ActorFrame>
